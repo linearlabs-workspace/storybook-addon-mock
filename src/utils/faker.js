@@ -2,7 +2,7 @@ import responseBuilder from './responseBuilder';
 import { newMockXhr } from 'mock-xmlhttprequest';
 
 class Faker {
-  constructor(list) {
+  constructor() {
     this.MockXhr = newMockXhr();
     this.MockXhr.onSend = this.mockXhrRequest;
     self.realFetch = self.fetch;
@@ -10,7 +10,7 @@ class Faker {
 
     self.fetch = this.mockFetch;
     self.XMLHttpRequest = this.MockXhr;
-    this.apiList = list || {};
+    this.apiList = {};
   }
 
   getKey = (url, method) => `${url}_${method.toLowerCase()}`;
@@ -92,4 +92,4 @@ class Faker {
   };
 }
 
-export default Faker;
+export default new Faker();
