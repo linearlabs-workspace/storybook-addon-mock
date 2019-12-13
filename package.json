@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "yarn run build && start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "babel src -d dist"
+    "clean": "rm -rf dist",
+    "build": " yarn run clean && babel src -d dist"
   },
   "author": "",
   "license": "ISC",
@@ -19,14 +20,13 @@
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-destructuring": "^7.7.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-links": "^5.2.8",
     "@storybook/addons": "^5.2.8",
     "@storybook/react": "^5.2.8",
-    "babel-loader": "^8.0.6",
-    "rollup": "^1.27.10"
+    "babel-loader": "^8.0.6"
   }
 }
