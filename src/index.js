@@ -1,4 +1,3 @@
-import React from 'react';
 import addons, { makeDecorator } from '@storybook/addons';
 import faker from './utils/faker';
 import {
@@ -14,17 +13,17 @@ export default makeDecorator({
   wrapper: (getStory, context, { parameters }) => {
     const channel = addons.getChannel();
     faker.makeInitialApis(parameters);
-  
+
     // Our simple API above simply sets the notes parameter to a string,
     // which we send to the channel
     channel.emit(ADDONS_MOCK_SEND_DATA, faker.getApis());
-  
+
     // we can also add subscriptions here using channel.on('eventName', callback);
-    channel.on(ADDONS_MOCK_SET_SKIP, function(item) {
-        faker.setSkip(item.url, item.method);
-        channel.emit(ADDONS_MOCK_SEND_DATA, faker.getApis());
+    channel.on(ADDONS_MOCK_SET_SKIP, (item) => {
+      faker.setSkip(item.url, item.method);
+      channel.emit(ADDONS_MOCK_SEND_DATA, faker.getApis());
     });
 
     return getStory(context);
-  }
+  },
 });

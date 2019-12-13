@@ -1,5 +1,6 @@
-import responseBuilder from './responseBuilder';
+/* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
+import responseBuilder from './responseBuilder';
 
 class Faker {
   constructor() {
@@ -7,7 +8,6 @@ class Faker {
     this.MockXhr.onSend = this.mockXhrRequest;
     self.realFetch = self.fetch;
     self.realXMLHttpRequest = self.XMLHttpRequest;
-
     self.fetch = this.mockFetch;
     self.XMLHttpRequest = this.MockXhr;
     this.apiList = {};
@@ -17,7 +17,7 @@ class Faker {
 
   getApis = () => Object.values(this.apiList);
 
-  makeInitialApis = apis => {
+  makeInitialApis = (apis) => {
     if (!apis || !Array.isArray(apis)) {
       this.apiList = {};
       return;
@@ -32,7 +32,7 @@ class Faker {
     }, {});
   };
 
-  add = api => {
+  add = (api) => {
     const key = this.getKey(api.url, api.method);
     this.apiList[key] = api;
   };
@@ -53,35 +53,37 @@ class Faker {
   mockFetch = (url, options) => {
     const { method } = options || {};
     const matched = this.matchMock(url, method);
-    
+
     if (matched) {
-      return new Promise(function(resolve) {
+      return new Promise(((resolve) => {
         const response = responseBuilder(
           url,
           matched.status || 200,
-          matched.response
+          matched.response,
         );
         resolve(response);
-      });
+      }));
     }
+    // eslint-disable-next-line no-restricted-globals
     return self.realFetch(url, options);
   };
 
-  mockXhrRequest = xhr => {
+  mockXhrRequest = (xhr) => {
     const { method, url } = xhr;
     const matched = this.matchMock(url, method);
     if (matched) {
       xhr.respond(matched.status || 200, {}, matched.response);
     } else {
-      let realXhr = new self.realXMLHttpRequest();
-      realXhr.onreadystatechange = function() {
-        if (realXhr.readyState == 4 && realXhr.status == 200) {
+      // eslint-disable-next-line new-cap
+      const realXhr = new self.realXMLHttpRequest();
+      realXhr.onreadystatechange = function onReadyStateChange() {
+        if (realXhr.readyState === 4 && realXhr.status === 200) {
           xhr.respond(200, {}, this.responseText);
         }
       };
       realXhr.open(method, url);
       realXhr.send();
-      realXhr.onerror = function() {
+      realXhr.onerror = function onError() {
         return 'Request failed';
       };
     }
