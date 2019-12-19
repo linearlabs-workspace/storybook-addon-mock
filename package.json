@@ -1,14 +1,14 @@
 {
   "name": "storybook-addon-mock",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "An addon for storybook to mock apis for the components",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "yarn run build && start-storybook -p 6006",
     "clean": "rm -rf dist",
     "build": " yarn run clean && babel src -d dist",
-    "lint": "eslint src",
+    "lint": "eslint .",
     "lint:fix": "yarn run lint --fix"
   },
   "keywords": [
