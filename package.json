@@ -1,5 +1,5 @@
 {
-  "name": "storybook-api-mocker",
+  "name": "storybook-addon-mock",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -11,8 +11,15 @@
     "lint": "eslint src",
     "lint:fix": "yarn run lint --fix"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "storybook",
+    "mock",
+    "mock-api",
+    "mock-fetch",
+    "mock-data"
+  ],
+  "author": "Farhad Yasir (nutboltu)",
+  "license": "MIT",
   "dependencies": {
     "@emotion/styled": "^10.0.23",
     "babel-eslint": "^10.0.3",
