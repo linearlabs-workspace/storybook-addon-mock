@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mock",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An addon for storybook to mock apis for the components",
   "main": "dist/index.js",
   "scripts": {
