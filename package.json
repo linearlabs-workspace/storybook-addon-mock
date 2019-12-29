@@ -24,8 +24,7 @@
     "@emotion/styled": "^10.0.23",
     "@storybook/addons": "^5.2.8",
     "@storybook/react": "^5.2.8",
-    "mock-xmlhttprequest": "^5.1.0",
-    "storybook-addon-mock": "^0.0.1"
+    "mock-xmlhttprequest": "^5.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
