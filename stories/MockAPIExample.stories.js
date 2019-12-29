@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Button } from '@storybook/react/demo';
-import withMock from '../src/index';
-
+import withMock from '../dist';
 
 const ComponentWithAPICall = () => {
   const getData = async () => {
@@ -31,7 +30,7 @@ const ComponentWithAPICall = () => {
   }, []);
   return (<Button onClick={() => getData()}>Hello Button</Button>);
 };
-storiesOf('Button', module)
+storiesOf('Mock API Example', module)
   .addDecorator(withMock)
   .add('with text', () => <ComponentWithAPICall />, {
     mockData: [{

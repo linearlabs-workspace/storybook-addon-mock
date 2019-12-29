@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "yarn run build && start-storybook -p 6006",
     "clean": "rm -rf dist",
     "build": " yarn run clean && babel src -d dist",
     "lint": "eslint .",
@@ -22,11 +22,10 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/styled": "^10.0.23",
-    "mock-xmlhttprequest": "^5.1.0"
-  },
-  "peerDependencies": {
     "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8"
+    "@storybook/react": "^5.2.8",
+    "mock-xmlhttprequest": "^5.1.0",
+    "storybook-addon-mock": "^0.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",

@@ -71,7 +71,7 @@ const MyPanel = () => {
   );
 };
 
-export default function register() {
+function register() {
   addons.register(ADDON_ID, () => {
     // eslint-disable-next-line react/prop-types
     const render = ({ active, key }) => (
@@ -89,3 +89,5 @@ export default function register() {
     });
   });
 }
+
+export default register();
