@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mock",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An addon for storybook to mock apis for the components",
   "main": "dist/index.js",
   "scripts": {
@@ -23,9 +23,11 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/styled": "^10.0.23",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
     "mock-xmlhttprequest": "^5.1.0"
+  },
+  "peerDependencies": {
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
