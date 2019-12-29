@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Button } from '@storybook/react/demo';
 import withMock from '../dist';
 
 const ComponentWithAPICall = () => {
+  const [item, setItem] = useState();
   const getData = async () => {
     try {
       const response = await fetch(
@@ -16,29 +17,30 @@ const ComponentWithAPICall = () => {
           method: 'GET',
         },
       );
-      const item = await response.json();
-      // eslint-disable-next-line no-console
-      console.log(item);
+      const data = await response.json();
+      setItem(data);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     }
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-  return (<Button onClick={() => getData()}>Hello Button</Button>);
+  return (
+    <>
+      <Button onClick={() => getData()}>Click to get mock response</Button>
+      <pre>{JSON.stringify(item, null, 2)}</pre>
+    </>
+  );
 };
-storiesOf('Mock API Example', module)
+storiesOf('Storybook Addon Mock', module)
   .addDecorator(withMock)
-  .add('with text', () => <ComponentWithAPICall />, {
+  .add('Getting Mock API Response', () => <ComponentWithAPICall />, {
     mockData: [{
       url: 'https://jsonplaceholder.typicode.com/todos/1',
       method: 'GET',
       status: 200,
       response: {
-        data: 'hello',
+        data: 'This is a MOCK response!',
       },
     }],
   });
