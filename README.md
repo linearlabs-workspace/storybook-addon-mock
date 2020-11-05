@@ -20,7 +20,7 @@ There are few packages those help the developers to mock the backend apis while 
 Install the addon in your project as dev dependencies.
 
 ```bash
-  yarn install -D storybook-addon-mock
+  yarn add -D storybook-addon-mock
 ```
 
 Add the register in your `.storybook/addons.js` file
