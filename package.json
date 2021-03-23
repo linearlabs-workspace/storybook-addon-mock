@@ -17,7 +17,9 @@
     "mock",
     "mock-api",
     "mock-fetch",
-    "mock-data"
+    "mock-data",
+    "storybook-addon",
+    "data-state"
   ],
   "author": "Farhad Yasir (nutboltu)",
   "license": "MIT",
@@ -41,5 +43,8 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0"
+  },
+  "storybook": {
+    "displayName": "Mock"
   }
 }
