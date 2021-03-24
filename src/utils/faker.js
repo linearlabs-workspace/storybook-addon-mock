@@ -13,9 +13,9 @@ class Faker {
     this.apiList = {};
   }
 
-  getKey = (url, method) => `${url}_${method.toLowerCase()}`;
-
   getApis = () => Object.values(this.apiList);
+
+  getKey = (url, method) => [url, method.toLowerCase()].join('_');
 
   makeInitialApis = (apis) => {
     if (!apis || !Array.isArray(apis)) {

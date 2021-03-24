@@ -24,7 +24,7 @@ const ADDON_ID = 'mockAddon';
 const PARAM_KEY = 'mockAddon';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
-const MyPanel = () => {
+const MockPanel = () => {
   const [mockData, setMockData] = useState([]);
   const emit = useChannel({
     ADDONS_MOCK_SEND_DATA: (parameters) => {
@@ -39,34 +39,34 @@ const MyPanel = () => {
   return (
     <ScrollArea>
       {
-              mockData.map((item, index) => (
-                <Item key={index}>
-                  <Form.Field label="Enabled">
-                    <Checkbox>
-                      <Form.Input
-                        type="checkbox"
-                        checked={!item.skip}
-                        onChange={() => setSkip(item)}
-                      />
-                    </Checkbox>
-                  </Form.Field>
-                  <Form.Field label="URL">
-                    {' '}
-                    {item.url}
-                    {' '}
-                  </Form.Field>
-                  <Form.Field label="Method">
-                    {' '}
-                    {item.method}
-                    {' '}
-                  </Form.Field>
-                  <Form.Field label="Response">
-                    {' '}
-                    <code>{JSON.stringify(item.response, null, 2)}</code>
-                  </Form.Field>
-                </Item>
-              ))
-          }
+        mockData.map((item, index) => (
+          <Item key={index}>
+            <Form.Field label="Enabled">
+              <Checkbox>
+                <Form.Input
+                  type="checkbox"
+                  checked={!item.skip}
+                  onChange={() => setSkip(item)}
+                />
+              </Checkbox>
+            </Form.Field>
+            <Form.Field label="URL">
+              {' '}
+              {item.url}
+              {' '}
+            </Form.Field>
+            <Form.Field label="Method">
+              {' '}
+              {item.method}
+              {' '}
+            </Form.Field>
+            <Form.Field label="Response">
+              {' '}
+              <code>{JSON.stringify(item.response, null, 2)}</code>
+            </Form.Field>
+          </Item>
+        ))
+      }
     </ScrollArea>
   );
 };
@@ -76,7 +76,7 @@ function register() {
     // eslint-disable-next-line react/prop-types
     const render = ({ active, key }) => (
       <AddonPanel active={active} key={key}>
-        <MyPanel />
+        <MockPanel />
       </AddonPanel>
     );
     const title = 'Mock';
