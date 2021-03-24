@@ -13,7 +13,6 @@ module.exports = {
   ],
   plugins: [
     '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-transform-arrow-functions',
     '@babel/plugin-transform-modules-commonjs',
   ],
 };
