@@ -1,13 +1,13 @@
 {
   "name": "storybook-addon-mock",
   "version": "0.0.4",
-  "description": "An addon for storybook to mock apis for the components",
+  "description": "A storybook addon to mock http request",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "yarn run build && start-storybook -p 6006",
     "clean": "rm -rf dist",
-    "build": " yarn run clean && babel src -d dist",
+    "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
     "ci": "yarn run lint && yarn run build",
     "lint:fix": "yarn run lint --fix"
@@ -15,8 +15,8 @@
   "keywords": [
     "storybook",
     "mock",
-    "mock-api",
-    "mock-fetch",
+    "http-mock",
+    "fetch-mock",
     "mock-data",
     "storybook-addon",
     "data-state"
@@ -24,27 +24,35 @@
   "author": "Farhad Yasir (nutboltu)",
   "license": "MIT",
   "dependencies": {
-    "@emotion/styled": "^10.0.23",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
-    "mock-xmlhttprequest": "^5.1.0"
+    "@emotion/styled": "^11.1.5",
+    "@storybook/addons": "^6.1.21",
+    "@storybook/react": "^6.1.21",
+    "mock-xmlhttprequest": "^7.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
-    "@babel/preset-env": "^7.7.6",
-    "@babel/preset-react": "^7.7.4",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
-    "eslint": "^6.7.2",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0"
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-transform-arrow-functions": "^7.13.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.13.8",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.12.13",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "storybook": {
-    "displayName": "Mock"
+    "displayName": "Mock Request",
+    "supportedFrameworks": [
+      "react"
+    ]
   }
 }

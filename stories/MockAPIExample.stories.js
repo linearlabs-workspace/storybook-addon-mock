@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Button } from '@storybook/react/demo';
-// eslint-disable-next-line import/no-unresolved, import/extensions
 import withMock from '../dist';
 
 const ComponentWithAPICall = () => {

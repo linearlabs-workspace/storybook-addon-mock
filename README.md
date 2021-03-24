@@ -1,6 +1,5 @@
 # Storybook Addon Mock
 
-[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)
 <a href="https://twitter.com/intent/follow?screen_name=nutboltu">
    <img src="https://img.shields.io/twitter/follow/nutboltu.svg?label=Follow%20@nutboltu" alt="Follow @nutboltu" />
 </a>
