@@ -12,6 +12,10 @@
     "ci": "yarn run lint && yarn run build",
     "lint:fix": "yarn run lint --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nutboltu/storybook-addon-mock.git"
+  },
   "keywords": [
     "storybook",
     "mock",
