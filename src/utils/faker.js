@@ -42,7 +42,7 @@ class Faker {
     this.apiList[key].skip = !this.apiList[key].skip;
   };
 
-  matchMock = (url, method) => {
+  matchMock = (url, method = "GET") => {
     const key = this.getKey(url, method);
     if (this.apiList[key] && !this.apiList[key].skip) {
       return this.apiList[key];
