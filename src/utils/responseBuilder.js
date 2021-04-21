@@ -1,9 +1,8 @@
 import statusTextMap from './statusMap';
 
-export default function (url, status, responseText) {
-  const keys = [];
-  const all = [];
-  const headers = {};
+export default function (url, status, responseText, headers = {}) {
+  const keys = Object.keys(headers);
+  const all = Object.entries(headers);
 
   const response = () => ({
     // eslint-disable-next-line no-bitwise

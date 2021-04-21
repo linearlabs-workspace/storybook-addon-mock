@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
 import responseBuilder from './responseBuilder';
+import xhrHeaderMapper from './xhrHeaderMapper';
 
 class Faker {
   constructor() {
@@ -60,6 +61,7 @@ class Faker {
           url,
           matched.status || 200,
           matched.response,
+          matched.headers || {}
         );
         resolve(response);
       }));
@@ -72,13 +74,17 @@ class Faker {
     const { method, url } = xhr;
     const matched = this.matchMock(url, method);
     if (matched) {
-      xhr.respond(matched.status || 200, {}, matched.response);
+      xhr.respond(
+        matched.status || 200,
+        matched.headers || {},
+        matched.response
+      );
     } else {
       // eslint-disable-next-line new-cap
       const realXhr = new self.realXMLHttpRequest();
       realXhr.onreadystatechange = function onReadyStateChange() {
         if (realXhr.readyState === 4 && realXhr.status === 200) {
-          xhr.respond(200, {}, this.responseText);
+          xhr.respond(200, xhrHeaderMapper(realXhr), this.responseText);
         }
       };
       realXhr.open(method, url);

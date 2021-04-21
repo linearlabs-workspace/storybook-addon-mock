@@ -64,6 +64,10 @@ const MockPanel = () => {
               {' '}
               <code>{JSON.stringify(item.response, null, 2)}</code>
             </Form.Field>
+            <Form.Field label="Headers">
+              {' '}
+              <code>{JSON.stringify(item.headers, null, 2)}</code>
+            </Form.Field>
           </Item>
         ))
       }
