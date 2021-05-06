@@ -29,8 +29,8 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/styled": "^11.1.5",
-    "@storybook/addons": "6.0.28",
-    "@storybook/react": "6.0.28",
+    "@storybook/addons": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "mock-xmlhttprequest": "^7.0.3"
   },
   "devDependencies": {
