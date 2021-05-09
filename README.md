@@ -22,6 +22,53 @@ Install the addon in your project as dev dependencies.
   yarn add -D storybook-addon-mock
 ```
 
+### Using Storybook 6
+
+Add the decorator in your addons, in `.storybook/main.js`:
+
+
+```js
+module.exports = {
+  addons: [
+    'storybook-addon-mock/register',
+  ],
+}
+
+```
+
+Add decorator in the stories.
+
+```js
+import React from 'react'
+import withMock from 'storybook-addon-mock'
+import Component from './Component'
+
+export default {
+  title: 'Component',
+  component: Component,
+  decorators: [withMock],
+}
+
+const Template = args => <Component {...args} />
+
+export const Default = Template.bind({})
+Default.parameters = {
+   mockData: [{
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      method: 'GET',
+      status: 200,
+      response: {
+        data: 'This is a Mock Response!',
+      },
+   }],
+}
+```
+
+Thanks to [shilman](https://github.com/storybookjs/storybook/issues/14817) for this solution
+
+
+### Using older versions of Storybook
+
 Add the register in your `.storybook/addons.js` file
 
 ```js
