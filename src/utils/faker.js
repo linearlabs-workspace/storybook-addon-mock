@@ -77,7 +77,7 @@ class Faker {
       xhr.respond(
         matched.status || 200,
         matched.headers || {},
-        matched.response
+        JSON.stringify(matched.response)
       );
     } else {
       // eslint-disable-next-line new-cap

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Button } from '@storybook/react/demo';
 import withMock from '../dist';
 
-const ComponentWithAPICall = () => {
+const ComponentWithFetchCall = () => {
   const [data, setData] = useState();
   const [headers, setHeaders] = useState();
   const getData = async () => {
@@ -49,8 +49,6 @@ const ComponentWithXHRCall = () => {
 
         oReq.onload = function (e) {
           if (oReq.status === 200) {
-            console.debug(oReq.responseText);
-
             setData(JSON.parse(oReq.responseText));
             setHeaders(oReq.getAllResponseHeaders());
 
@@ -83,7 +81,7 @@ const ComponentWithXHRCall = () => {
 
 storiesOf('Storybook Addon Mock', module)
   .addDecorator(withMock)
-  .add('Getting Mock API Response', () => <ComponentWithAPICall />, {
+  .add('Getting Mock Fetch Response', () => <ComponentWithFetchCall />, {
     mockData: [{
       url: 'https://jsonplaceholder.typicode.com/todos/1',
       method: 'GET',
