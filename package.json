@@ -45,9 +45,7 @@
     "eslint": "^7.22.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.1"
-  },
-  "peerDependencies": {
+    "eslint-plugin-react": "^7.23.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
