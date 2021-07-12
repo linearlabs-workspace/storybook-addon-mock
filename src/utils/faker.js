@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
 import responseBuilder from './responseBuilder';
+import statusTextMap from './statusMap';
 
 class Faker {
   constructor() {
@@ -72,7 +73,8 @@ class Faker {
     const { method, url } = xhr;
     const matched = this.matchMock(url, method);
     if (matched) {
-      xhr.respond(matched.status || 200, {}, matched.response);
+      const status = matched.status || 200
+      xhr.respond(status, matched.headers || {}, matched.response, statusTextMap[status]);
     } else {
       // eslint-disable-next-line new-cap
       const realXhr = new self.realXMLHttpRequest();
