@@ -2,27 +2,37 @@
 import { newMockXhr } from 'mock-xmlhttprequest';
 import responseBuilder from './responseBuilder';
 
+let global =
+  // eslint-disable-next-line no-undef
+  (typeof globalThis !== 'undefined' && globalThis) ||
+  (typeof self !== 'undefined' && self) ||
+  (typeof global !== 'undefined' && global) ||
+  {};
+
 class Faker {
   constructor() {
     this.MockXhr = newMockXhr();
     this.MockXhr.onSend = this.mockXhrRequest;
-    self.realFetch = self.fetch;
-    self.realXMLHttpRequest = self.XMLHttpRequest;
-    self.fetch = this.mockFetch;
-    self.XMLHttpRequest = this.MockXhr;
-    this.apiList = {};
+    
+    global.realFetch = global.fetch;
+    global.realXMLHttpRequest = global.XMLHttpRequest;
+    
+    global.fetch = this.mockFetch;
+    global.XMLHttpRequest = this.MockXhr;
+    
+    this.requestMap = {};
   }
 
-  getApis = () => Object.values(this.apiList);
+  getRequests = () => Object.values(this.requestMap);
 
   getKey = (url, method) => [url, method.toLowerCase()].join('_');
 
-  makeInitialApis = (apis) => {
-    if (!apis || !Array.isArray(apis)) {
-      this.apiList = {};
+  makeInitialRequestMap = (requests) => {
+    if (!requests || !Array.isArray(requests)) {
+      this.requestMap = {};
       return;
     }
-    this.apiList = apis.reduce((acc, cur) => {
+    this.requestMap = requests.reduce((acc, cur) => {
       const key = this.getKey(cur.url, cur.method);
       acc[key] = {
         ...cur,
@@ -34,24 +44,32 @@ class Faker {
 
   add = (api) => {
     const key = this.getKey(api.url, api.method);
-    this.apiList[key] = api;
+    this.requestMap[key] = api;
   };
 
   setSkip = (url, method) => {
     const key = this.getKey(url, method);
-    this.apiList[key].skip = !this.apiList[key].skip;
+    this.requestMap[key].skip = !this.requestMap[key].skip;
   };
 
   matchMock = (url, method = "GET") => {
     const key = this.getKey(url, method);
-    if (this.apiList[key] && !this.apiList[key].skip) {
-      return this.apiList[key];
+    // eslint-disable-next-line no-prototype-builtins
+    if (this.requestMap.hasOwnProperty(key) && !this.requestMap[key].skip) {
+      return this.requestMap[key];
     }
     return null;
   };
 
-  mockFetch = (url, options) => {
-    const { method } = options || {};
+  mockFetch = (input, options) => {
+    let method, url;
+    if (typeof input === 'object') {
+      method = options.method || input.method || 'GET';
+      url = input.url;
+    } else {
+      method = options.method || 'GET';
+      url = input;
+    }
     const matched = this.matchMock(url, method);
 
     if (matched) {
@@ -65,7 +83,7 @@ class Faker {
       }));
     }
     // eslint-disable-next-line no-restricted-globals
-    return self.realFetch(url, options);
+    return global.realFetch(input, options);
   };
 
   mockXhrRequest = (xhr) => {
@@ -75,7 +93,7 @@ class Faker {
       xhr.respond(matched.status || 200, {}, matched.response);
     } else {
       // eslint-disable-next-line new-cap
-      const realXhr = new self.realXMLHttpRequest();
+      const realXhr = new global.realXMLHttpRequest();
       realXhr.onreadystatechange = function onReadyStateChange() {
         if (realXhr.readyState === 4 && realXhr.status === 200) {
           xhr.respond(200, {}, this.responseText);
@@ -90,7 +108,7 @@ class Faker {
   };
 
   restore = () => {
-    this.apiList = {};
+    this.requestMap = {};
   };
 }
 
