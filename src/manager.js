@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import { addons, types } from '@storybook/addons';
 import { useChannel } from '@storybook/api';
 import { AddonPanel, ScrollArea, Form } from '@storybook/components';
+// import { SelectControl } from '@storybook/components/controls';
 import styled from '@emotion/styled';
 import { ADDONS_MOCK_SET_SKIP } from './utils/events';
-
-const Checkbox = styled.div`
-  input[type=checkbox]:checked {
-    background: #1EA7FD;
-  }
-`;
+import statusTextMap from './utils/statusMap';
 
 const Item = styled.div`
   border: 1px #ddd solid;
@@ -23,6 +19,8 @@ const Item = styled.div`
 const ADDON_ID = 'mockAddon';
 const PARAM_KEY = 'mockAddon';
 const PANEL_ID = `${ADDON_ID}/panel`;
+
+const statusCodes = Object.keys(statusTextMap);
 
 const MockPanel = () => {
   const [mockData, setMockData] = useState([]);
@@ -41,14 +39,13 @@ const MockPanel = () => {
       {
         mockData.map((item, index) => (
           <Item key={index}>
-            <Form.Field label="Enabled">
-              <Checkbox>
-                <Form.Input
-                  type="checkbox"
-                  checked={!item.skip}
-                  onChange={() => setSkip(item)}
-                />
-              </Checkbox>
+            <Form.Field label="Mocked">
+      
+              <input
+                type="checkbox"
+                checked={!item.skip}
+                onChange={() => setSkip(item)}
+              />
             </Form.Field>
             <Form.Field label="URL">
               {' '}
@@ -63,6 +60,14 @@ const MockPanel = () => {
             <Form.Field label="Response">
               {' '}
               <code>{JSON.stringify(item.response, null, 2)}</code>
+              <textarea />
+            </Form.Field>
+            <Form.Field label="Status">
+              <select>
+                {
+                  statusCodes.map((option) => (<option key={option}>{option}</option>))
+                }
+              </select>
             </Form.Field>
           </Item>
         ))
@@ -79,7 +84,7 @@ function register() {
         <MockPanel />
       </AddonPanel>
     );
-    const title = 'Mock';
+    const title = 'Mock Request';
 
     addons.add(PANEL_ID, {
       type: types.PANEL,

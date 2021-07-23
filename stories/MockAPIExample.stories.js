@@ -42,5 +42,12 @@ storiesOf('Storybook Addon Mock', module)
       response: {
         data: 'This is a MOCK response!',
       },
+    }, {
+      url: 'https://jsonplaceholder.typicode.com/todos/1',
+      method: 'POST',
+      status: 404,
+      response: {
+        data: 'This is a MOCK response!',
+      },
     }],
   });

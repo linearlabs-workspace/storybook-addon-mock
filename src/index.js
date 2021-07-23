@@ -12,16 +12,16 @@ export default makeDecorator({
   skipIfNoParametersOrOptions: true,
   wrapper: (getStory, context, { parameters }) => {
     const channel = addons.getChannel();
-    faker.makeInitialApis(parameters);
+    faker.makeInitialRequestMap(parameters);
 
     // Our simple API above simply sets the notes parameter to a string,
     // which we send to the channel
-    channel.emit(ADDONS_MOCK_SEND_DATA, faker.getApis());
+    channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
 
     // we can also add subscriptions here using channel.on('eventName', callback);
     channel.on(ADDONS_MOCK_SET_SKIP, (item) => {
       faker.setSkip(item.url, item.method);
-      channel.emit(ADDONS_MOCK_SEND_DATA, faker.getApis());
+      channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
     });
 
     return getStory(context);
