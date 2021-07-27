@@ -1,18 +1,18 @@
 module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          esmodules: true,
-        },
-        modules: 'cjs',
-      },
+    presets: [
+        [
+            '@babel/preset-env',
+            {
+                targets: {
+                    esmodules: true,
+                },
+                modules: 'cjs',
+            },
+        ],
+        '@babel/preset-react',
     ],
-    '@babel/preset-react',
-  ],
-  plugins: [
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-transform-modules-commonjs',
-  ],
+    plugins: [
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-transform-modules-commonjs',
+    ],
 };

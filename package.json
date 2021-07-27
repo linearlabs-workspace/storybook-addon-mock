@@ -31,7 +31,9 @@
     "@emotion/styled": "^11.1.5",
     "@storybook/addons": "^6.2.9",
     "@storybook/react": "^6.2.9",
+    "eslint-plugin-prettier": "^3.4.0",
     "mock-xmlhttprequest": "^7.0.3",
+    "prettier": "^2.3.2",
     "react-json-editor-ajrm": "^2.5.13"
   },
   "devDependencies": {

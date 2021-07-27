@@ -2,7 +2,7 @@
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
-      "prettier"
+      "plugin:prettier/recommended"
     ],
     "parser": "babel-eslint",
     "parserOptions": {

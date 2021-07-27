@@ -9,17 +9,17 @@ export function Response(url, status, responseText) {
     this.statusText = statusTextMap[status.toString()];
     this.status = status;
     this.url = url;
-    
+
     this.text = () => Promise.resolve(responseText);
     this.json = () => Promise.resolve(responseText);
     // this.blob = () => Promise.resolve(new Blob([responseText]));
-    this.clone = () =>  new Response(url, status, responseText),
-    this.headers = {
-      keys: () => keys,
-      entries: () => all,
-      get: (n) => headers[n.toLowerCase()],
-      has: (n) => n.toLowerCase() in headers,
-    };
+    (this.clone = () => new Response(url, status, responseText)),
+        (this.headers = {
+            keys: () => keys,
+            entries: () => all,
+            get: (n) => headers[n.toLowerCase()],
+            has: (n) => n.toLowerCase() in headers,
+        });
 }
 
 // export default function (url, status, responseText) {
