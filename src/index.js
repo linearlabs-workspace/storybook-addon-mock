@@ -2,7 +2,7 @@ import addons, { makeDecorator } from '@storybook/addons';
 import faker from './utils/faker';
 import {
   ADDONS_MOCK_SEND_DATA,
-  ADDONS_MOCK_SET_SKIP,
+  ADDONS_MOCK_UPDATE_STATE,
 } from './utils/events';
 
 export default makeDecorator({
@@ -19,7 +19,7 @@ export default makeDecorator({
     channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
 
     // we can also add subscriptions here using channel.on('eventName', callback);
-    channel.on(ADDONS_MOCK_SET_SKIP, (item, fieldKey, value) => {
+    channel.on(ADDONS_MOCK_UPDATE_STATE, (item, fieldKey, value) => {
       faker.update(item, fieldKey, value);
       channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
     });

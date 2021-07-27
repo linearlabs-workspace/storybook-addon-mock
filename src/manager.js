@@ -1,26 +1,14 @@
 import React, { useState } from "react";
-import JSONInput from "react-json-editor-ajrm";
 import { addons, types } from "@storybook/addons";
 import { useChannel } from "@storybook/api";
-import { AddonPanel, ScrollArea, Form } from "@storybook/components";
-import styled from "@emotion/styled";
-import { ADDONS_MOCK_SET_SKIP } from "./utils/events";
-import statusTextMap from "./utils/statusMap";
+import { AddonPanel, ScrollArea } from "@storybook/components";
 
-const Item = styled.div`
-  border: 1px #ddd solid;
-
-  label:last-child {
-    margin-bottom: 0;
-    border-bottom: none;
-  }
-`;
+import { ADDONS_MOCK_UPDATE_STATE } from "./utils/events";
+import { RequestItem } from "./components/RequestItem";
 
 const ADDON_ID = "mockAddon";
 const PARAM_KEY = "mockAddon";
 const PANEL_ID = `${ADDON_ID}/panel`;
-
-const statusCodes = Object.keys(statusTextMap);
 
 const MockPanel = () => {
   const [mockData, setMockData] = useState([]);
@@ -30,47 +18,33 @@ const MockPanel = () => {
     },
   });
 
-  const setSkip = (item) => {
-    emit(ADDONS_MOCK_SET_SKIP, item, 'skip', !item.skip);
+  const onSkip = (item) => {
+    emit(ADDONS_MOCK_UPDATE_STATE, item, "skip", !item.skip);
+  };
+
+  const onStatusChange = (item, value) => {
+    emit(ADDONS_MOCK_UPDATE_STATE, item, "status", value);
+  };
+
+  const onResponseChange = (item, value) => {
+    emit(ADDONS_MOCK_UPDATE_STATE, item, "response", value);
   };
 
   return (
     <ScrollArea>
       {mockData.map((item, index) => (
-        <Item key={index}>
-          <Form.Field label="Mocked">
-            <input
-              type="checkbox"
-              checked={!item.skip}
-              onChange={() => setSkip(item)}
-            />
-          </Form.Field>
-          <Form.Field label="URL"> {item.url} </Form.Field>
-          <Form.Field label="Method"> {item.method} </Form.Field>
-          <Form.Field label="Status">
-            <select>
-              {statusCodes.map((option) => (
-                <option key={option} selected={option === item.status}>{option}</option>
-              ))}
-            </select>
-          </Form.Field>
-          <Form.Field label="Response">
-            <JSONInput
-              id="a_unique_id"
-              placeholder={item.response}
-              colors={{
-                default: '#D4D4D4',
-                background: 'white',
-                string: 'black',
-                number: 'black',
-                colon: 'black',
-                keys: 'black',
-              }}
-              waitAfterKeyPress={1000}
-              height="200px"
-            />
-          </Form.Field>
-        </Item>
+        <RequestItem
+          key={index}
+          title={item.name || `Request ${index + 1}`}
+          url={item.url}
+          skip={item.skip}
+          method={item.method}
+          status={item.status}
+          response={item.response}
+          onToggle={() => onSkip(item)}
+          onStatusChange={(event) => onStatusChange(item, event.target.value)}
+          onResponseChange={(value) => onResponseChange(item, value.jsObject)}
+        />
       ))}
     </ScrollArea>
   );
