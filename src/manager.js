@@ -3,7 +3,6 @@ import JSONInput from "react-json-editor-ajrm";
 import { addons, types } from "@storybook/addons";
 import { useChannel } from "@storybook/api";
 import { AddonPanel, ScrollArea, Form } from "@storybook/components";
-// import { SelectControl } from '@storybook/components/controls';
 import styled from "@emotion/styled";
 import { ADDONS_MOCK_SET_SKIP } from "./utils/events";
 import statusTextMap from "./utils/statusMap";
@@ -32,7 +31,7 @@ const MockPanel = () => {
   });
 
   const setSkip = (item) => {
-    emit(ADDONS_MOCK_SET_SKIP, item);
+    emit(ADDONS_MOCK_SET_SKIP, item, 'skip', !item.skip);
   };
 
   return (
@@ -48,15 +47,10 @@ const MockPanel = () => {
           </Form.Field>
           <Form.Field label="URL"> {item.url} </Form.Field>
           <Form.Field label="Method"> {item.method} </Form.Field>
-          {/* <Form.Field label="Response">
-            {" "}
-            <code>{JSON.stringify(item.response, null, 2)}</code>
-            <textarea />
-          </Form.Field> */}
           <Form.Field label="Status">
             <select>
               {statusCodes.map((option) => (
-                <option key={option}>{option}</option>
+                <option key={option} selected={option === item.status}>{option}</option>
               ))}
             </select>
           </Form.Field>

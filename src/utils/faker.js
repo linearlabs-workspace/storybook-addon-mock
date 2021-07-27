@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
-// import responseBuilder from './responseBuilder';
 import { Request } from './request';
 import { Response } from './response';
 
@@ -54,6 +53,12 @@ class Faker {
     const key = this.getKey(url, method);
     this.requestMap[key].skip = !this.requestMap[key].skip;
   };
+
+  update = (item, fieldKey, value) => {
+    const {url, method } = item;
+    const itemKey = this.getKey(url, method);
+    this.requestMap[itemKey][fieldKey] = value;
+  }
 
   matchMock = (url, method = "GET") => {
     const key = this.getKey(url, method);

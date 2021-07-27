@@ -19,8 +19,8 @@ export default makeDecorator({
     channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
 
     // we can also add subscriptions here using channel.on('eventName', callback);
-    channel.on(ADDONS_MOCK_SET_SKIP, (item) => {
-      faker.setSkip(item.url, item.method);
+    channel.on(ADDONS_MOCK_SET_SKIP, (item, fieldKey, value) => {
+      faker.update(item, fieldKey, value);
       channel.emit(ADDONS_MOCK_SEND_DATA, faker.getRequests());
     });
 
