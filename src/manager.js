@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { addons, types } from '@storybook/addons';
-import { useChannel } from '@storybook/api';
-import { AddonPanel, ScrollArea, Form } from '@storybook/components';
+import React, { useState } from "react";
+import JSONInput from "react-json-editor-ajrm";
+import { addons, types } from "@storybook/addons";
+import { useChannel } from "@storybook/api";
+import { AddonPanel, ScrollArea, Form } from "@storybook/components";
 // import { SelectControl } from '@storybook/components/controls';
-import styled from '@emotion/styled';
-import { ADDONS_MOCK_SET_SKIP } from './utils/events';
-import statusTextMap from './utils/statusMap';
+import styled from "@emotion/styled";
+import { ADDONS_MOCK_SET_SKIP } from "./utils/events";
+import statusTextMap from "./utils/statusMap";
 
 const Item = styled.div`
   border: 1px #ddd solid;
@@ -16,8 +17,8 @@ const Item = styled.div`
   }
 `;
 
-const ADDON_ID = 'mockAddon';
-const PARAM_KEY = 'mockAddon';
+const ADDON_ID = "mockAddon";
+const PARAM_KEY = "mockAddon";
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const statusCodes = Object.keys(statusTextMap);
@@ -36,42 +37,47 @@ const MockPanel = () => {
 
   return (
     <ScrollArea>
-      {
-        mockData.map((item, index) => (
-          <Item key={index}>
-            <Form.Field label="Mocked">
-      
-              <input
-                type="checkbox"
-                checked={!item.skip}
-                onChange={() => setSkip(item)}
-              />
-            </Form.Field>
-            <Form.Field label="URL">
-              {' '}
-              {item.url}
-              {' '}
-            </Form.Field>
-            <Form.Field label="Method">
-              {' '}
-              {item.method}
-              {' '}
-            </Form.Field>
-            <Form.Field label="Response">
-              {' '}
-              <code>{JSON.stringify(item.response, null, 2)}</code>
-              <textarea />
-            </Form.Field>
-            <Form.Field label="Status">
-              <select>
-                {
-                  statusCodes.map((option) => (<option key={option}>{option}</option>))
-                }
-              </select>
-            </Form.Field>
-          </Item>
-        ))
-      }
+      {mockData.map((item, index) => (
+        <Item key={index}>
+          <Form.Field label="Mocked">
+            <input
+              type="checkbox"
+              checked={!item.skip}
+              onChange={() => setSkip(item)}
+            />
+          </Form.Field>
+          <Form.Field label="URL"> {item.url} </Form.Field>
+          <Form.Field label="Method"> {item.method} </Form.Field>
+          {/* <Form.Field label="Response">
+            {" "}
+            <code>{JSON.stringify(item.response, null, 2)}</code>
+            <textarea />
+          </Form.Field> */}
+          <Form.Field label="Status">
+            <select>
+              {statusCodes.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+          </Form.Field>
+          <Form.Field label="Response">
+            <JSONInput
+              id="a_unique_id"
+              placeholder={item.response}
+              colors={{
+                default: '#D4D4D4',
+                background: 'white',
+                string: 'black',
+                number: 'black',
+                colon: 'black',
+                keys: 'black',
+              }}
+              waitAfterKeyPress={1000}
+              height="200px"
+            />
+          </Form.Field>
+        </Item>
+      ))}
     </ScrollArea>
   );
 };
@@ -84,7 +90,7 @@ function register() {
         <MockPanel />
       </AddonPanel>
     );
-    const title = 'Mock Request';
+    const title = "Mock Request";
 
     addons.add(PANEL_ID, {
       type: types.PANEL,
