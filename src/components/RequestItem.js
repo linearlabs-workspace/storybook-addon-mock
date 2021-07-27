@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from '@storybook/components';
 import JSONInput from 'react-json-editor-ajrm';
-// import styled from "@emotion/styled";
+import styled from "@emotion/styled";
 
 import statusTextMap from '../utils/statusMap';
 
@@ -17,6 +17,21 @@ const statusCodes = Object.keys(statusTextMap);
 //   }
 // `;
 
+const Container = styled.div`
+    margin: 0 12px;
+`;
+
+const Header = styled.div`
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+`;
+
+
+
 export const RequestItem = ({
     title,
     url,
@@ -29,10 +44,11 @@ export const RequestItem = ({
     onResponseChange,
 }) => {
     return (
-        <>
-            <Form.Field label={title}>
+        <Container>
+            <Header>
+                <span>{title}</span>    
                 <input type="checkbox" checked={!skip} onChange={onToggle} />
-            </Form.Field>
+            </Header>
             <Form.Field label="URL"> {url} </Form.Field>
             <Form.Field label="Method"> {method} </Form.Field>
             <Form.Field label="Status">
@@ -58,12 +74,21 @@ export const RequestItem = ({
                         number: 'black',
                         colon: 'black',
                         keys: 'black',
+                        error: 'black',
+                    }}
+                    style={{
+                        outerBox: {
+                            overflow: 'scroll',
+                        },
+                        warningBox: {
+                            background: 'white',
+                        }
                     }}
                     waitAfterKeyPress={1000}
-                    height="100px"
+                    height="120px"
                 />
             </Form.Field>
-        </>
+        </Container>
     );
 };
 
