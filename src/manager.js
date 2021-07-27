@@ -3,7 +3,7 @@ import { addons, types } from '@storybook/addons';
 import { useChannel } from '@storybook/api';
 import { AddonPanel, ScrollArea } from '@storybook/components';
 
-import { ADDONS_MOCK_UPDATE_STATE } from './utils/events';
+import { ADDONS_MOCK_UPDATE_DATA } from './utils/events';
 import { RequestItem } from './components/RequestItem';
 
 const ADDON_ID = 'mockAddon';
@@ -19,15 +19,15 @@ const MockPanel = () => {
     });
 
     const onSkip = (item) => {
-        emit(ADDONS_MOCK_UPDATE_STATE, item, 'skip', !item.skip);
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'skip', !item.skip);
     };
 
     const onStatusChange = (item, value) => {
-        emit(ADDONS_MOCK_UPDATE_STATE, item, 'status', value);
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'status', value);
     };
 
     const onResponseChange = (item, value) => {
-        emit(ADDONS_MOCK_UPDATE_STATE, item, 'response', value);
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'response', value);
     };
 
     return (
