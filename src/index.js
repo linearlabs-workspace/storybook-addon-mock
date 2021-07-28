@@ -1,9 +1,6 @@
 import addons, { makeDecorator } from '@storybook/addons';
 import faker from './utils/faker';
-import {
-    ADDONS_MOCK_SEND_DATA,
-    ADDONS_MOCK_UPDATE_DATA,
-} from './utils/events';
+import { ADDONS_MOCK_SEND_DATA, ADDONS_MOCK_UPDATE_DATA } from './utils/events';
 
 export default makeDecorator({
     name: 'withMock',

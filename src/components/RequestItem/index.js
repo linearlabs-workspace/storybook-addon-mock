@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form } from '@storybook/components';
+// import { Form } from '@storybook/components';
 import JSONInput from 'react-json-editor-ajrm';
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-import statusTextMap from '../utils/statusMap';
+import statusTextMap from '../../utils/statusMap';
 
 const statusCodes = Object.keys(statusTextMap);
 
@@ -19,6 +19,7 @@ const statusCodes = Object.keys(statusTextMap);
 
 const Container = styled.div`
     margin: 0 12px;
+    border: 1px solid #ddd;
 `;
 
 const Header = styled.div`
@@ -30,7 +31,44 @@ const Header = styled.div`
     padding: 12px;
 `;
 
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 0;
+`;
 
+const FieldContainer = styled.div`
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+
+    :first {
+        border-top: 1px solid #ddd;
+    }
+
+    :last {
+        border-bottom: none;
+    }
+`;
+
+const Label = styled.span`
+    font-weight: 700;
+`;
+
+const FieldItem = styled.div`
+    display: flex;
+`;
+
+const Field = ({ label, children }) => (
+    <FieldContainer>
+        <Label>{label}</Label>
+        <FieldItem> {children} </FieldItem>
+    </FieldContainer>
+);
 
 export const RequestItem = ({
     title,
@@ -46,24 +84,27 @@ export const RequestItem = ({
     return (
         <Container>
             <Header>
-                <span>{title}</span>    
+                <span>{title}</span>
                 <input type="checkbox" checked={!skip} onChange={onToggle} />
             </Header>
-            <Form.Field label="URL"> {url} </Form.Field>
-            <Form.Field label="Method"> {method} </Form.Field>
-            <Form.Field label="Status">
-                <select onChange={onStatusChange}>
-                    {statusCodes.map((option) => (
-                        <option
-                            key={option}
-                            selected={option == status.toString()}
-                        >
-                            {option}
-                        </option>
-                    ))}
-                </select>
-            </Form.Field>
-            <Form.Field label="Response">
+            <Field label="URL"> {url} </Field>
+            <Row>
+                <Field label="Method"> {method} </Field>
+                <Field label="Status">
+                    <select onChange={onStatusChange}>
+                        {statusCodes.map((option) => (
+                            <option
+                                key={option}
+                                selected={option == status.toString()}
+                            >
+                                {option}
+                            </option>
+                        ))}
+                    </select>
+                </Field>
+            </Row>
+
+            <Field label="Response">
                 <JSONInput
                     onBlur={onResponseChange}
                     placeholder={response}
@@ -77,17 +118,17 @@ export const RequestItem = ({
                         error: 'black',
                     }}
                     style={{
-                        outerBox: {
-                            overflow: 'scroll',
-                        },
+                        // outerBox: {
+                        //     overflowY: 'scroll',
+                        // },
                         warningBox: {
                             background: 'white',
-                        }
+                        },
                     }}
                     waitAfterKeyPress={1000}
                     height="120px"
                 />
-            </Form.Field>
+            </Field>
         </Container>
     );
 };
