@@ -43,7 +43,7 @@ storiesOf('Storybook Addon Mock', module)
         mockData: [
             {
                 name: 'Sample Request',
-                url: 'https://jsonplaceholder.typicode.com/todos/1',
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
                 status: 200,
                 response: {

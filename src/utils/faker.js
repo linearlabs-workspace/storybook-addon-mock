@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
+import { match } from 'path-to-regexp';
 import { Request } from './request';
 import { Response } from './response';
 
@@ -24,6 +25,8 @@ class Faker {
         this.requestMap = {};
     }
 
+    extractProtocolFromUrl = (url) => url.replace(/(^\w+:|^)\/\//, '');
+
     getRequests = () => Object.values(this.requestMap);
 
     getKey = (url, method) => [url, method.toLowerCase()].join('_');
@@ -35,9 +38,11 @@ class Faker {
         }
 
         this.requestMap = requests.reduce((map, request) => {
-            const key = this.getKey(request.url, request.method);
+            const normalizedUrl = this.extractProtocolFromUrl(request.url);
+            const key = this.getKey(normalizedUrl, request.method);
             map[key] = {
                 ...request,
+                url: normalizedUrl,
                 skip: false,
             };
             return map;
@@ -45,27 +50,33 @@ class Faker {
     };
 
     add = (request) => {
-        const key = this.getKey(request.url, request.method);
+        const normalizedUrl = this.extractProtocolFromUrl(request.url);
+        const key = this.getKey(normalizedUrl, request.method);
         this.requestMap[key] = request;
-    };
-
-    setSkip = (url, method) => {
-        const key = this.getKey(url, method);
-        this.requestMap[key].skip = !this.requestMap[key].skip;
     };
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const itemKey = this.getKey(url, method);
+        const normalizedUrl = this.extractProtocolFromUrl(url);
+        const itemKey = this.getKey(normalizedUrl, method);
         this.requestMap[itemKey][fieldKey] = value;
     };
 
     matchMock = (url, method = 'GET') => {
-        const key = this.getKey(url, method);
-        // eslint-disable-next-line no-prototype-builtins
-        if (this.requestMap.hasOwnProperty(key) && !this.requestMap[key].skip) {
-            return this.requestMap[key];
+        const normalizedUrl = this.extractProtocolFromUrl(url);
+
+        for (let key in this.requestMap) {
+            const { url: requestUrl, method: requestMethod } =
+                this.requestMap[key];
+            if (
+                match(requestUrl)(normalizedUrl) &&
+                method == requestMethod &&
+                !this.requestMap[key].skip
+            ) {
+                return this.requestMap[key];
+            }
         }
+
         return null;
     };
 
