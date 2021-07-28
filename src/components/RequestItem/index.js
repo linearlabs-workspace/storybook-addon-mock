@@ -72,7 +72,7 @@ RequestItem.propTypes = {
     url: PropTypes.string,
     skip: PropTypes.bool,
     method: PropTypes.string,
-    status: PropTypes.string,
+    status: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     response: PropTypes.object,
     onToggle: PropTypes.func,
     onStatusChange: PropTypes.func,
