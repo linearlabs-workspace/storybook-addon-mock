@@ -1,74 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Form } from '@storybook/components';
 import JSONInput from 'react-json-editor-ajrm';
-import styled from '@emotion/styled';
-
+import { Header, Row, Container } from './styled';
+import { Field } from '../Field';
 import statusTextMap from '../../utils/statusMap';
 
 const statusCodes = Object.keys(statusTextMap);
-
-// const Item = styled.div`
-//   border: 1px #ddd solid;
-
-//   label:last-child {
-//     margin-bottom: 0;
-//     border-bottom: none;
-//   }
-// `;
-
-const Container = styled.div`
-    margin: 0 12px;
-    border: 1px solid #ddd;
-`;
-
-const Header = styled.div`
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-`;
-
-const Row = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 0;
-`;
-
-const FieldContainer = styled.div`
-    display: flex;
-    flex: 1 0 0;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 12px;
-
-    :first {
-        border-top: 1px solid #ddd;
-    }
-
-    :last {
-        border-bottom: none;
-    }
-`;
-
-const Label = styled.span`
-    font-weight: 700;
-`;
-
-const FieldItem = styled.div`
-    display: flex;
-`;
-
-const Field = ({ label, children }) => (
-    <FieldContainer>
-        <Label>{label}</Label>
-        <FieldItem> {children} </FieldItem>
-    </FieldContainer>
-);
 
 export const RequestItem = ({
     title,
@@ -118,9 +55,6 @@ export const RequestItem = ({
                         error: 'black',
                     }}
                     style={{
-                        // outerBox: {
-                        //     overflowY: 'scroll',
-                        // },
                         warningBox: {
                             background: 'white',
                         },

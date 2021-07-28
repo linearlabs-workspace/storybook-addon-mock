@@ -5,6 +5,7 @@ import withMock from '../dist';
 
 const ComponentWithAPICall = () => {
     const [item, setItem] = useState();
+    const [status, setStatus] = useState();
     const getData = async () => {
         try {
             const response = await fetch(
@@ -18,6 +19,7 @@ const ComponentWithAPICall = () => {
                 }
             );
             const data = await response.json();
+            setStatus(response.status);
             setItem(data);
         } catch (err) {
             // eslint-disable-next-line no-console
@@ -30,15 +32,17 @@ const ComponentWithAPICall = () => {
             <Button onClick={() => getData()}>
                 Click to get mock response
             </Button>
+            {status && <div>Status: {status}</div>}
             <pre>{JSON.stringify(item, null, 2)}</pre>
         </>
     );
 };
 storiesOf('Storybook Addon Mock', module)
     .addDecorator(withMock)
-    .add('Getting Mock API Response', () => <ComponentWithAPICall />, {
+    .add('Getting Mock Request Response', () => <ComponentWithAPICall />, {
         mockData: [
             {
+                name: 'Sample Request',
                 url: 'https://jsonplaceholder.typicode.com/todos/1',
                 method: 'GET',
                 status: 200,
