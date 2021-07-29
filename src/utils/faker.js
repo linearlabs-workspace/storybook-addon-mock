@@ -1,97 +1,132 @@
 /* eslint-disable no-restricted-globals */
 import { newMockXhr } from 'mock-xmlhttprequest';
-import responseBuilder from './responseBuilder';
+import { match } from 'path-to-regexp';
+import { Request } from './request';
+import { Response } from './response';
+
+let global =
+    // eslint-disable-next-line no-undef
+    (typeof globalThis !== 'undefined' && globalThis) ||
+    (typeof self !== 'undefined' && self) ||
+    (typeof global !== 'undefined' && global) ||
+    {};
 
 class Faker {
-  constructor() {
-    this.MockXhr = newMockXhr();
-    this.MockXhr.onSend = this.mockXhrRequest;
-    self.realFetch = self.fetch;
-    self.realXMLHttpRequest = self.XMLHttpRequest;
-    self.fetch = this.mockFetch;
-    self.XMLHttpRequest = this.MockXhr;
-    this.apiList = {};
-  }
+    constructor() {
+        this.MockXhr = newMockXhr();
+        this.MockXhr.onSend = this.mockXhrRequest;
 
-  getApis = () => Object.values(this.apiList);
+        global.realFetch = global.fetch;
+        global.realXMLHttpRequest = global.XMLHttpRequest;
 
-  getKey = (url, method) => [url, method.toLowerCase()].join('_');
+        global.fetch = this.mockFetch;
+        global.XMLHttpRequest = this.MockXhr;
 
-  makeInitialApis = (apis) => {
-    if (!apis || !Array.isArray(apis)) {
-      this.apiList = {};
-      return;
+        this.requestMap = {};
     }
-    this.apiList = apis.reduce((acc, cur) => {
-      const key = this.getKey(cur.url, cur.method);
-      acc[key] = {
-        ...cur,
-        skip: false,
-      };
-      return acc;
-    }, {});
-  };
 
-  add = (api) => {
-    const key = this.getKey(api.url, api.method);
-    this.apiList[key] = api;
-  };
+    extractProtocolFromUrl = (url) => url.replace(/(^\w+:|^)\/\//, '');
 
-  setSkip = (url, method) => {
-    const key = this.getKey(url, method);
-    this.apiList[key].skip = !this.apiList[key].skip;
-  };
+    getRequests = () => Object.values(this.requestMap);
 
-  matchMock = (url, method = "GET") => {
-    const key = this.getKey(url, method);
-    if (this.apiList[key] && !this.apiList[key].skip) {
-      return this.apiList[key];
-    }
-    return null;
-  };
+    getKey = (url, method) => [url, method.toLowerCase()].join('_');
 
-  mockFetch = (url, options) => {
-    const { method } = options || {};
-    const matched = this.matchMock(url, method);
-
-    if (matched) {
-      return new Promise(((resolve) => {
-        const response = responseBuilder(
-          url,
-          matched.status || 200,
-          matched.response,
-        );
-        resolve(response);
-      }));
-    }
-    // eslint-disable-next-line no-restricted-globals
-    return self.realFetch(url, options);
-  };
-
-  mockXhrRequest = (xhr) => {
-    const { method, url } = xhr;
-    const matched = this.matchMock(url, method);
-    if (matched) {
-      xhr.respond(matched.status || 200, {}, matched.response);
-    } else {
-      // eslint-disable-next-line new-cap
-      const realXhr = new self.realXMLHttpRequest();
-      realXhr.onreadystatechange = function onReadyStateChange() {
-        if (realXhr.readyState === 4 && realXhr.status === 200) {
-          xhr.respond(200, {}, this.responseText);
+    makeInitialRequestMap = (requests) => {
+        if (!requests || !Array.isArray(requests)) {
+            this.requestMap = {};
+            return;
         }
-      };
-      realXhr.open(method, url);
-      realXhr.send();
-      realXhr.onerror = function onError() {
-        return 'Request failed';
-      };
-    }
-  };
 
-  restore = () => {
-    this.apiList = {};
-  };
+        this.requestMap = requests.reduce((map, request) => {
+            const normalizedUrl = this.extractProtocolFromUrl(request.url);
+            const key = this.getKey(normalizedUrl, request.method);
+            map[key] = {
+                ...request,
+                skip: false,
+            };
+            return map;
+        }, {});
+    };
+
+    add = (request) => {
+        const normalizedUrl = this.extractProtocolFromUrl(request.url);
+        const key = this.getKey(normalizedUrl, request.method);
+        this.requestMap[key] = request;
+    };
+
+    update = (item, fieldKey, value) => {
+        const { url, method } = item;
+        const normalizedUrl = this.extractProtocolFromUrl(url);
+        const itemKey = this.getKey(normalizedUrl, method);
+        this.requestMap[itemKey][fieldKey] = value;
+    };
+
+    matchMock = (url, method = 'GET') => {
+        const normalizedUrl = this.extractProtocolFromUrl(url);
+
+        for (let key in this.requestMap) {
+            const { url: requestUrl, method: requestMethod } =
+                this.requestMap[key];
+            const normalizedRequestUrl =
+                this.extractProtocolFromUrl(requestUrl);
+            if (
+                match(normalizedRequestUrl)(normalizedUrl) &&
+                method == requestMethod &&
+                !this.requestMap[key].skip
+            ) {
+                return this.requestMap[key];
+            }
+        }
+
+        return null;
+    };
+
+    mockFetch = (input, options) => {
+        const request = new Request(input, options);
+        const { url, method } = request;
+        const matched = this.matchMock(url, method);
+
+        if (matched) {
+            return new Promise((resolve) => {
+                resolve(
+                    new Response(url, matched.status || 200, matched.response)
+                );
+            });
+        }
+        // eslint-disable-next-line no-restricted-globals
+        return global.realFetch(input, options);
+    };
+
+    mockXhrRequest = (xhr) => {
+        const { method, url } = xhr;
+        const matched = this.matchMock(url, method);
+        if (matched) {
+            xhr.respond(matched.status || 200, {}, matched.response);
+        } else {
+            // eslint-disable-next-line new-cap
+            const realXhr = new global.realXMLHttpRequest();
+            realXhr.open(method, url);
+
+            realXhr.onreadystatechange = function onReadyStateChange() {
+                if (realXhr.readyState === 4 && realXhr.status === 200) {
+                    xhr.respond(200, {}, this.responseText);
+                }
+            };
+
+            realXhr.send();
+
+            const errorHandler = function () {
+                return 'Network failed';
+            };
+
+            realXhr.onerror = errorHandler;
+            realXhr.ontimeout = errorHandler;
+        }
+    };
+
+    restore = () => {
+        this.requestMap = {};
+    };
 }
 
 export default new Faker();

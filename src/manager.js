@@ -1,93 +1,76 @@
 import React, { useState } from 'react';
 import { addons, types } from '@storybook/addons';
 import { useChannel } from '@storybook/api';
-import { AddonPanel, ScrollArea, Form } from '@storybook/components';
-import styled from '@emotion/styled';
-import { ADDONS_MOCK_SET_SKIP } from './utils/events';
+import { AddonPanel, ScrollArea } from '@storybook/components';
 
-const Checkbox = styled.div`
-  input[type=checkbox]:checked {
-    background: #1EA7FD;
-  }
-`;
-
-const Item = styled.div`
-  border: 1px #ddd solid;
-
-  label:last-child {
-    margin-bottom: 0;
-    border-bottom: none;
-  }
-`;
+import { ADDONS_MOCK_UPDATE_DATA } from './utils/events';
+import { RequestItem } from './components/RequestItem';
 
 const ADDON_ID = 'mockAddon';
 const PARAM_KEY = 'mockAddon';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 const MockPanel = () => {
-  const [mockData, setMockData] = useState([]);
-  const emit = useChannel({
-    ADDONS_MOCK_SEND_DATA: (parameters) => {
-      setMockData(parameters);
-    },
-  });
+    const [mockData, setMockData] = useState([]);
+    const emit = useChannel({
+        ADDONS_MOCK_SEND_DATA: (parameters) => {
+            setMockData(parameters);
+        },
+    });
 
-  const setSkip = (item) => {
-    emit(ADDONS_MOCK_SET_SKIP, item);
-  };
+    const onSkip = (item) => {
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'skip', !item.skip);
+    };
 
-  return (
-    <ScrollArea>
-      {
-        mockData.map((item, index) => (
-          <Item key={index}>
-            <Form.Field label="Enabled">
-              <Checkbox>
-                <Form.Input
-                  type="checkbox"
-                  checked={!item.skip}
-                  onChange={() => setSkip(item)}
+    const onStatusChange = (item, value) => {
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'status', value);
+    };
+
+    const onResponseChange = (item, value) => {
+        emit(ADDONS_MOCK_UPDATE_DATA, item, 'response', value);
+    };
+
+    return (
+        <ScrollArea>
+            {mockData.map((item, index) => (
+                <RequestItem
+                    key={index}
+                    title={item.name || `Request ${index + 1}`}
+                    url={item.url}
+                    skip={item.skip}
+                    method={item.method}
+                    status={item.status}
+                    response={item.response}
+                    onToggle={() => onSkip(item)}
+                    onStatusChange={(event) =>
+                        onStatusChange(item, event.target.value)
+                    }
+                    onResponseChange={(value) =>
+                        onResponseChange(item, value.jsObject)
+                    }
                 />
-              </Checkbox>
-            </Form.Field>
-            <Form.Field label="URL">
-              {' '}
-              {item.url}
-              {' '}
-            </Form.Field>
-            <Form.Field label="Method">
-              {' '}
-              {item.method}
-              {' '}
-            </Form.Field>
-            <Form.Field label="Response">
-              {' '}
-              <code>{JSON.stringify(item.response, null, 2)}</code>
-            </Form.Field>
-          </Item>
-        ))
-      }
-    </ScrollArea>
-  );
+            ))}
+        </ScrollArea>
+    );
 };
 
 function register() {
-  addons.register(ADDON_ID, () => {
-    // eslint-disable-next-line react/prop-types
-    const render = ({ active, key }) => (
-      <AddonPanel active={active} key={key}>
-        <MockPanel />
-      </AddonPanel>
-    );
-    const title = 'Mock';
+    addons.register(ADDON_ID, () => {
+        // eslint-disable-next-line react/prop-types
+        const render = ({ active, key }) => (
+            <AddonPanel active={active} key={key}>
+                <MockPanel />
+            </AddonPanel>
+        );
+        const title = 'Mock Request';
 
-    addons.add(PANEL_ID, {
-      type: types.PANEL,
-      title,
-      render,
-      paramKey: PARAM_KEY,
+        addons.add(PANEL_ID, {
+            type: types.PANEL,
+            title,
+            render,
+            paramKey: PARAM_KEY,
+        });
     });
-  });
 }
 
 export default register();

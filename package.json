@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "yarn run build && start-storybook -p 6006",
+    "storybook": "yarn run build && start-storybook -p 6006 --no-manager-cache",
     "clean": "rm -rf dist",
     "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
@@ -31,7 +31,11 @@
     "@emotion/styled": "^11.1.5",
     "@storybook/addons": "^6.2.9",
     "@storybook/react": "^6.2.9",
-    "mock-xmlhttprequest": "^7.0.3"
+    "eslint-plugin-prettier": "^3.4.0",
+    "mock-xmlhttprequest": "^7.0.3",
+    "path-to-regexp": "^6.2.0",
+    "prettier": "^2.3.2",
+    "react-json-editor-ajrm": "^2.5.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
@@ -43,9 +47,11 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
