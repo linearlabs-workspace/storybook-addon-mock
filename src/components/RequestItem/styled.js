@@ -6,19 +6,9 @@ export const Container = styled.div`
     border-bottom: none;
 `;
 
-export const Header = styled.div`
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-
-    > input {
-        height: 20px;
-        width: 20px;
-    }
+export const Checkbox = styled.input`
+    height: 20px;
+    width: 20px;
 `;
 
 export const Row = styled.div`

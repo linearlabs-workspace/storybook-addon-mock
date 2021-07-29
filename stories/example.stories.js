@@ -42,7 +42,6 @@ storiesOf('Storybook Addon Mock', module)
     .add('Getting Mock Request Response', () => <ComponentWithAPICall />, {
         mockData: [
             {
-                name: 'Sample Request',
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
                 status: 200,

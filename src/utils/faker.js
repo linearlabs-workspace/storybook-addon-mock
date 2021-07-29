@@ -42,7 +42,6 @@ class Faker {
             const key = this.getKey(normalizedUrl, request.method);
             map[key] = {
                 ...request,
-                url: normalizedUrl,
                 skip: false,
             };
             return map;
@@ -68,8 +67,10 @@ class Faker {
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
+            const normalizedRequestUrl =
+                this.extractProtocolFromUrl(requestUrl);
             if (
-                match(requestUrl)(normalizedUrl) &&
+                match(normalizedRequestUrl)(normalizedUrl) &&
                 method == requestMethod &&
                 !this.requestMap[key].skip
             ) {

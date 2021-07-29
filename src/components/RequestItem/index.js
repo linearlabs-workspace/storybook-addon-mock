@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
-import { Header, Row, Container } from './styled';
+import { Checkbox, Row, Container } from './styled';
 import { Field } from '../Field';
 import statusTextMap from '../../utils/statusMap';
 
 const statusCodes = Object.keys(statusTextMap);
 
 export const RequestItem = ({
-    title,
     url,
     skip,
     method,
@@ -20,11 +19,16 @@ export const RequestItem = ({
 }) => {
     return (
         <Container>
-            <Header>
-                <span>{title}</span>
-                <input type="checkbox" checked={!skip} onChange={onToggle} />
-            </Header>
-            <Field label="URL"> {url} </Field>
+            <Row>
+                <Field label="URL"> {url} </Field>
+                <Field label="Enable mock">
+                    <Checkbox
+                        type="checkbox"
+                        checked={!skip}
+                        onChange={onToggle}
+                    />
+                </Field>
+            </Row>
             <Row>
                 <Field label="Method"> {method} </Field>
                 <Field label="Status">
@@ -68,7 +72,6 @@ export const RequestItem = ({
 };
 
 RequestItem.propTypes = {
-    title: PropTypes.string,
     url: PropTypes.string,
     skip: PropTypes.bool,
     method: PropTypes.string,
