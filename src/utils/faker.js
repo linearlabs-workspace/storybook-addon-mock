@@ -11,7 +11,7 @@ let global =
     (typeof global !== 'undefined' && global) ||
     {};
 
-class Faker {
+export class Faker {
     constructor() {
         this.MockXhr = newMockXhr();
         this.MockXhr.onSend = this.mockXhrRequest;
@@ -29,7 +29,8 @@ class Faker {
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url, method) => [url, method.toLowerCase()].join('_');
+    getKey = (url = '', method = '') =>
+        url && method ? [url, method.toLowerCase()].join('_') : '';
 
     makeInitialRequestMap = (requests) => {
         if (!requests || !Array.isArray(requests)) {
@@ -37,21 +38,18 @@ class Faker {
             return;
         }
 
-        this.requestMap = requests.reduce((map, request) => {
-            const normalizedUrl = this.extractProtocolFromUrl(request.url);
-            const key = this.getKey(normalizedUrl, request.method);
-            map[key] = {
-                ...request,
-                skip: false,
-            };
-            return map;
-        }, {});
+        requests.forEach((request) => {
+            this.add(request);
+        });
     };
 
     add = (request) => {
         const normalizedUrl = this.extractProtocolFromUrl(request.url);
         const key = this.getKey(normalizedUrl, request.method);
-        this.requestMap[key] = request;
+        this.requestMap[key] = {
+            ...request,
+            skip: false,
+        };
     };
 
     update = (item, fieldKey, value) => {
