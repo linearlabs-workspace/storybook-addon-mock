@@ -34,7 +34,6 @@ export class Faker {
 
     makeInitialRequestMap = (requests) => {
         if (!requests || !Array.isArray(requests)) {
-            this.requestMap = {};
             return;
         }
 
@@ -48,6 +47,8 @@ export class Faker {
         const key = this.getKey(normalizedUrl, request.method);
         this.requestMap[key] = {
             ...request,
+            method: request.method || 'GET',
+            status: request.status || 200,
             skip: false,
         };
     };
@@ -56,7 +57,15 @@ export class Faker {
         const { url, method } = item;
         const normalizedUrl = this.extractProtocolFromUrl(url);
         const itemKey = this.getKey(normalizedUrl, method);
-        this.requestMap[itemKey][fieldKey] = value;
+
+        if (
+            // eslint-disable-next-line no-prototype-builtins
+            this.requestMap.hasOwnProperty(itemKey) &&
+            // eslint-disable-next-line no-prototype-builtins
+            this.requestMap[itemKey].hasOwnProperty(fieldKey)
+        ) {
+            this.requestMap[itemKey][fieldKey] = value;
+        }
     };
 
     matchMock = (url, method = 'GET') => {
@@ -86,9 +95,7 @@ export class Faker {
 
         if (matched) {
             return new Promise((resolve) => {
-                resolve(
-                    new Response(url, matched.status || 200, matched.response)
-                );
+                resolve(new Response(url, matched.status, matched.response));
             });
         }
         // eslint-disable-next-line no-restricted-globals
@@ -99,7 +106,7 @@ export class Faker {
         const { method, url } = xhr;
         const matched = this.matchMock(url, method);
         if (matched) {
-            xhr.respond(matched.status || 200, {}, matched.response);
+            xhr.respond(+matched.status, {}, matched.response);
         } else {
             // eslint-disable-next-line new-cap
             const realXhr = new global.realXMLHttpRequest();
