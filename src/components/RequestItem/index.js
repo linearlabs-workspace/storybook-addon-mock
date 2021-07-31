@@ -65,7 +65,7 @@ export const RequestItem = ({
                         body: {
                             fontFamily: 'inherit',
                             fontSize: '12px',
-                        }
+                        },
                     }}
                     waitAfterKeyPress={1000}
                     height="120px"
