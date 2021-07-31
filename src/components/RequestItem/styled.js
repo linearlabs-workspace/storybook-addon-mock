@@ -11,6 +11,14 @@ export const Checkbox = styled.input`
     width: 20px;
 `;
 
+export const Select = styled.select`
+    height: 24px;
+    width: 60px;
+    border-radius: 2px;
+    border: 1px solid;
+    font-size: 14px;
+`;
+
 export const Row = styled.div`
     display: flex;
     flex-direction: row;
