@@ -1,4 +1,6 @@
-# Storybook Addon Mock
+# Storybook Addon Mock Request
+
+[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)  [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions)
 
 <a href="https://twitter.com/intent/follow?screen_name=nutboltu">
    <img src="https://img.shields.io/twitter/follow/nutboltu.svg?label=Follow%20@nutboltu" alt="Follow @nutboltu" />
@@ -6,9 +8,7 @@
 
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 
-This addon allows you to mock fetch or xmlhttprequest requests in storybook. If your component depends on backend apis, and your backend apis are not ready yet to feed your component, then this addon provides mock apis to build your component.
-
-![Screenshot](/docs/resources/storybook-addon-mock-preview.gif)
+This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend apis, and your backend apis are not ready yet to feed your component, then this addon provides mock response to build your component.
 
 ## Why we need this
 
@@ -66,7 +66,6 @@ Default.parameters = {
 
 Thanks to [shilman](https://github.com/storybookjs/storybook/issues/14817) for this solution
 
-
 ### Using older versions of Storybook
 
 Add the register in your `.storybook/addons.js` file
@@ -81,9 +80,9 @@ Add `withMock` as a decorator in the stories.
 import React from 'react';
 import withMock from 'storybook-addon-mock';
 
-storiesOf('Storybook Addon Mock', module)
+storiesOf('Mock Response Story', module)
   .addDecorator(withMock)
-  .add('Getting Mock API Response', () => <ComponentWithAPICall />, {
+  .add('Story Item', () => <ComponentWithAPICall />, {
     mockData: [{
       url: 'https://jsonplaceholder.typicode.com/todos/1',
       method: 'GET',

@@ -13,3 +13,8 @@ Field.propTypes = {
     label: PropTypes.string,
     children: PropTypes.children,
 };
+
+Field.defaultProps = {
+    label: '',
+    children: null,
+};

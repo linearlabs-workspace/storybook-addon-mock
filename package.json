@@ -4,13 +4,14 @@
   "description": "A storybook addon to mock http request",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "yarn run build && start-storybook -p 6006 --no-manager-cache",
     "clean": "rm -rf dist",
     "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
-    "ci": "yarn run lint && yarn run build",
-    "lint:fix": "yarn run lint --fix"
+    "lint:fix": "yarn run lint --fix",
+    "test": "jest",
+    "ci": "yarn run lint && yarn run test && yarn run build",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
     "fetch-mock",
     "mock-data",
     "storybook-addon",
-    "data-state"
+    "data-state",
+    "storybook-mock-request",
+    "mock-request"
   ],
   "author": "Farhad Yasir (nutboltu)",
   "license": "MIT",
@@ -44,6 +47,8 @@
     "@babel/plugin-transform-modules-commonjs": "^7.13.8",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.12.13",
+    "@storybook/storybook-deployer": "^2.8.10",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.22.0",
@@ -51,6 +56,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
+    "jest": "^27.0.6",
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"

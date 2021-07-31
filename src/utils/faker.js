@@ -11,7 +11,7 @@ let global =
     (typeof global !== 'undefined' && global) ||
     {};
 
-class Faker {
+export class Faker {
     constructor() {
         this.MockXhr = newMockXhr();
         this.MockXhr.onSend = this.mockXhrRequest;
@@ -29,36 +29,43 @@ class Faker {
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url, method) => [url, method.toLowerCase()].join('_');
+    getKey = (url = '', method = '') =>
+        url && method ? [url, method.toLowerCase()].join('_') : '';
 
     makeInitialRequestMap = (requests) => {
         if (!requests || !Array.isArray(requests)) {
-            this.requestMap = {};
             return;
         }
 
-        this.requestMap = requests.reduce((map, request) => {
-            const normalizedUrl = this.extractProtocolFromUrl(request.url);
-            const key = this.getKey(normalizedUrl, request.method);
-            map[key] = {
-                ...request,
-                skip: false,
-            };
-            return map;
-        }, {});
+        requests.forEach((request) => {
+            this.add(request);
+        });
     };
 
     add = (request) => {
         const normalizedUrl = this.extractProtocolFromUrl(request.url);
         const key = this.getKey(normalizedUrl, request.method);
-        this.requestMap[key] = request;
+        this.requestMap[key] = {
+            ...request,
+            method: request.method || 'GET',
+            status: request.status || 200,
+            skip: false,
+        };
     };
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
         const normalizedUrl = this.extractProtocolFromUrl(url);
         const itemKey = this.getKey(normalizedUrl, method);
-        this.requestMap[itemKey][fieldKey] = value;
+
+        if (
+            // eslint-disable-next-line no-prototype-builtins
+            this.requestMap.hasOwnProperty(itemKey) &&
+            // eslint-disable-next-line no-prototype-builtins
+            this.requestMap[itemKey].hasOwnProperty(fieldKey)
+        ) {
+            this.requestMap[itemKey][fieldKey] = value;
+        }
     };
 
     matchMock = (url, method = 'GET') => {
@@ -88,9 +95,7 @@ class Faker {
 
         if (matched) {
             return new Promise((resolve) => {
-                resolve(
-                    new Response(url, matched.status || 200, matched.response)
-                );
+                resolve(new Response(url, matched.status, matched.response));
             });
         }
         // eslint-disable-next-line no-restricted-globals
@@ -101,7 +106,7 @@ class Faker {
         const { method, url } = xhr;
         const matched = this.matchMock(url, method);
         if (matched) {
-            xhr.respond(matched.status || 200, {}, matched.response);
+            xhr.respond(+matched.status, {}, matched.response);
         } else {
             // eslint-disable-next-line new-cap
             const realXhr = new global.realXMLHttpRequest();
