@@ -17,9 +17,19 @@ export const FieldContainer = styled.div`
 export const Label = styled.div`
     font-weight: 700;
     flex: 0.3 0 0;
+    min-width: 60px;
+    font-size: 14px;
 `;
 
 export const FieldItem = styled.div`
     display: flex;
     flex: 0.7 0 0;
+    font-size: 14px;
+
+    > div > div > svg > path {
+        opacity: 0;
+    }
+    > div > div > div > span > div > div > svg > path {
+        opacity: 0;
+    }
 `;

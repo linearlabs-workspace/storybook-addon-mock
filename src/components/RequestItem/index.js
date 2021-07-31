@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
-import { Checkbox, Row, Container } from './styled';
+import { Checkbox, Row, Container, Select } from './styled';
 import { Field } from '../Field';
 import statusTextMap from '../../utils/statusMap';
 
@@ -32,7 +32,7 @@ export const RequestItem = ({
             <Row>
                 <Field label="Method"> {method} </Field>
                 <Field label="Status">
-                    <select onChange={onStatusChange}>
+                    <Select onChange={onStatusChange}>
                         {statusCodes.map((option) => (
                             <option
                                 key={option}
@@ -41,7 +41,7 @@ export const RequestItem = ({
                                 {option}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </Field>
             </Row>
 
@@ -62,6 +62,10 @@ export const RequestItem = ({
                         warningBox: {
                             background: 'white',
                         },
+                        body: {
+                            fontFamily: 'inherit',
+                            fontSize: '12px',
+                        }
                     }}
                     waitAfterKeyPress={1000}
                     height="120px"

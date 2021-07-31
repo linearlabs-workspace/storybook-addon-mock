@@ -1,6 +1,6 @@
 # Storybook Addon Mock Request
 
-[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)  [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions)
+[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)  [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions) ![npm](https://img.shields.io/npm/dm/storybook-addon-mock.svg) [![npm version](https://badge.fury.io/js/storybook-addon-mock.svg)](https://badge.fury.io/js/storybook-addon-mock)
 
 <a href="https://twitter.com/intent/follow?screen_name=nutboltu">
    <img src="https://img.shields.io/twitter/follow/nutboltu.svg?label=Follow%20@nutboltu" alt="Follow @nutboltu" />
@@ -9,6 +9,8 @@
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 
 This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend apis, and your backend apis are not ready yet to feed your component, then this addon provides mock response to build your component.
+
+[Live Demo](https://nutboltu.github.io/storybook-addon-mock)
 
 ## Why we need this
 
@@ -96,4 +98,4 @@ storiesOf('Mock Response Story', module)
 
 ## License
 
-MIT Licensed. Copyright (c) Farhad Yasir.
+This project is licensed under the MIT License - see the LICENSE file in the source code for details.
