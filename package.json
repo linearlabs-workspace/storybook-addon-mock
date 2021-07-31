@@ -8,7 +8,7 @@
     "clean": "rm -rf dist",
     "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
-    "ci": "yarn run lint && yarn run build",
+    "ci": "yarn run lint && yarn run test && yarn run build",
     "lint:fix": "yarn run lint --fix",
     "test": "jest"
   },
