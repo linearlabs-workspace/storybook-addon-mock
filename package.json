@@ -8,9 +8,10 @@
     "clean": "rm -rf dist",
     "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
-    "ci": "yarn run lint && yarn run test && yarn run build",
     "lint:fix": "yarn run lint --fix",
-    "test": "jest"
+    "test": "jest",
+    "ci": "yarn run lint && yarn run test && yarn run build",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
     "fetch-mock",
     "mock-data",
     "storybook-addon",
-    "data-state"
+    "data-state",
+    "storybook-mock-request",
+    "mock-request"
   ],
   "author": "Farhad Yasir (nutboltu)",
   "license": "MIT",
@@ -44,6 +47,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.13.8",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.12.13",
+    "@storybook/storybook-deployer": "^2.8.10",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
