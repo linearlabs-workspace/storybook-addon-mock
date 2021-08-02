@@ -11,7 +11,7 @@
     "lint:fix": "yarn run lint --fix",
     "test": "jest",
     "ci": "yarn run lint && yarn run test && yarn run build",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "yarn run build && storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
