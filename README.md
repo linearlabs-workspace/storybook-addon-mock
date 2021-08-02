@@ -1,6 +1,6 @@
 # Storybook Addon Mock Request
 
-[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)  [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions) ![npm](https://img.shields.io/npm/dm/storybook-addon-mock.svg) [![npm version](https://badge.fury.io/js/storybook-addon-mock.svg)](https://badge.fury.io/js/storybook-addon-mock)
+[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock)  [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions)  ![npm](https://img.shields.io/npm/dm/storybook-addon-mock.svg)  [![npm version](https://badge.fury.io/js/storybook-addon-mock.svg)](https://badge.fury.io/js/storybook-addon-mock)
 
 <a href="https://twitter.com/intent/follow?screen_name=nutboltu">
    <img src="https://img.shields.io/twitter/follow/nutboltu.svg?label=Follow%20@nutboltu" alt="Follow @nutboltu" />
