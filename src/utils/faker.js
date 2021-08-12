@@ -25,7 +25,11 @@ export class Faker {
         this.requestMap = {};
     }
 
-    extractProtocolFromUrl = (url) => url.replace(/(^\w+:|^)\/\//, '');
+    getNormalizedUrl = (url) => {
+        const normalizedUrl = new URL(url);
+        normalizedUrl.port = '';
+        return normalizedUrl.toString().replace(/(^\w+:|^)\/\//, '');
+    };
 
     getRequests = () => Object.values(this.requestMap);
 
@@ -43,7 +47,7 @@ export class Faker {
     };
 
     add = (request) => {
-        const normalizedUrl = this.extractProtocolFromUrl(request.url);
+        const normalizedUrl = this.getNormalizedUrl(request.url);
         const key = this.getKey(normalizedUrl, request.method);
         this.requestMap[key] = {
             ...request,
@@ -55,7 +59,7 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const normalizedUrl = this.extractProtocolFromUrl(url);
+        const normalizedUrl = this.getNormalizedUrl(url);
         const itemKey = this.getKey(normalizedUrl, method);
 
         if (
@@ -69,13 +73,13 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const normalizedUrl = this.extractProtocolFromUrl(url);
+        const normalizedUrl = this.getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
             const normalizedRequestUrl =
-                this.extractProtocolFromUrl(requestUrl);
+                this.getNormalizedUrl(requestUrl);
             if (
                 match(normalizedRequestUrl)(normalizedUrl) &&
                 method == requestMethod &&

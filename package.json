@@ -9,7 +9,7 @@
     "build": "yarn run clean && babel src -d dist",
     "lint": "eslint .",
     "lint:fix": "yarn run lint --fix",
-    "test": "jest",
+    "test": "jest src",
     "ci": "yarn run lint && yarn run test && yarn run build",
     "deploy-storybook": "yarn run build && storybook-to-ghpages"
   },

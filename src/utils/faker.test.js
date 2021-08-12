@@ -1,17 +1,23 @@
 import { Faker } from './faker';
 
 describe('Faker class', () => {
-    describe('extractProtocolFromUrl', () => {
+    describe('getNormalizedUrl', () => {
         const faker = new Faker();
 
         it('should remove protocol like http', () => {
             const input = 'http://google.com/test';
-            const actual = faker.extractProtocolFromUrl(input);
+            const actual = faker.getNormalizedUrl(input);
             expect(actual).toEqual('google.com/test');
         });
         it('should remove protocol like https', () => {
             const input = 'https://google.com/test';
-            const actual = faker.extractProtocolFromUrl(input);
+            const actual = faker.getNormalizedUrl(input);
+            expect(actual).toEqual('google.com/test');
+        });
+
+        it('should remove port ', () => {
+            const input = 'https://google.com:8080/test';
+            const actual = faker.getNormalizedUrl(input);
             expect(actual).toEqual('google.com/test');
         });
     });
