@@ -1,4 +1,4 @@
-export function Request(input, options) {
+export function Request(input, options = {}) {
     if (typeof input === 'object') {
         this.method = options.method || input.method || 'GET';
         this.url = input.url;
