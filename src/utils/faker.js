@@ -3,6 +3,7 @@ import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
 import { Response } from './response';
+import { arrayEquals } from './array';
 
 let global =
     // eslint-disable-next-line no-undef
@@ -25,16 +26,26 @@ export class Faker {
         this.requestMap = {};
     }
 
-    getNormalizedUrl = (url) => {
-        const normalizedUrl = new URL(url);
-        normalizedUrl.port = '';
-        return normalizedUrl.toString().replace(/(^\w+:|^)\/\//, '');
+    getNormalizedUrl = (rawUrl) => {
+        const url = new URL(rawUrl);
+        const searchKeys = [];
+        if (url.search) {
+            for (let key in url.searchParams.entries()) {
+                searchKeys.push(key);
+            }
+        }
+        return {
+            path: url.hostname + url.pathname,
+            searchKeys,
+        };
     };
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url = '', method = '') =>
-        url && method ? [url, method.toLowerCase()].join('_') : '';
+    getKey = (url = '', searchKeys = [], method = '') =>
+        url && method
+            ? [url, ...searchKeys, method.toLowerCase()].join('_')
+            : '';
 
     makeInitialRequestMap = (requests) => {
         if (!requests || !Array.isArray(requests)) {
@@ -47,10 +58,12 @@ export class Faker {
     };
 
     add = (request) => {
-        const normalizedUrl = this.getNormalizedUrl(request.url);
-        const key = this.getKey(normalizedUrl, request.method);
+        const { path, searchKeys } = this.getNormalizedUrl(request.url);
+        const key = this.getKey(path, searchKeys, request.method);
         this.requestMap[key] = {
             ...request,
+            path,
+            searchKeys,
             method: request.method || 'GET',
             status: request.status || 200,
             skip: false,
@@ -59,8 +72,8 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const normalizedUrl = this.getNormalizedUrl(url);
-        const itemKey = this.getKey(normalizedUrl, method);
+        const { path, searchKeys } = this.getNormalizedUrl(url);
+        const itemKey = this.getKey(path, searchKeys, method);
 
         if (
             // eslint-disable-next-line no-prototype-builtins
@@ -73,16 +86,17 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const normalizedUrl = this.getNormalizedUrl(url);
+        const { path, searchKeys } = this.getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
-            const normalizedRequestUrl =
+            const { path: requestPath, searchKeys: requestSearchKeys } =
                 this.getNormalizedUrl(requestUrl);
             if (
-                match(normalizedRequestUrl)(normalizedUrl) &&
+                match(requestPath)(path) &&
                 method == requestMethod &&
+                arrayEquals(searchKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];
