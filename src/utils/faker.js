@@ -28,23 +28,23 @@ export class Faker {
 
     getNormalizedUrl = (rawUrl) => {
         const url = new URL(rawUrl);
-        const searchKeys = [];
+        const searchParamKeys = [];
         if (url.search) {
-            for (let key in url.searchParams.entries()) {
-                searchKeys.push(key);
+            for (let key of url.searchParams.keys()) {
+                searchParamKeys.push(key);
             }
         }
         return {
-            path: url.hostname + url.pathname,
-            searchKeys,
+            path: url.host + url.pathname,
+            searchParamKeys,
         };
     };
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url = '', searchKeys = [], method = '') =>
+    getKey = (url = '', searchParamKeys = [], method = '') =>
         url && method
-            ? [url, ...searchKeys, method.toLowerCase()].join('_')
+            ? [url, ...searchParamKeys, method.toLowerCase()].join('_')
             : '';
 
     makeInitialRequestMap = (requests) => {
@@ -58,12 +58,12 @@ export class Faker {
     };
 
     add = (request) => {
-        const { path, searchKeys } = this.getNormalizedUrl(request.url);
-        const key = this.getKey(path, searchKeys, request.method);
+        const { path, searchParamKeys } = this.getNormalizedUrl(request.url);
+        const key = this.getKey(path, searchParamKeys, request.method);
         this.requestMap[key] = {
             ...request,
             path,
-            searchKeys,
+            searchParamKeys,
             method: request.method || 'GET',
             status: request.status || 200,
             skip: false,
@@ -72,8 +72,8 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const { path, searchKeys } = this.getNormalizedUrl(url);
-        const itemKey = this.getKey(path, searchKeys, method);
+        const { path, searchParamKeys } = this.getNormalizedUrl(url);
+        const itemKey = this.getKey(path, searchParamKeys, method);
 
         if (
             // eslint-disable-next-line no-prototype-builtins
@@ -86,17 +86,17 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const { path, searchKeys } = this.getNormalizedUrl(url);
+        const { path, searchParamKeys } = this.getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
-            const { path: requestPath, searchKeys: requestSearchKeys } =
+            const { path: requestPath, searchParamKeys: requestSearchKeys } =
                 this.getNormalizedUrl(requestUrl);
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
-                arrayEquals(searchKeys, requestSearchKeys) &&
+                arrayEquals(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];

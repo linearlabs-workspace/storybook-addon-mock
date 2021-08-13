@@ -7,30 +7,43 @@ describe('Faker class', () => {
         it('should remove protocol like http', () => {
             const input = 'http://google.com/test';
             const actual = faker.getNormalizedUrl(input);
-            expect(actual).toEqual('google.com/test');
+            expect(actual.path).toEqual('google.com/test');
+            expect(actual.searchParamKeys).toEqual([]);
         });
         it('should remove protocol like https', () => {
             const input = 'https://google.com/test';
             const actual = faker.getNormalizedUrl(input);
-            expect(actual).toEqual('google.com/test');
+            expect(actual.path).toEqual('google.com/test');
+            expect(actual.searchParamKeys).toEqual([]);
         });
 
-        it('should remove port ', () => {
+        it('should keep port with the hostname', () => {
             const input = 'https://google.com:8080/test';
             const actual = faker.getNormalizedUrl(input);
-            expect(actual).toEqual('google.com/test');
+            expect(actual.path).toEqual('google.com:8080/test');
+            expect(actual.searchParamKeys).toEqual([]);
+        });
+        it('should return query params key with the hostname', () => {
+            const input = 'https://google.com:8080/test?all=true&only=false';
+            const actual = faker.getNormalizedUrl(input);
+            expect(actual.path).toEqual('google.com:8080/test');
+            expect(actual.searchParamKeys).toEqual(['all', 'only']);
         });
     });
     describe('getKey', () => {
         const faker = new Faker();
 
         it('should return empty string if url and method are empty strings', () => {
-            const actual = faker.getKey('', '');
+            const actual = faker.getKey('', [], '');
             expect(actual).toEqual('');
         });
-        it('should return a string binding url and method with underscore', () => {
-            const actual = faker.getKey('google.com', 'GET');
+        it('should return a string binding url and method with underscore if searchParamKeys is empty', () => {
+            const actual = faker.getKey('google.com', [], 'GET');
             expect(actual).toEqual('google.com_get');
+        });
+        it('should return a string binding url, search params keys, and method with underscore', () => {
+            const actual = faker.getKey('google.com', ['all', 'only'], 'GET');
+            expect(actual).toEqual('google.com_all_only_get');
         });
     });
     describe('makeInitialRequestMap', () => {
