@@ -26,7 +26,7 @@ export class Faker {
         this.requestMap = {};
     }
 
-    getNormalizedUrl = (rawUrl) => {
+    getNormalizedUrl = (rawUrl = '') => {
         const url = new URL(rawUrl);
         const searchParamKeys = [];
         if (url.search) {
