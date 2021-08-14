@@ -11,7 +11,7 @@ export const Field = ({ label, children }) => (
 
 Field.propTypes = {
     label: PropTypes.string,
-    children: PropTypes.children,
+    children: PropTypes.node,
 };
 
 Field.defaultProps = {

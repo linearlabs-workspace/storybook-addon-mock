@@ -32,14 +32,9 @@ export const RequestItem = ({
             <Row>
                 <Field label="Method"> {method} </Field>
                 <Field label="Status">
-                    <Select onChange={onStatusChange}>
+                    <Select onChange={onStatusChange} value={status.toString()}>
                         {statusCodes.map((option) => (
-                            <option
-                                key={option}
-                                selected={option == status.toString()}
-                            >
-                                {option}
-                            </option>
+                            <option key={option}>{option}</option>
                         ))}
                     </Select>
                 </Field>
