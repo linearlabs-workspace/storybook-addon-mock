@@ -1,6 +1,6 @@
 import { Faker } from './faker';
 
-describe('Faker class', () => {
+describe('Faker', () => {
     describe('getNormalizedUrl', () => {
         const faker = new Faker();
 
@@ -8,6 +8,18 @@ describe('Faker class', () => {
             const input = 'http://google.com/test';
             const actual = faker.getNormalizedUrl(input);
             expect(actual.path).toEqual('google.com/test');
+            expect(actual.searchParamKeys).toEqual([]);
+        });
+        it('should return relative path', () => {
+            const input = '/test/foo/bar';
+            const actual = faker.getNormalizedUrl(input);
+            expect(actual.path).toEqual('localhost/test/foo/bar');
+            expect(actual.searchParamKeys).toEqual([]);
+        });
+        it('should return relative path without slash infront', () => {
+            const input = 'test/foo/bar';
+            const actual = faker.getNormalizedUrl(input);
+            expect(actual.path).toEqual('localhost/test/foo/bar');
             expect(actual.searchParamKeys).toEqual([]);
         });
         it('should remove protocol like https', () => {

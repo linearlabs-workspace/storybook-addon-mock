@@ -27,7 +27,9 @@ export class Faker {
     }
 
     getNormalizedUrl = (rawUrl = '') => {
-        const url = new URL(rawUrl);
+        const baseUrl =
+            rawUrl.indexOf('http') == 0 ? undefined : 'http://localhost';
+        const url = new URL(rawUrl, baseUrl);
         const searchParamKeys = [];
         if (url.search) {
             for (let key of url.searchParams.keys()) {
