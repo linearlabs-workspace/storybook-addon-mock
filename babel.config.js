@@ -11,6 +11,7 @@ module.exports = {
         ],
         '@babel/preset-react',
     ],
+    ignore: ['**/*.test.js'],
     plugins: [
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-transform-modules-commonjs',

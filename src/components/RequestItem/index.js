@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
+import enLocale from 'react-json-editor-ajrm/locale/en';
 import { Checkbox, Row, Container, Select } from './styled';
 import { Field } from '../Field';
 import statusTextMap from '../../utils/statusMap';
@@ -42,6 +43,7 @@ export const RequestItem = ({
 
             <Field label="Response">
                 <JSONInput
+                    locale={enLocale}
                     onBlur={onResponseChange}
                     placeholder={response}
                     colors={{
