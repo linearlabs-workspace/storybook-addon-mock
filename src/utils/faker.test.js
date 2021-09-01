@@ -94,18 +94,21 @@ describe('Faker', () => {
                 method: 'GET',
                 status: 200,
                 response: {},
+                delay: 0,
             },
             {
                 url: 'http://request1.com/1',
                 method: 'PUT',
                 status: 201,
                 response: {},
+                delay: 0,
             },
             {
                 url: 'http://request2.com/:id',
                 method: 'POST',
                 status: 404,
                 response: {},
+                delay: 0,
             },
         ];
         faker.makeInitialRequestMap(requests);
