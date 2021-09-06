@@ -22,12 +22,8 @@ const MockPanel = () => {
         emit(ADDONS_MOCK_UPDATE_DATA, item, 'skip', !item.skip);
     };
 
-    const onStatusChange = (item, value) => {
-        emit(ADDONS_MOCK_UPDATE_DATA, item, 'status', value);
-    };
-
-    const onResponseChange = (item, value) => {
-        emit(ADDONS_MOCK_UPDATE_DATA, item, 'response', value);
+    const onRequestChange = (item, key, value) => {
+        emit(ADDONS_MOCK_UPDATE_DATA, item, key, value);
     };
 
     return (
@@ -41,12 +37,10 @@ const MockPanel = () => {
                     method={item.method}
                     status={item.status}
                     response={item.response}
+                    delay={item.delay}
                     onToggle={() => onSkip(item)}
-                    onStatusChange={(event) =>
-                        onStatusChange(item, event.target.value)
-                    }
-                    onResponseChange={(value) =>
-                        onResponseChange(item, value.jsObject)
+                    onFieldChange={(value, name) =>
+                        onRequestChange(item, name, value)
                     }
                 />
             ))}

@@ -116,6 +116,7 @@ storiesOf('Storybook Addon Mock Request', module)
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
                 status: 200,
+                delay: 0,
                 response: {
                     data: 'This is a MOCK response!',
                 },

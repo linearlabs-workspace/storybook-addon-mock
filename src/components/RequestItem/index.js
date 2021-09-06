@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
 import enLocale from 'react-json-editor-ajrm/locale/en';
-import { Checkbox, Row, Container, Select } from './styled';
+import { Checkbox, Row, Container, Select, Input } from './styled';
 import { Field } from '../Field';
 import statusTextMap from '../../utils/statusMap';
 
@@ -14,10 +14,20 @@ export const RequestItem = ({
     method,
     status,
     response,
+    delay,
     onToggle,
-    onStatusChange,
-    onResponseChange,
+    onFieldChange,
 }) => {
+    const onChangeHandler = ({ target }) => {
+        const { name, value, type } = target;
+
+        if (type === 'number') {
+            onFieldChange(+value, name);
+        } else {
+            onFieldChange(value, name);
+        }
+    };
+
     return (
         <Container>
             <Row>
@@ -33,18 +43,37 @@ export const RequestItem = ({
             <Row>
                 <Field label="Method"> {method} </Field>
                 <Field label="Status">
-                    <Select onChange={onStatusChange} value={status.toString()}>
+                    <Select
+                        name="status"
+                        onChange={onChangeHandler}
+                        value={status.toString()}
+                    >
                         {statusCodes.map((option) => (
                             <option key={option}>{option}</option>
                         ))}
                     </Select>
                 </Field>
             </Row>
+            <Row>
+                <Field />
+                <Field label="Delay">
+                    <Input
+                        min={0}
+                        name="delay"
+                        value={delay}
+                        type="number"
+                        onChange={onChangeHandler}
+                    />
+                </Field>
+            </Row>
 
             <Field label="Response">
                 <JSONInput
+                    name="response"
                     locale={enLocale}
-                    onBlur={onResponseChange}
+                    onBlur={(value) =>
+                        onFieldChange(value.jsObject, 'response')
+                    }
                     placeholder={response}
                     colors={{
                         default: 'black',
@@ -76,9 +105,9 @@ RequestItem.propTypes = {
     url: PropTypes.string,
     skip: PropTypes.bool,
     method: PropTypes.string,
+    delay: PropTypes.number,
     status: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     response: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     onToggle: PropTypes.func,
-    onStatusChange: PropTypes.func,
-    onResponseChange: PropTypes.func,
+    onFieldChange: PropTypes.func,
 };
