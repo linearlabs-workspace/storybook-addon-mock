@@ -1,7 +1,7 @@
 {
   "name": "storybook-addon-mock",
-  "version": "1.3.0",
-  "description": "A storybook addon to mock http request",
+  "version": "1.4.0",
+  "description": "A storybook addon to mock fetch/XHR request",
   "main": "dist/index.js",
   "scripts": {
     "storybook": "yarn run build && start-storybook -p 6006 --no-manager-cache",
