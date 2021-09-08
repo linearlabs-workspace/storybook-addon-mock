@@ -4,7 +4,7 @@ export const FieldContainer = styled.div`
     display: flex;
     flex: 1 0 0;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: ${({ label }) => (label ? 'space-around' : 'flex-start')};
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 12px;
