@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
 import enLocale from 'react-json-editor-ajrm/locale/en';
-import { Checkbox, Row, Container, Select, Input } from './styled';
+import { Row, Container, Select, Input } from './styled';
 import { Field } from '../Field';
+import { PlayButton } from '../PlayButton';
 import statusTextMap from '../../utils/statusMap';
 
 const statusCodes = Object.keys(statusTextMap);
@@ -31,17 +32,13 @@ export const RequestItem = ({
     return (
         <Container>
             <Row>
-                <Field label="URL"> {url} </Field>
-                <Field label="Enable mock">
-                    <Checkbox
-                        type="checkbox"
-                        checked={!skip}
-                        onChange={onToggle}
-                    />
+                <Field>
+                    <PlayButton play={!skip} onClick={onToggle} />
                 </Field>
+                <Field />
             </Row>
             <Row>
-                <Field label="Method"> {method} </Field>
+                <Field label="URL"> {url} </Field>
                 <Field label="Status">
                     <Select
                         name="status"
@@ -55,8 +52,8 @@ export const RequestItem = ({
                 </Field>
             </Row>
             <Row>
-                <Field />
-                <Field label="Delay">
+                <Field label="Method"> {method} </Field>
+                <Field label="Delay (ms)">
                     <Input
                         min={0}
                         name="delay"
@@ -66,37 +63,39 @@ export const RequestItem = ({
                     />
                 </Field>
             </Row>
-
-            <Field label="Response">
-                <JSONInput
-                    name="response"
-                    locale={enLocale}
-                    onBlur={(value) =>
-                        onFieldChange(value.jsObject, 'response')
-                    }
-                    placeholder={response}
-                    colors={{
-                        default: 'black',
-                        background: 'white',
-                        string: 'black',
-                        number: 'black',
-                        colon: 'black',
-                        keys: 'black',
-                        error: 'black',
-                    }}
-                    style={{
-                        warningBox: {
+            <Row>
+                <Field label="Response">
+                    <JSONInput
+                        name="response"
+                        locale={enLocale}
+                        onBlur={(value) =>
+                            onFieldChange(value.jsObject, 'response')
+                        }
+                        placeholder={response}
+                        colors={{
+                            default: 'black',
                             background: 'white',
-                        },
-                        body: {
-                            fontFamily: 'inherit',
-                            fontSize: '12px',
-                        },
-                    }}
-                    waitAfterKeyPress={1000}
-                    height="120px"
-                />
-            </Field>
+                            string: 'black',
+                            number: 'black',
+                            colon: 'black',
+                            keys: 'black',
+                            error: 'black',
+                        }}
+                        style={{
+                            warningBox: {
+                                background: 'white',
+                            },
+                            body: {
+                                fontFamily: 'inherit',
+                                fontSize: '12px',
+                            },
+                        }}
+                        waitAfterKeyPress={1000}
+                        height="120px"
+                    />
+                </Field>
+                <Field />
+            </Row>
         </Container>
     );
 };

@@ -6,25 +6,22 @@ export const Container = styled.div`
     border-bottom: none;
 `;
 
-export const Checkbox = styled.input`
-    height: 20px;
-    width: 20px;
-`;
-
 export const Select = styled.select`
-    height: 24px;
-    width: 60px;
+    height: 32px;
+    width: 80px;
     border-radius: 2px;
-    border: 1px solid;
+    border: 1px solid #ddd;
     font-size: 14px;
+    padding: 4px 12px;
 `;
 
 export const Input = styled.input`
-    height: 24px;
-    width: 60px;
+    height: 32px;
+    width: 80px;
     border-radius: 2px;
-    border: 1px solid;
+    border: 1px solid #ddd;
     font-size: 14px;
+    padding: 4px 12px;
 `;
 
 export const Row = styled.div`
