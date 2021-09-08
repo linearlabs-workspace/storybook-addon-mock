@@ -22,6 +22,7 @@
     "mock",
     "http-mock",
     "fetch-mock",
+    "xhr-mock",
     "mock-data",
     "storybook-addon",
     "data-state",
@@ -34,10 +35,8 @@
     "@emotion/styled": "^11.1.5",
     "@storybook/addons": "^6.2.9",
     "@storybook/react": "^6.2.9",
-    "eslint-plugin-prettier": "^3.4.0",
     "mock-xmlhttprequest": "^7.0.3",
     "path-to-regexp": "^6.2.0",
-    "prettier": "^2.3.2",
     "react-json-editor-ajrm": "^2.5.13"
   },
   "devDependencies": {
@@ -55,8 +54,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.1",
     "jest": "^27.0.6",
+    "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
