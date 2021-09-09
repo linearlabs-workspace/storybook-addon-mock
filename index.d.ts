@@ -1,4 +1,3 @@
-import { StoryFn } from '@storybook/addons';
+declare const withMock: (storyFn: any) => any;
 
-export default withMock = (storyFn: StoryFn) => JSX.Element
-
+export default withMock;
