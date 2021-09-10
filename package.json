@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mock",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A storybook addon to mock fetch/XHR request",
   "main": "dist/index.js",
   "types": "index.d.ts",
