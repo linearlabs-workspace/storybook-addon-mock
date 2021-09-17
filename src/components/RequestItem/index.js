@@ -2,10 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
 import enLocale from 'react-json-editor-ajrm/locale/en';
-import { Row, Container, Select, Input } from './styled';
 import { Field } from '../Field';
 import { PlayButton } from '../PlayButton';
 import statusTextMap from '../../utils/statusMap';
+
+const containerStyles = {
+    margin: '12px',
+    border: '1px solid #ddd',
+    borderBottom: 'none',
+};
+
+const selectStyles = {
+    height: '32px',
+    width: '80px',
+    borderRadius: '2px',
+    border: '1px solid #ddd',
+    fontSize: '14px',
+    padding: '4px 12px',
+};
+
+const inputStyles = {
+    height: '32px',
+    width: '80px',
+    borderRadius: '2px',
+    border: '1px solid #ddd',
+    fontSize: '14px',
+    padding: '4px 12px',
+};
+
+const rowStyles = {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '1 0 0',
+};
 
 const statusCodes = Object.keys(statusTextMap);
 
@@ -30,17 +59,17 @@ export const RequestItem = ({
     };
 
     return (
-        <Container>
-            <Row>
+        <div style={containerStyles}>
+            <div style={rowStyles}>
                 <Field>
                     <PlayButton play={!skip} onClick={onToggle} />
                 </Field>
                 <Field />
-            </Row>
-            <Row>
+            </div>
+            <div style={rowStyles}>
                 <Field label="URL"> {url} </Field>
                 <Field label="Status">
-                    <Select
+                    <select style={selectStyles}
                         name="status"
                         onChange={onChangeHandler}
                         value={status.toString()}
@@ -48,22 +77,23 @@ export const RequestItem = ({
                         {statusCodes.map((option) => (
                             <option key={option}>{option}</option>
                         ))}
-                    </Select>
+                    </select>
                 </Field>
-            </Row>
-            <Row>
+            </div>
+            <div style={rowStyles}>
                 <Field label="Method"> {method} </Field>
                 <Field label="Delay (ms)">
-                    <Input
+                    <input
                         min={0}
                         name="delay"
                         value={delay}
                         type="number"
                         onChange={onChangeHandler}
+                        style={inputStyles}
                     />
                 </Field>
-            </Row>
-            <Row>
+            </div>
+            <div style={rowStyles}>
                 <Field label="Response">
                     <JSONInput
                         name="response"
@@ -95,8 +125,8 @@ export const RequestItem = ({
                     />
                 </Field>
                 <Field />
-            </Row>
-        </Container>
+            </div>
+        </div>
     );
 };
 
