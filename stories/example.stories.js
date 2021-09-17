@@ -1,34 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import styled from '@emotion/styled';
 import { storiesOf } from '@storybook/react';
 import withMock from '../dist';
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-`;
+const containerStyles = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+}
 
-const ErrorContainer = styled.div`
-    color: red;
-`;
+const errorContainerStyles = {
+    color: 'red',
+};
 
-const ResponseContainer = styled.div`
-    min-width: 300px;
-`;
+const responseContainerStyles = {
+    minWidth: '300px',
+};
 
-const Button = styled.button`
-    border: 1px solid #127ec3;
-    border-radius: 3px;
-    background-color: #1fa7fd;
-    cursor: pointer;
-    font-size: 15px;
-    padding: 12px;
-    margin: 12px 0;
-    color: white;
-`;
+const buttonStyles = {
+    border: '1px solid #127ec3',
+    borderRadius: '3px',
+    backgroundColor: '#1fa7fd',
+    cursor: 'pointer',
+    fontSize: '15px',
+    padding: '12px',
+    margin: '12px 0',
+    color: 'white',
+};
 
 const callFetch = async () => {
     let data = null;
@@ -102,17 +101,17 @@ const MockExample = ({ title, onRequest }) => {
     return (
         <div>
             <h3>{title}</h3>
-            <Button onClick={requestForData}>Click me!</Button>
+            <button style={buttonStyles} onClick={requestForData}>Click me!</button>
             {loading ? (
-                <ResponseContainer>Loading...</ResponseContainer>
+                <div style={responseContainerStyles}>Loading...</div>
             ) : (
-                <ResponseContainer>
+                <div style={responseContainerStyles}>
                     {status && <div>Status: {status}</div>}
                     {error && (
-                        <ErrorContainer>
+                        <div style={errorContainerStyles}>
                             Error:
                             <pre>{JSON.stringify(error, null, 2)}</pre>
-                        </ErrorContainer>
+                        </div>
                     )}
                     {data && (
                         <div>
@@ -120,7 +119,7 @@ const MockExample = ({ title, onRequest }) => {
                             <pre>{JSON.stringify(data, null, 2)}</pre>
                         </div>
                     )}
-                </ResponseContainer>
+                </div>
             )}
         </div>
     );
@@ -133,10 +132,10 @@ MockExample.propTypes = {
 
 const MockRequestComponent = () => {
     return (
-        <Container>
+        <div style={containerStyles}>
             <MockExample title="Fetch" onRequest={callFetch} />
             <MockExample title="XHR(Axios)" onRequest={callAxios} />
-        </Container>
+        </div>
     );
 };
 
