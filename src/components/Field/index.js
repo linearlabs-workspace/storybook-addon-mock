@@ -26,17 +26,9 @@ export const Field = ({ label, children }) => {
     };
 
     return (
-        <div style={fieldContainerStyles} label={label}>
+        <div style={fieldContainerStyles}>
             {label && <div style={labelStyles}>{label}</div>}
             <div className="storybook-addon-mock-fieldItem" style={fieldItemStyles}>
-                <style>{`
-                    .storybook-addon-mock-fieldItem > div > div > svg > path {
-                        opacity: 0;
-                    }
-                    .storybook-addon-mock-fieldItem > div > div > div > span > div > div > svg > path {
-                        opacity: 0;
-                    }
-                `}</style>
                 {children}
             </div>
         </div>

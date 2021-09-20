@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import JSONInput from 'react-json-editor-ajrm';
 import enLocale from 'react-json-editor-ajrm/locale/en';
 import { Field } from '../Field';
+import { GlobalStyles } from '../GlobalStyles';
 import { PlayButton } from '../PlayButton';
 import statusTextMap from '../../utils/statusMap';
 
@@ -60,6 +61,7 @@ export const RequestItem = ({
 
     return (
         <div style={containerStyles}>
+            <GlobalStyles />
             <div style={rowStyles}>
                 <Field>
                     <PlayButton play={!skip} onClick={onToggle} />
