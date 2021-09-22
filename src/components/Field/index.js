@@ -28,11 +28,14 @@ export const Field = ({ label, children }) => {
     return (
         <div style={fieldContainerStyles}>
             {label && <div style={labelStyles}>{label}</div>}
-            <div className="storybook-addon-mock-fieldItem" style={fieldItemStyles}>
+            <div
+                className="storybook-addon-mock-fieldItem"
+                style={fieldItemStyles}
+            >
                 {children}
             </div>
         </div>
-    )
+    );
 };
 
 Field.propTypes = {
