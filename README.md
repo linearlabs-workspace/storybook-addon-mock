@@ -1,9 +1,9 @@
-# Storybook Addon Mock Request
+<div align="center">
+        <img src="https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.png" alt="Storybook addon mock request" />
+        <h1>Storybook Addon Mock</h1>
+</div>
 
 [![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock) [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions) ![npm](https://img.shields.io/npm/dm/storybook-addon-mock.svg) [![npm version](https://badge.fury.io/js/storybook-addon-mock.svg)](https://badge.fury.io/js/storybook-addon-mock)
-<a href="https://twitter.com/intent/follow?screen_name=nutboltu">
-<img src="https://img.shields.io/twitter/follow/nutboltu.svg?label=Follow%20@nutboltu" alt="Follow @nutboltu" />
-</a>
 
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 

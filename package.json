@@ -63,7 +63,8 @@
     "react-dom": "^16.8.0"
   },
   "storybook": {
-    "displayName": "Mock Request",
+    "displayName": "Mock API Request",
+    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.png",
     "supportedFrameworks": [
       "react"
     ]
