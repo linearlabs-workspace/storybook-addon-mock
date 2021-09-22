@@ -71,7 +71,8 @@ export const RequestItem = ({
             <div style={rowStyles}>
                 <Field label="URL"> {url} </Field>
                 <Field label="Status">
-                    <select style={selectStyles}
+                    <select
+                        style={selectStyles}
                         name="status"
                         onChange={onChangeHandler}
                         value={status.toString()}

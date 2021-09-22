@@ -1,7 +1,8 @@
 import React from 'react';
 
 export const GlobalStyles = () => (
-  <style>{`
+    <style>
+        {`
         .storybook-addon-mock-fieldItem > div > div > svg > path {
             opacity: 0;
         }
@@ -9,5 +10,5 @@ export const GlobalStyles = () => (
             opacity: 0;
         }
     `}
-  </style>
+    </style>
 );

@@ -8,7 +8,7 @@ const containerStyles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-}
+};
 
 const errorContainerStyles = {
     color: 'red',
@@ -101,7 +101,9 @@ const MockExample = ({ title, onRequest }) => {
     return (
         <div>
             <h3>{title}</h3>
-            <button style={buttonStyles} onClick={requestForData}>Click me!</button>
+            <button style={buttonStyles} onClick={requestForData}>
+                Click me!
+            </button>
             {loading ? (
                 <div style={responseContainerStyles}>Loading...</div>
             ) : (
