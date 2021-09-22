@@ -64,7 +64,7 @@
   },
   "storybook": {
     "displayName": "Mock API Request",
-    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.png",
+    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg",
     "supportedFrameworks": [
       "react"
     ]
