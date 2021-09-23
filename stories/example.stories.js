@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { storiesOf } from '@storybook/react';
+import { UserGuide } from './components/user-guide';
 import withMock from '../dist';
 
 const containerStyles = {
@@ -16,6 +17,9 @@ const errorContainerStyles = {
 
 const responseContainerStyles = {
     minWidth: '300px',
+    minHeight: '110px',
+    background: '#ddd',
+    padding: '12px',
 };
 
 const buttonStyles = {
@@ -99,30 +103,33 @@ const MockExample = ({ title, onRequest }) => {
     };
     const { data, error, status } = response;
     return (
-        <div>
-            <h3>{title}</h3>
-            <button style={buttonStyles} onClick={requestForData}>
-                Click me!
-            </button>
-            {loading ? (
-                <div style={responseContainerStyles}>Loading...</div>
-            ) : (
-                <div style={responseContainerStyles}>
-                    {status && <div>Status: {status}</div>}
-                    {error && (
-                        <div style={errorContainerStyles}>
-                            Error:
-                            <pre>{JSON.stringify(error, null, 2)}</pre>
-                        </div>
-                    )}
-                    {data && (
-                        <div>
-                            Response:
-                            <pre>{JSON.stringify(data, null, 2)}</pre>
-                        </div>
-                    )}
-                </div>
-            )}
+        <div style={containerStyles}>
+            <div>
+                <h3>{title}</h3>
+                <button style={buttonStyles} onClick={requestForData}>
+                    Request
+                </button>
+                {loading ? (
+                    <div style={responseContainerStyles}>Loading...</div>
+                ) : (
+                    <div style={responseContainerStyles}>
+                        {status && <div>Status: {status}</div>}
+                        {error && (
+                            <div style={errorContainerStyles}>
+                                Error:
+                                <pre>{JSON.stringify(error, null, 2)}</pre>
+                            </div>
+                        )}
+                        {data && (
+                            <div>
+                                Response:
+                                <pre>{JSON.stringify(data, null, 2)}</pre>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+            <UserGuide />
         </div>
     );
 };
@@ -132,27 +139,27 @@ MockExample.propTypes = {
     onRequest: PropTypes.func,
 };
 
-const MockRequestComponent = () => {
-    return (
-        <div style={containerStyles}>
-            <MockExample title="Fetch" onRequest={callFetch} />
-            <MockExample title="XHR(Axios)" onRequest={callAxios} />
-        </div>
-    );
-};
+const mockData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'GET',
+        status: 200,
+        delay: 0,
+        response: {
+            data: 'Hello storybook-addon-mock!',
+        },
+    },
+];
 
-storiesOf('Storybook Addon Mock Request', module)
+storiesOf('Storybook-addon-mock', module)
     .addDecorator(withMock)
-    .add('Mocking fetch and axios', () => <MockRequestComponent />, {
-        mockData: [
-            {
-                url: 'https://jsonplaceholder.typicode.com/todos/:id',
-                method: 'GET',
-                status: 200,
-                delay: 0,
-                response: {
-                    data: 'This is a MOCK response!',
-                },
-            },
-        ],
-    });
+    .add(
+        'Fetch request',
+        () => <MockExample title="Fetch" onRequest={callFetch} />,
+        { mockData }
+    )
+    .add(
+        'Axios request',
+        () => <MockExample title="XHR(Axios)" onRequest={callAxios} />,
+        { mockData }
+    );
