@@ -9,7 +9,7 @@
 
 This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend requests, and your backend requests are not ready yet to feed your component, this addon provides mock response to build your component.
 
-[Live Demo](https://nutboltu.github.io/storybook-addon-mock)
+[Live playground  :rocket:](https://nutboltu.github.io/storybook-addon-mock)
 
 ## Why we need this
 
@@ -108,6 +108,11 @@ storiesOf('Mock Response Story', module)
         ],
     });
 ```
+
+## User guide
+
+
+[See the documentation - User guide](https://nutboltu.github.io/storybook-addon-mock)
 
 ## License
 
