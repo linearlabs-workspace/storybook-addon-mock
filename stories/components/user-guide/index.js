@@ -19,7 +19,7 @@ const guideItem = {
 
 export const UserGuide = () => (
     <p style={userGuideStyles}>
-        <strong>User Guide </strong>
+        <h2>User Guide</h2>
         <ul>
             <li style={guideItem}>
                 Use the{' '}
