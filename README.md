@@ -1,5 +1,5 @@
 <div align="center">
-        <img src="https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg" alt="Storybook addon mock" />
+        <img src="https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg" alt="Storybook addon mock" height="150" />
         <h1>Storybook Addon Mock</h1>
 </div>
 
