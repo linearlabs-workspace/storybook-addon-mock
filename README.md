@@ -9,7 +9,7 @@
 
 This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend requests, and your backend requests are not ready yet to feed your component, this addon provides mock response to build your component.
 
-[Live playground  :rocket:](https://nutboltu.github.io/storybook-addon-mock)
+[Live Demo :rocket:](https://nutboltu.github.io/storybook-addon-mock)
 
 ## Why we need this
 
@@ -19,11 +19,11 @@ There are few packages those help the developers to mock the backend requests wh
 
 | Property   | Description                                                                                 | Required | Default |
 | ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**(`/foo?bar=true`) | Y        |         |
-| `method`   | Supports `GET`, `POST` and `PUT` methods                                                    |          | `GET`   |
-| `status`   | All possible HTTP status codes                                                              |          | `200`   |
-| `response` | JSON format                                                                                 | Y        |         |
-| `delay`    | Emulate delayed response time in milliseconds                                               |          | `0`     |
+| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**(`/foo?bar=true`) | Y        |     -    |
+| `method`   | Supports `GET`, `POST` and `PUT` methods                                                    |    -      | `GET`   |
+| `status`   | All possible HTTP status codes                                                              |    -      | `200`   |
+| `response` | JSON format                                                                                 | Y        |     -    |
+| `delay`    | Emulate delayed response time in milliseconds                                               |      -    | `0`     |
 
 > You can change the **status**, **response** and **delay** from the storybook panel on the fly! :rocket:
 
@@ -70,7 +70,7 @@ Default.parameters = {
             method: 'GET',
             status: 200,
             response: {
-                data: 'This is a Mock Response!',
+                data: 'Hello storybook-addon-mock!',
             },
         },
     ],
@@ -102,7 +102,7 @@ storiesOf('Mock Response Story', module)
                 method: 'GET',
                 status: 200,
                 response: {
-                    data: 'This is a Mock Response!',
+                    data: 'Hello storybook-addon-mock!',
                 },
             },
         ],

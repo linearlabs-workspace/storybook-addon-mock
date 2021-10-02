@@ -170,6 +170,6 @@ storiesOf('Storybook-addon-mock', module)
     )
     .add(
         'Axios request',
-        () => <MockExample title="XHR(Axios)" onRequest={callAxios} />,
+        () => <MockExample title="Axios(XHR)" onRequest={callAxios} />,
         { mockData }
     );

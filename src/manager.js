@@ -31,7 +31,6 @@ const MockPanel = () => {
             {mockData.map((item, index) => (
                 <RequestItem
                     key={index}
-                    title={item.name || `Request ${index + 1}`}
                     url={item.url}
                     skip={item.skip}
                     method={item.method}
