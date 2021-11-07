@@ -26,19 +26,26 @@ export class Faker {
         this.requestMap = {};
     }
 
+    isFunction = (val) => toString.call(val) === '[object Function]';
+
+    isObjectOrArray = (val) => val !== null && typeof val === 'object';
+
     getNormalizedUrl = (rawUrl = '') => {
         const baseUrl =
             rawUrl.indexOf('http') == 0 ? undefined : 'http://localhost';
         const url = new URL(rawUrl, baseUrl);
-        const searchParamKeys = [];
+        let searchParamKeys = [];
+        const searchParamEntries = Array.from(
+            url.searchParams.entries()
+        ).reduce((current, [key, value]) => ({ ...current, [key]: value }), {});
+
         if (url.search) {
-            for (let key of url.searchParams.keys()) {
-                searchParamKeys.push(key);
-            }
+            searchParamKeys = Array.from(url.searchParams.keys());
         }
         return {
             path: url.host + url.pathname,
             searchParamKeys,
+            searchParamEntries,
         };
     };
 
@@ -89,20 +96,27 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const { path, searchParamKeys } = this.getNormalizedUrl(url);
+        const { path, searchParamKeys, searchParamEntries } =
+            this.getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
             const { path: requestPath, searchParamKeys: requestSearchKeys } =
                 this.getNormalizedUrl(requestUrl);
+
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
                 arrayEquals(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
-                return this.requestMap[key];
+                let { response, searchFunc, ...rest } = this.requestMap[key];
+                if (this.isFunction(searchFunc)) {
+                    response = (response, searchParamEntries);
+                }
+
+                return { response, ...rest };
             }
         }
 
