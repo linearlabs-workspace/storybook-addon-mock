@@ -19,11 +19,19 @@ const MockPanel = () => {
     });
 
     const onSkip = (item) => {
-        emit(ADDONS_MOCK_UPDATE_DATA, item, 'skip', !item.skip);
+        emit(ADDONS_MOCK_UPDATE_DATA, {
+            item,
+            key: 'skip',
+            value: !item.skip,
+        });
     };
 
     const onRequestChange = (item, key, value) => {
-        emit(ADDONS_MOCK_UPDATE_DATA, item, key, value);
+        emit(ADDONS_MOCK_UPDATE_DATA, {
+            item,
+            key,
+            value,
+        });
     };
 
     return (
