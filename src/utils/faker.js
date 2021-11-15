@@ -44,7 +44,7 @@ export class Faker {
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url = '', searchParamKeys = [], method = '') =>
+    getKey = (url = '', searchParamKeys = [], method = 'GET') =>
         url && method
             ? [url, ...searchParamKeys, method.toLowerCase()].join('_')
             : '';
