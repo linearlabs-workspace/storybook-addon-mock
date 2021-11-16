@@ -98,34 +98,38 @@ export const RequestItem = ({
             </div>
             <div style={rowStyles}>
                 <Field label="Response">
-                    <JSONInput
-                        name="response"
-                        locale={enLocale}
-                        onBlur={(value) =>
-                            onFieldChange(value.jsObject, 'response')
-                        }
-                        placeholder={response}
-                        colors={{
-                            default: 'black',
-                            background: 'white',
-                            string: 'black',
-                            number: 'black',
-                            colon: 'black',
-                            keys: 'black',
-                            error: 'black',
-                        }}
-                        style={{
-                            warningBox: {
+                    {typeof response === 'function' ? (
+                        response.toString()
+                    ) : (
+                        <JSONInput
+                            name="response"
+                            locale={enLocale}
+                            onBlur={(value) =>
+                                onFieldChange(value.jsObject, 'response')
+                            }
+                            placeholder={response}
+                            colors={{
+                                default: 'black',
                                 background: 'white',
-                            },
-                            body: {
-                                fontFamily: 'inherit',
-                                fontSize: '12px',
-                            },
-                        }}
-                        waitAfterKeyPress={1000}
-                        height="120px"
-                    />
+                                string: 'black',
+                                number: 'black',
+                                colon: 'black',
+                                keys: 'black',
+                                error: 'black',
+                            }}
+                            style={{
+                                warningBox: {
+                                    background: 'white',
+                                },
+                                body: {
+                                    fontFamily: 'inherit',
+                                    fontSize: '12px',
+                                },
+                            }}
+                            waitAfterKeyPress={1000}
+                            height="120px"
+                        />
+                    )}
                 </Field>
                 <Field />
             </div>
@@ -139,7 +143,11 @@ RequestItem.propTypes = {
     method: PropTypes.string,
     delay: PropTypes.number,
     status: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    response: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    response: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.array,
+        PropTypes.func,
+    ]),
     onToggle: PropTypes.func,
     onFieldChange: PropTypes.func,
 };

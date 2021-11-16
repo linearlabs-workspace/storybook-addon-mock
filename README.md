@@ -19,11 +19,11 @@ There are few packages those help the developers to mock the backend requests wh
 
 | Property   | Description                                                                                 | Required | Default |
 | ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**(`/foo?bar=true`) | Y        |     -    |
-| `method`   | Supports `GET`, `POST` and `PUT` methods                                                    |    -      | `GET`   |
-| `status`   | All possible HTTP status codes                                                              |    -      | `200`   |
-| `response` | JSON format                                                                                 | Y        |     -    |
-| `delay`    | Emulate delayed response time in milliseconds                                               |      -    | `0`     |
+| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**(`/foo?bar=true`) | Y        |    -    |
+| `method`   | Supports `GET`, `POST` and `PUT` methods                                                    |     -    | `GET`   |
+| `status`   | All possible HTTP status codes                                                              |     -    | `200`   |
+| `response` | JSON format or function `({ url: string, method: string, body: string | null }) => JSON`    | Y        |    -    |
+| `delay`    | Emulate delayed response time in milliseconds                                               |     -    | `0`     |
 
 > You can change the **status**, **response** and **delay** from the storybook panel on the fly! :rocket:
 
@@ -107,6 +107,38 @@ storiesOf('Mock Response Story', module)
             },
         ],
     });
+```
+
+### Custom Response
+
+```js
+import React from 'react';
+import withMock from 'storybook-addon-mock';
+import Component from './Component';
+
+export default {
+    title: 'Component',
+    component: Component,
+    decorators: [withMock],
+};
+
+const Template = (args) => <Component {...args} />;
+
+export const Default = Template.bind({});
+Default.parameters = {
+    mockData: [
+        {
+            url: 'https://jsonplaceholder.typicode.com/todos/1',
+            method: 'GET',
+            status: 200,
+            response: (req) => {
+                return {
+                    data: `Hello ${JSON.parse(req).name}`,
+                };
+            },
+        },
+    ],
+};
 ```
 
 ## User guide

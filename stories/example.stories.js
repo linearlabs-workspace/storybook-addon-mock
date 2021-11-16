@@ -99,6 +99,68 @@ const callAxios = async () => {
     };
 };
 
+const callPostFetch = async () => {
+    let data = null;
+    let error = null;
+    let status = null;
+
+    try {
+        const response = await fetch(
+            'https://jsonplaceholder.typicode.com/todos/1',
+            {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    name: 'foo',
+                }),
+            }
+        );
+        const responseData = await response.json();
+
+        if (response.ok) {
+            data = responseData;
+        } else {
+            error = responseData;
+        }
+        status = response.status;
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+        error = err;
+    }
+    return {
+        data,
+        error,
+        status,
+    };
+};
+
+const callPostAxios = async () => {
+    let data = null;
+    let error = null;
+    let status = null;
+
+    try {
+        const response = await axios.post(
+            'https://jsonplaceholder.typicode.com/todos/1',
+            { name: 'foo' }
+        );
+        data = response.data;
+        status = response.status;
+    } catch (err) {
+        error = err.response.data;
+        status = err.response.status;
+    }
+    return {
+        data,
+        error,
+        status,
+    };
+};
+
 const MockExample = ({ title, onRequest }) => {
     const [response, setResponse] = useState({});
     const [loading, setLoading] = useState(false);
@@ -161,6 +223,18 @@ const mockData = [
     },
 ];
 
+const mockPostData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'POST',
+        status: 200,
+        delay: 0,
+        response: (req) => {
+            return { data: `Hello ${JSON.parse(req.body).name}` };
+        },
+    },
+];
+
 storiesOf('Storybook-addon-mock', module)
     .addDecorator(withMock)
     .add(
@@ -172,4 +246,14 @@ storiesOf('Storybook-addon-mock', module)
         'Axios request',
         () => <MockExample title="Axios(XHR)" onRequest={callAxios} />,
         { mockData }
+    )
+    .add(
+        'POST Fetch request',
+        () => <MockExample title="Fetch" onRequest={callPostFetch} />,
+        { mockData: mockPostData }
+    )
+    .add(
+        'POST Axios request',
+        () => <MockExample title="Axios(XHR)" onRequest={callPostAxios} />,
+        { mockData: mockPostData }
     );
