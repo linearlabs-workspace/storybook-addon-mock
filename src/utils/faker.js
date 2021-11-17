@@ -118,7 +118,11 @@ export class Faker {
             const { response, status, delay = 0 } = matched;
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    resolve(new Response(url, status, response));
+                    if (typeof response === 'function') {
+                        resolve(new Response(url, status, response(request)));
+                    } else {
+                        resolve(new Response(url, status, response));
+                    }
                 }, +delay);
             });
         }
@@ -132,7 +136,14 @@ export class Faker {
         if (matched) {
             const { response, status, delay = 0 } = matched;
             setTimeout(() => {
-                xhr.respond(+status, {}, response);
+                if (typeof response === 'function') {
+                    const data = response(
+                        new Request(url, { method, body: xhr.body })
+                    );
+                    xhr.respond(status, {}, data);
+                } else {
+                    xhr.respond(+status, {}, response);
+                }
             }, +delay);
         } else {
             // eslint-disable-next-line new-cap
