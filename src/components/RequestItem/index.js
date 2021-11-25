@@ -99,7 +99,7 @@ export const RequestItem = ({
             <div style={rowStyles}>
                 <Field label="Response">
                     {typeof response === 'function' ? (
-                        response.toString()
+                        `Custom Function`
                     ) : (
                         <JSONInput
                             name="response"
