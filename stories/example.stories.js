@@ -239,7 +239,7 @@ storiesOf('Examples/Custom Function/Axios', module)
         }
     );
 
-storiesOf('Examples/Misc', module)
+storiesOf('Examples/Special Cases', module)
     .addDecorator(withMock)
     .add(
         'Same API calls multiple times',
