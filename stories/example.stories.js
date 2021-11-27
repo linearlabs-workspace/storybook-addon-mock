@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { GetRequest } from './components/get-request';
 import { NonGetRequest } from './components/non-get-request';
+import { SearchParamsRequest } from './components/search-params-request';
 import withMock from '../dist';
 
 const mockData = [
@@ -235,5 +236,40 @@ storiesOf('Examples/Custom Function/Axios', module)
         () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
         {
             mockData: mockCustomFunctionData,
+        }
+    );
+
+storiesOf('Examples/Misc', module)
+    .addDecorator(withMock)
+    .add(
+        'Same API calls multiple times',
+        () => <SearchParamsRequest title="Same API calls multiple times" />,
+        {
+            mockData: [
+                {
+                    url: 'https://jsonplaceholder.typicode.com/todos?id=',
+                    method: 'GET',
+                    status: 200,
+                    delay: 0,
+                    response: (request) => {
+                        if (request.searchParams.id === '1') {
+                            return {
+                                id: '1',
+                                name: `This is customised for id ${request.searchParams.id}`,
+                            };
+                        } else if (request.searchParams.id === '2') {
+                            return {
+                                id: '2',
+                                name: `Hello! id ${request.searchParams.id}`,
+                            };
+                        } else {
+                            return {
+                                id: '1',
+                                name: 'Default name',
+                            };
+                        }
+                    },
+                },
+            ],
         }
     );
