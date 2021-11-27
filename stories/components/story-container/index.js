@@ -6,9 +6,7 @@ import { containerStyles, headerStyles } from './styles';
 export const StoryContainer = ({ title, children }) => (
     <div style={containerStyles}>
         <div>
-            <div style={headerStyles}>
-                <h2>{title}</h2>
-            </div>
+            <h2 style={headerStyles}>{title}</h2>
             {children}
         </div>
         <UserGuide />

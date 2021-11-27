@@ -5,8 +5,5 @@ export const containerStyles = {
 };
 
 export const headerStyles = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: '6px',
+    fontWeight: '300',
 };

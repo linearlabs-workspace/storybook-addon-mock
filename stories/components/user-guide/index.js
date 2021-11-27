@@ -1,25 +1,15 @@
 import React from 'react';
 import { PlayButton } from '../../../src/components/PlayButton';
-
-const userGuideStyles = {
-    padding: '12px',
-    backgroundColor: '#ead4fc',
-    alignItems: 'center',
-    fontSize: '14px',
-};
-
-const buttonWrapperStyles = {
-    padding: '4px',
-    display: 'inline-block',
-};
-
-const guideItem = {
-    padding: '6px',
-};
+import {
+    userGuideStyles,
+    headerStyles,
+    guideItem,
+    buttonWrapperStyles,
+} from './styles';
 
 export const UserGuide = () => (
     <p style={userGuideStyles}>
-        <h2>User Guide</h2>
+        <h2 style={headerStyles}>User Guide</h2>
         <ul>
             <li style={guideItem}>
                 Use the{' '}
