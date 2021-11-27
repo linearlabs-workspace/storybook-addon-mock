@@ -6,36 +6,13 @@ import { Field } from '../Field';
 import { GlobalStyles } from '../GlobalStyles';
 import { PlayButton } from '../PlayButton';
 import statusTextMap from '../../utils/statusMap';
-
-const containerStyles = {
-    margin: '12px',
-    border: '1px solid #ddd',
-    borderBottom: 'none',
-};
-
-const selectStyles = {
-    height: '32px',
-    width: '80px',
-    borderRadius: '2px',
-    border: '1px solid #ddd',
-    fontSize: '14px',
-    padding: '4px 12px',
-};
-
-const inputStyles = {
-    height: '32px',
-    width: '80px',
-    borderRadius: '2px',
-    border: '1px solid #ddd',
-    fontSize: '14px',
-    padding: '4px 12px',
-};
-
-const rowStyles = {
-    display: 'flex',
-    flexDirection: 'row',
-    flex: '1 0 0',
-};
+import {
+    containerStyles,
+    rowStyles,
+    selectStyles,
+    inputStyles,
+    noteStyles,
+} from './styles';
 
 const statusCodes = Object.keys(statusTextMap);
 
@@ -99,7 +76,10 @@ export const RequestItem = ({
             <div style={rowStyles}>
                 <Field label="Response">
                     {typeof response === 'function' ? (
-                        `Custom Function`
+                        <div style={noteStyles}>
+                            This is a custom function. You can only change it
+                            from the declaration.
+                        </div>
                     ) : (
                         <JSONInput
                             name="response"
@@ -119,7 +99,7 @@ export const RequestItem = ({
                             }}
                             style={{
                                 warningBox: {
-                                    background: 'white',
+                                    background: '#ddd',
                                 },
                                 body: {
                                     fontFamily: 'inherit',

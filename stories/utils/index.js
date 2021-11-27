@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-const DEFAULT_URL = 'https://jsonplaceholder.typicode.com/todos/1';
-const DEFAULT_METHOD = 'GET';
+export const DEFAULT_URL = 'https://jsonplaceholder.typicode.com/todos';
+export const DEFAULT_METHOD = 'GET';
 
-export const callFetch = async (url = DEFAULT_URL, method = DEFAULT_METHOD) => {
+export const callFetch = async ({
+    method = DEFAULT_METHOD,
+    url = DEFAULT_URL,
+    body,
+}) => {
     let data = null;
     let error = null;
     let status = null;
@@ -15,6 +19,7 @@ export const callFetch = async (url = DEFAULT_URL, method = DEFAULT_METHOD) => {
                 'Content-Type': 'application/json',
             },
             method,
+            body: body ? JSON.stringify(body) : undefined,
         });
         const responseData = await response.json();
 
@@ -36,13 +41,21 @@ export const callFetch = async (url = DEFAULT_URL, method = DEFAULT_METHOD) => {
     };
 };
 
-export const callAxios = async (url = DEFAULT_URL, method = DEFAULT_METHOD) => {
+export const callAxios = async ({
+    method = DEFAULT_METHOD,
+    url = DEFAULT_URL,
+    body,
+}) => {
     let data = null;
     let error = null;
     let status = null;
 
     try {
-        const response = await axios({ url, method });
+        const response = await axios({
+            url,
+            method,
+            body: body ? JSON.stringify(body) : undefined,
+        });
         data = response.data;
         status = response.status;
     } catch (err) {

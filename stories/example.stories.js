@@ -1,127 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { StoryContainer } from './components/story-container';
+import { GetRequest } from './components/get-request';
+import { NonGetRequest } from './components/non-get-request';
 import withMock from '../dist';
-import { callFetch, callAxios } from './utils';
-// const callFetch = async () => {
-//     let data = null;
-//     let error = null;
-//     let status = null;
-
-//     try {
-//         const response = await fetch(
-//             'https://jsonplaceholder.typicode.com/todos/1',
-//             {
-//                 headers: {
-//                     Accept: 'application/json',
-//                     'Content-Type': 'application/json',
-//                 },
-//                 method: 'GET',
-//             }
-//         );
-//         const responseData = await response.json();
-
-//         if (response.ok) {
-//             data = responseData;
-//         } else {
-//             error = responseData;
-//         }
-//         status = response.status;
-//     } catch (err) {
-//         // eslint-disable-next-line no-console
-//         console.log(err);
-//         error = err;
-//     }
-//     return {
-//         data,
-//         error,
-//         status,
-//     };
-// };
-
-// const callAxios = async () => {
-//     let data = null;
-//     let error = null;
-//     let status = null;
-
-//     try {
-//         const response = await axios.get(
-//             'https://jsonplaceholder.typicode.com/todos/1'
-//         );
-//         data = response.data;
-//         status = response.status;
-//     } catch (err) {
-//         error = err.response.data;
-//         status = err.response.status;
-//     }
-//     return {
-//         data,
-//         error,
-//         status,
-//     };
-// };
-
-// const callPostFetch = async () => {
-//     let data = null;
-//     let error = null;
-//     let status = null;
-
-//     try {
-//         const response = await fetch(
-//             'https://jsonplaceholder.typicode.com/todos/1',
-//             {
-//                 headers: {
-//                     Accept: 'application/json',
-//                     'Content-Type': 'application/json',
-//                 },
-//                 method: 'POST',
-//                 body: JSON.stringify({
-//                     name: 'foo',
-//                 }),
-//             }
-//         );
-//         const responseData = await response.json();
-
-//         if (response.ok) {
-//             data = responseData;
-//         } else {
-//             error = responseData;
-//         }
-//         status = response.status;
-//     } catch (err) {
-//         // eslint-disable-next-line no-console
-//         console.log(err);
-//         error = err;
-//     }
-//     return {
-//         data,
-//         error,
-//         status,
-//     };
-// };
-
-// const callPostAxios = async () => {
-//     let data = null;
-//     let error = null;
-//     let status = null;
-
-//     try {
-//         const response = await axios.post(
-//             'https://jsonplaceholder.typicode.com/todos/1',
-//             { name: 'foo' }
-//         );
-//         data = response.data;
-//         status = response.status;
-//     } catch (err) {
-//         error = err.response.data;
-//         status = err.response.status;
-//     }
-//     return {
-//         data,
-//         error,
-//         status,
-//     };
-// };
 
 const mockData = [
     {
@@ -130,45 +11,134 @@ const mockData = [
         status: 200,
         delay: 0,
         response: {
-            data: 'Hello storybook-addon-mock!',
+            id: '1',
+            name: 'Item 1',
         },
     },
-];
-
-const mockCustomFunctionData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        method: 'POST',
+        status: 201,
+        delay: 0,
+        response: {
+            message: 'New item created',
+        },
+    },
     {
         url: 'https://jsonplaceholder.typicode.com/todos/:id',
-        method: 'POST',
+        method: 'PUT',
         status: 200,
         delay: 0,
-        response: (req) => {
-            return { data: `Hello ${req}` };
+        response: {
+            id: '1',
+            name: 'Item 1',
         },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PATCH',
+        status: 204,
+        delay: 0,
+        response: null,
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'DELETE',
+        status: 202,
+        delay: 0,
+        response: null,
     },
 ];
 
-storiesOf('Storybook Addon Mock/Default Behaviour', module)
+// const mockCustomFunctionData = [
+//     {
+//         url: 'https://jsonplaceholder.typicode.com/todos/:id',
+//         method: 'GET',
+//         status: 200,
+//         delay: 0,
+//         response: (req) => {
+//             return { data: 'This is a custom function.' };
+//         },
+//     },
+// ];
+
+storiesOf('Examples/Default/Fetch', module)
     .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Fetch GET Request" />, {
+        mockData,
+    })
     .add(
-        'Fetch request',
-        () => <StoryContainer title="Fetch" onRequest={callFetch} />,
-        { mockData }
+        'POST request',
+        () => <NonGetRequest title="Fetch POST Request" method="POST" />,
+        {
+            mockData,
+        }
     )
     .add(
-        'Axios request',
-        () => <StoryContainer title="Axios(XHR)" onRequest={callAxios} />,
-        { mockData }
+        'PUT request',
+        () => <NonGetRequest title="Fetch PUT Request" method="PUT" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'PATCH request',
+        () => <NonGetRequest title="Fetch PATCH Request" method="PATCH" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'DELETE request',
+        () => <NonGetRequest title="Fetch DELETE Request" method="DELETE" />,
+        {
+            mockData,
+        }
     );
 
-storiesOf('Storybook Addon Mock/Custom Function', module)
+storiesOf('Examples/Default/Axios', module)
     .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Axios GET Request" />, {
+        mockData,
+    })
     .add(
-        'Fetch request',
-        () => <StoryContainer title="Fetch" onRequest={callFetch} />,
-        { mockData: mockCustomFunctionData }
+        'POST request',
+        () => <NonGetRequest title="Axios POST Request" method="POST" />,
+        {
+            mockData,
+        }
     )
     .add(
-        'Axios request',
-        () => <StoryContainer title="Axios(XHR)" onRequest={callAxios} />,
-        { mockData: mockCustomFunctionData }
+        'PUT request',
+        () => <NonGetRequest title="Axios PUT Request" method="PUT" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'PATCH request',
+        () => <NonGetRequest title="Axios PATCH Request" method="PATCH" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'DELETE request',
+        () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
+        {
+            mockData,
+        }
     );
+
+// storiesOf('Examples/Custom Function', module)
+//     .addDecorator(withMock)
+//     .add(
+//         'Fetch request',
+//         () => <StoryContainer title="Fetch" onRequest={callFetch} />,
+//         { mockData: mockCustomFunctionData }
+//     )
+//     .add(
+//         'Axios request',
+//         () => <StoryContainer title="Axios(XHR)" onRequest={callAxios} />,
+//         { mockData: mockCustomFunctionData }
+//     );
