@@ -13,7 +13,7 @@ export const Field = ({ label, children }) => {
     };
 
     const labelStyles = {
-        fontWeight: '700',
+        fontWeight: '600',
         flex: '0.3 0 0',
         minWidth: '60px',
         fontSize: '14px',

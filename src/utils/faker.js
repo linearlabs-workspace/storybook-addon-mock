@@ -54,6 +54,7 @@ export class Faker {
             return;
         }
 
+        this.restore();
         requests.forEach((request) => {
             this.add(request);
         });

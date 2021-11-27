@@ -1,215 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { UserGuide } from './components/user-guide';
+import { GetRequest } from './components/get-request';
+import { NonGetRequest } from './components/non-get-request';
 import withMock from '../dist';
-
-const containerStyles = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-};
-
-const errorContainerStyles = {
-    color: 'red',
-};
-
-const responseContainerStyles = {
-    minWidth: '300px',
-    minHeight: '130px',
-    background: '#ddd',
-    margin: '6px',
-    padding: '12px',
-};
-
-const headerStyles = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: '6px',
-};
-
-const buttonStyles = {
-    border: '1px solid #127ec3',
-    borderRadius: '3px',
-    backgroundColor: '#1fa7fd',
-    cursor: 'pointer',
-    fontSize: '15px',
-    padding: '12px',
-    margin: '12px 0',
-    color: 'white',
-};
-
-const callFetch = async () => {
-    let data = null;
-    let error = null;
-    let status = null;
-
-    try {
-        const response = await fetch(
-            'https://jsonplaceholder.typicode.com/todos/1',
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                method: 'GET',
-            }
-        );
-        const responseData = await response.json();
-
-        if (response.ok) {
-            data = responseData;
-        } else {
-            error = responseData;
-        }
-        status = response.status;
-    } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err);
-        error = err;
-    }
-    return {
-        data,
-        error,
-        status,
-    };
-};
-
-const callAxios = async () => {
-    let data = null;
-    let error = null;
-    let status = null;
-
-    try {
-        const response = await axios.get(
-            'https://jsonplaceholder.typicode.com/todos/1'
-        );
-        data = response.data;
-        status = response.status;
-    } catch (err) {
-        error = err.response.data;
-        status = err.response.status;
-    }
-    return {
-        data,
-        error,
-        status,
-    };
-};
-
-const callPostFetch = async () => {
-    let data = null;
-    let error = null;
-    let status = null;
-
-    try {
-        const response = await fetch(
-            'https://jsonplaceholder.typicode.com/todos/1',
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    name: 'foo',
-                }),
-            }
-        );
-        const responseData = await response.json();
-
-        if (response.ok) {
-            data = responseData;
-        } else {
-            error = responseData;
-        }
-        status = response.status;
-    } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err);
-        error = err;
-    }
-    return {
-        data,
-        error,
-        status,
-    };
-};
-
-const callPostAxios = async () => {
-    let data = null;
-    let error = null;
-    let status = null;
-
-    try {
-        const response = await axios.post(
-            'https://jsonplaceholder.typicode.com/todos/1',
-            { name: 'foo' }
-        );
-        data = response.data;
-        status = response.status;
-    } catch (err) {
-        error = err.response.data;
-        status = err.response.status;
-    }
-    return {
-        data,
-        error,
-        status,
-    };
-};
-
-const MockExample = ({ title, onRequest }) => {
-    const [response, setResponse] = useState({});
-    const [loading, setLoading] = useState(false);
-
-    const requestForData = async () => {
-        setLoading(true);
-        const fetchResponse = await onRequest();
-        setLoading(false);
-        setResponse(fetchResponse);
-    };
-    const { data, error, status } = response;
-    return (
-        <div style={containerStyles}>
-            <div>
-                <div style={headerStyles}>
-                    <h2>{title}</h2>
-                    <button style={buttonStyles} onClick={requestForData}>
-                        Request
-                    </button>
-                </div>
-                {loading ? (
-                    <div style={responseContainerStyles}>Loading...</div>
-                ) : (
-                    <div style={responseContainerStyles}>
-                        {status && <div>Status: {status}</div>}
-                        {error && (
-                            <div style={errorContainerStyles}>
-                                Error:
-                                <pre>{JSON.stringify(error, null, 2)}</pre>
-                            </div>
-                        )}
-                        {data && (
-                            <div>
-                                Response:
-                                <pre>{JSON.stringify(data, null, 2)}</pre>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-            <UserGuide />
-        </div>
-    );
-};
-
-MockExample.propTypes = {
-    title: PropTypes.string,
-    onRequest: PropTypes.func,
-};
 
 const mockData = [
     {
@@ -218,42 +11,229 @@ const mockData = [
         status: 200,
         delay: 0,
         response: {
-            data: 'Hello storybook-addon-mock!',
+            id: '1',
+            name: 'Item 1',
         },
     },
-];
-
-const mockPostData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        method: 'POST',
+        status: 201,
+        delay: 0,
+        response: {
+            message: 'New item created',
+        },
+    },
     {
         url: 'https://jsonplaceholder.typicode.com/todos/:id',
-        method: 'POST',
+        method: 'PUT',
         status: 200,
         delay: 0,
-        response: (req) => {
-            return { data: `Hello ${JSON.parse(req.body).name}` };
+        response: {
+            id: '1',
+            name: 'Item 1',
         },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PATCH',
+        status: 204,
+        delay: 0,
+        response: null,
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'DELETE',
+        status: 202,
+        delay: 0,
+        response: null,
     },
 ];
 
-storiesOf('Storybook-addon-mock', module)
+const mockCustomFunctionData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'GET',
+        status: 200,
+        delay: 0,
+        response: () => {
+            return {
+                id: '1',
+                name: 'Customised name',
+            };
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        method: 'POST',
+        status: 201,
+        delay: 0,
+        response: (request) => {
+            return {
+                message: `${JSON.parse(request.body).name} is created.`,
+            };
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PUT',
+        status: 200,
+        delay: 0,
+        response: (request) => {
+            return {
+                id: '1',
+                name: `${JSON.parse(request.body).name}`,
+            };
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PATCH',
+        status: 204,
+        delay: 0,
+        response: null,
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'DELETE',
+        status: 202,
+        delay: 0,
+        response: null,
+    },
+];
+
+storiesOf('Examples/Default/Fetch', module)
     .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Fetch GET Request" />, {
+        mockData,
+    })
     .add(
-        'Fetch request',
-        () => <MockExample title="Fetch" onRequest={callFetch} />,
-        { mockData }
+        'POST request',
+        () => <NonGetRequest title="Fetch POST Request" method="POST" />,
+        {
+            mockData,
+        }
     )
     .add(
-        'Axios request',
-        () => <MockExample title="Axios(XHR)" onRequest={callAxios} />,
-        { mockData }
+        'PUT request',
+        () => <NonGetRequest title="Fetch PUT Request" method="PUT" />,
+        {
+            mockData,
+        }
     )
     .add(
-        'POST Fetch request',
-        () => <MockExample title="Fetch" onRequest={callPostFetch} />,
-        { mockData: mockPostData }
+        'PATCH request',
+        () => <NonGetRequest title="Fetch PATCH Request" method="PATCH" />,
+        {
+            mockData,
+        }
     )
     .add(
-        'POST Axios request',
-        () => <MockExample title="Axios(XHR)" onRequest={callPostAxios} />,
-        { mockData: mockPostData }
+        'DELETE request',
+        () => <NonGetRequest title="Fetch DELETE Request" method="DELETE" />,
+        {
+            mockData,
+        }
+    );
+
+storiesOf('Examples/Default/Axios', module)
+    .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Axios GET Request" />, {
+        mockData,
+    })
+    .add(
+        'POST request',
+        () => <NonGetRequest title="Axios POST Request" method="POST" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'PUT request',
+        () => <NonGetRequest title="Axios PUT Request" method="PUT" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'PATCH request',
+        () => <NonGetRequest title="Axios PATCH Request" method="PATCH" />,
+        {
+            mockData,
+        }
+    )
+    .add(
+        'DELETE request',
+        () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
+        {
+            mockData,
+        }
+    );
+
+storiesOf('Examples/Custom Function/Fetch', module)
+    .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Fetch GET Request" />, {
+        mockData: mockCustomFunctionData,
+    })
+    .add(
+        'POST request',
+        () => <NonGetRequest title="Fetch POST Request" method="POST" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'PUT request',
+        () => <NonGetRequest title="Fetch PUT Request" method="PUT" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'PATCH request',
+        () => <NonGetRequest title="Fetch PATCH Request" method="PATCH" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'DELETE request',
+        () => <NonGetRequest title="Fetch DELETE Request" method="DELETE" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    );
+
+storiesOf('Examples/Custom Function/Axios', module)
+    .addDecorator(withMock)
+    .add('GET request', () => <GetRequest title="Axios GET Request" />, {
+        mockData: mockCustomFunctionData,
+    })
+    .add(
+        'POST request',
+        () => <NonGetRequest title="Axios POST Request" method="POST" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'PUT request',
+        () => <NonGetRequest title="Axios PUT Request" method="PUT" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'PATCH request',
+        () => <NonGetRequest title="Axios PATCH Request" method="PATCH" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
+    .add(
+        'DELETE request',
+        () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
+        {
+            mockData: mockCustomFunctionData,
+        }
     );
