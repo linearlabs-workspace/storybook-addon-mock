@@ -204,7 +204,7 @@ storiesOf('Examples/Custom Function/Fetch', module)
         }
     );
 
-    storiesOf('Examples/Custom Function/Axios', module)
+storiesOf('Examples/Custom Function/Axios', module)
     .addDecorator(withMock)
     .add('GET request', () => <GetRequest title="Axios GET Request" />, {
         mockData: mockCustomFunctionData,
