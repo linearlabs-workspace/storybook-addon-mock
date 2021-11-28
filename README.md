@@ -19,11 +19,11 @@ There are few packages those help the developers to mock the backend requests wh
 
 | Property   | Description                                                                                 | Required | Default |
 | ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**(`/foo?bar=true`) | Y        |    -    |
-| `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods                                                    |     -    | `GET`   |
-| `status`   | All possible HTTP status codes                                                              |     -    | `200`   |
-| `response` | JSON format or function `({ url: string, method: string, body: string \| null }) => JSON`   | Y        |    -    |
-| `delay`    | Emulate delayed response time in milliseconds                                               |     -    | `0`     |
+| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | Y        |    -    |
+| `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |     -    | `GET`   |
+| `status`   | All possible HTTP status codes.                                                              |     -    | `200`   |
+| `response` | JSON format or function. <br/> <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | Y        |    -    |
+| `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
 
 > You can change the **status**, **response** and **delay** from the storybook panel on the fly! :rocket:
 
@@ -131,10 +131,26 @@ Default.parameters = {
             url: 'https://jsonplaceholder.typicode.com/todos/1',
             method: 'GET',
             status: 200,
-            response: (req) => {
+            response: (request) => {
+                const {
+                    url,
+                    method,
+                    body,
+                    searchParams,
+                } = request;
+
+                if (searchParams.id == 1) {
+                     return {
+                        data: 'Custom data for id 1',
+                    };   
+                } else if (body.name === 'mock') {
+                    return {
+                        data: 'Custom data for name mock',
+                    }
+                }
                 return {
-                    data: `Hello ${JSON.parse(req).name}`,
-                };
+                    data: 'Default data',
+                }
             },
         },
     ],
