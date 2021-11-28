@@ -8,4 +8,12 @@ export function Request(input, options = {}) {
         this.url = input;
         this.body = options.body || null;
     }
+
+    const urlObject = new URL(this.url);
+
+    if (urlObject.search) {
+        this.searchParams = Object.fromEntries(
+            new URLSearchParams(urlObject.search)
+        );
+    }
 }
