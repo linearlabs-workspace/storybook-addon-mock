@@ -1,3 +1,5 @@
+import { getBaseUrl } from './url';
+
 export function Request(input, options = {}) {
     if (typeof input === 'object') {
         this.method = options.method || input.method || 'GET';
@@ -9,11 +11,11 @@ export function Request(input, options = {}) {
         this.body = options.body || null;
     }
 
-    const urlObject = new URL(this.url);
+    const _url = getBaseUrl(this.url);
 
-    if (urlObject.search) {
+    if (_url.search) {
         this.searchParams = Object.fromEntries(
-            new URLSearchParams(urlObject.search)
+            new URLSearchParams(_url.search)
         );
     }
 }

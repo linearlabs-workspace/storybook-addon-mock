@@ -4,6 +4,7 @@ import { match } from 'path-to-regexp';
 import { Request } from './request';
 import { Response } from './response';
 import { arrayEquals } from './array';
+import { getNormalizedUrl } from './url';
 
 let global =
     // eslint-disable-next-line no-undef
@@ -26,22 +27,6 @@ export class Faker {
         this.requestMap = {};
     }
 
-    getNormalizedUrl = (rawUrl = '') => {
-        const baseUrl =
-            rawUrl.indexOf('http') == 0 ? undefined : 'http://localhost';
-        const url = new URL(rawUrl, baseUrl);
-        const searchParamKeys = [];
-        if (url.search) {
-            for (let key of url.searchParams.keys()) {
-                searchParamKeys.push(key);
-            }
-        }
-        return {
-            path: url.host + url.pathname,
-            searchParamKeys,
-        };
-    };
-
     getRequests = () => Object.values(this.requestMap);
 
     getKey = (url = '', searchParamKeys = [], method = 'GET') =>
@@ -61,7 +46,7 @@ export class Faker {
     };
 
     add = (request) => {
-        const { path, searchParamKeys } = this.getNormalizedUrl(request.url);
+        const { path, searchParamKeys } = getNormalizedUrl(request.url);
         const key = this.getKey(path, searchParamKeys, request.method);
         this.requestMap[key] = {
             ...request,
@@ -76,7 +61,7 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const { path, searchParamKeys } = this.getNormalizedUrl(url);
+        const { path, searchParamKeys } = getNormalizedUrl(url);
         const itemKey = this.getKey(path, searchParamKeys, method);
 
         if (
@@ -90,13 +75,13 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const { path, searchParamKeys } = this.getNormalizedUrl(url);
+        const { path, searchParamKeys } = getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
             const { path: requestPath, searchParamKeys: requestSearchKeys } =
-                this.getNormalizedUrl(requestUrl);
+                getNormalizedUrl(requestUrl);
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
