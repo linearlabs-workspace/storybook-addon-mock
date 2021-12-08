@@ -3,7 +3,20 @@
         <h1>Storybook Addon Mock</h1>
 </div>
 
-[![dependencies Status](https://david-dm.org/nutboltu/storybook-addon-mock/status.svg)](https://david-dm.org/nutboltu/storybook-addon-mock) [![Actions Status](https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg)](https://github.com/nutboltu/storybook-addon-mock/actions) ![npm](https://img.shields.io/npm/dm/storybook-addon-mock.svg) [![npm version](https://badge.fury.io/js/storybook-addon-mock.svg)](https://badge.fury.io/js/storybook-addon-mock)
+<p>
+    <a href="https://github.com/nutboltu/storybook-addon-mock/actions">
+        <img src="https://github.com/nutboltu/storybook-addon-mock/workflows/CI/badge.svg" alt="Actions Status" />
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/npm/dm/storybook-addon-mock.svg" alt="Npm download" />
+    </a>
+    <a href="https://badge.fury.io/js/storybook-addon-mock">
+        <img src="https://badge.fury.io/js/storybook-addon-mock.svg" alt="npm version" />
+    </a>
+     <a href="https://github.com/nutboltu/storybook-addon-mock/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/nutboltu/storybook-addon-mock" alt="License" />
+    </a>
+</p>
 
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 
