@@ -69,6 +69,14 @@ describe('Faker', () => {
                 response: {},
                 delay: 0,
             },
+            {
+                url: 'http://request3.com/todos',
+                method: 'GET',
+                status: 200,
+                response: {},
+                delay: 0,
+                ignoreParams: true,
+            },
         ];
         faker.makeInitialRequestMap(requests);
 
@@ -87,6 +95,13 @@ describe('Faker', () => {
             expect(actual.url).toEqual(requests[2].url);
             expect(actual.method).toEqual(requests[2].method);
             expect(actual.skip).toEqual(false);
+        });
+        it('should ignore url params', () => {
+            const actual = faker.matchMock(
+                'http://request3.com/todos?id=1',
+                'GET'
+            );
+            expect(actual.url).toEqual(requests[3].url);
         });
     });
 
