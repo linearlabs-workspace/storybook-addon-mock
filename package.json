@@ -34,10 +34,15 @@
   "license": "MIT",
   "dependencies": {
     "@storybook/addons": "^6.2.9",
-    "@storybook/react": "^6.2.9",
+    "@storybook/api": "^6.2.9",
+    "@storybook/components": "^6.2.9",
     "mock-xmlhttprequest": "^7.0.3",
     "path-to-regexp": "^6.2.0",
     "react-json-editor-ajrm": "^2.5.13"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
@@ -46,6 +51,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.13.8",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.12.13",
+    "@storybook/react": "^6.2.9",
     "@storybook/storybook-deployer": "^2.8.10",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
