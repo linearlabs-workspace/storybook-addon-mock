@@ -23,6 +23,7 @@ export const RequestItem = ({
     status,
     response,
     delay,
+    ignoreParams,
     onToggle,
     onFieldChange,
 }) => {
@@ -31,6 +32,8 @@ export const RequestItem = ({
 
         if (type === 'number') {
             onFieldChange(+value, name);
+        } else if (value === 'false' || value === 'true') {
+            onFieldChange(value === 'true', name);
         } else {
             onFieldChange(value, name);
         }
@@ -111,7 +114,24 @@ export const RequestItem = ({
                         />
                     )}
                 </Field>
-                <Field />
+                <Field label="Ignore Params">
+                    <input
+                        type="radio"
+                        name="ignoreParams"
+                        value="true"
+                        onChange={onChangeHandler}
+                        checked={ignoreParams}
+                    />{' '}
+                    true
+                    <input
+                        type="radio"
+                        name="ignoreParams"
+                        value="false"
+                        onChange={onChangeHandler}
+                        checked={ignoreParams}
+                    />{' '}
+                    false
+                </Field>
             </div>
         </div>
     );
@@ -122,6 +142,7 @@ RequestItem.propTypes = {
     skip: PropTypes.bool,
     method: PropTypes.string,
     delay: PropTypes.number,
+    ignoreParams: PropTypes.bool,
     status: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     response: PropTypes.oneOfType([
         PropTypes.object,
