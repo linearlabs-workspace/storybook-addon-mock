@@ -55,7 +55,6 @@ export class Faker {
             method: request.method || 'GET',
             status: request.status || 200,
             delay: request.delay || 0,
-            ignoreParams: request.ignoreParams || false,
             skip: false,
         };
     };
@@ -86,9 +85,7 @@ export class Faker {
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
-                (this.requestMap[key].ignoreParams === false
-                    ? arrayEquals(searchParamKeys, requestSearchKeys)
-                    : true) &&
+                arrayEquals(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];

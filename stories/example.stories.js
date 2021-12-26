@@ -272,23 +272,4 @@ storiesOf('Examples/Special Cases', module)
                 },
             ],
         }
-    )
-    .add(
-        'Ignore URL Params',
-        () => <SearchParamsRequest title="Ignore URL Params" />,
-        {
-            mockData: [
-                {
-                    url: 'https://jsonplaceholder.typicode.com/todos?title=',
-                    method: 'GET',
-                    status: 200,
-                    delay: 0,
-                    ignoreParams: false,
-                    response: {
-                        id: '1',
-                        name: 'Item 1',
-                    },
-                },
-            ],
-        }
     );
