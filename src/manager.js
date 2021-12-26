@@ -45,7 +45,6 @@ const MockPanel = () => {
                     status={item.status}
                     response={item.response}
                     delay={item.delay}
-                    ignoreParams={item.ignoreParams}
                     onToggle={() => onSkip(item)}
                     onFieldChange={(value, name) =>
                         onRequestChange(item, name, value)
