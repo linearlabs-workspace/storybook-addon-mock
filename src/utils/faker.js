@@ -117,15 +117,13 @@ export class Faker {
     };
 
     mockXhrRequest = (xhr) => {
-        const { method, url } = xhr;
+        const { method, url, body } = xhr;
         const matched = this.matchMock(url, method);
         if (matched) {
             const { response, status, delay = 0 } = matched;
             setTimeout(() => {
                 if (typeof response === 'function') {
-                    const data = response(
-                        new Request(url, { method, body: xhr.body })
-                    );
+                    const data = response(new Request(url, { method, body }));
                     xhr.respond(status, {}, data);
                 } else {
                     xhr.respond(+status, {}, response);
@@ -142,7 +140,7 @@ export class Faker {
                 }
             };
 
-            realXhr.send();
+            realXhr.send(body);
 
             const errorHandler = function () {
                 return 'Network failed';
