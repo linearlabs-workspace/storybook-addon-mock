@@ -10,7 +10,12 @@ export function Response(url, status, responseText) {
     this.status = status;
     this.url = url;
 
-    this.text = () => Promise.resolve(responseText);
+    this.text = () =>
+        Promise.resolve(
+            typeof responseText === 'string'
+                ? responseText
+                : JSON.stringify(responseText)
+        );
     this.json = () => Promise.resolve(responseText);
     (this.clone = () => new Response(url, status, responseText)),
         (this.headers = {
