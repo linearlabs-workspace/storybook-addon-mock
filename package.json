@@ -12,7 +12,8 @@
     "lint:fix": "yarn run lint --fix",
     "test": "jest src",
     "ci": "yarn run lint && yarn run test && yarn run build",
-    "deploy-storybook": "yarn run build && storybook-to-ghpages"
+    "deploy-storybook": "yarn run build && storybook-to-ghpages",
+    "dedup": "yarn-deduplicate"
   },
   "repository": {
     "type": "git",
@@ -66,7 +67,12 @@
     "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react-dom": "^16.8.0",
+    "yarn-deduplicate": "^3.1.0"
+  },
+  "resolutions": {
+    "**/postcss": "^8.2.13",
+    "**/prismjs": "^1.25.0"
   },
   "storybook": {
     "displayName": "Mock API Request",
