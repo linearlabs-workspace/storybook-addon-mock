@@ -23,6 +23,7 @@ export const Field = ({ label, children }) => {
         display: 'flex',
         flex: '0.7 0 0',
         fontSize: '14px',
+        wordBreak: 'break-all',
     };
 
     return (
