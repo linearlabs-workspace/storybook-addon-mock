@@ -2,7 +2,11 @@
 import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
-import { Response } from './response';
+import {
+    Response,
+    getResponseHeaderMap,
+    defaultResponseHeaders,
+} from './response';
 import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
 
@@ -124,9 +128,9 @@ export class Faker {
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
-                    xhr.respond(status, {}, data);
+                    xhr.respond(status, defaultResponseHeaders, data);
                 } else {
-                    xhr.respond(+status, {}, response);
+                    xhr.respond(+status, defaultResponseHeaders, response);
                 }
             }, +delay);
         } else {
@@ -136,7 +140,11 @@ export class Faker {
 
             realXhr.onreadystatechange = function onReadyStateChange() {
                 if (realXhr.readyState === 4 && realXhr.status === 200) {
-                    xhr.respond(200, {}, this.responseText);
+                    xhr.respond(
+                        200,
+                        getResponseHeaderMap(realXhr),
+                        realXhr.responseText
+                    );
                 }
             };
 
