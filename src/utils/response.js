@@ -1,9 +1,29 @@
 import statusTextMap from './statusMap';
 
+export function getResponseHeaderMap(xhr) {
+    const headers = {};
+    xhr.getAllResponseHeaders()
+        .trim()
+        .split(/[\r\n]+/)
+        .map((value) => value.split(/: /))
+        .forEach((keyValue) => {
+            if (keyValue[0]) {
+                headers[keyValue[0].trim()] = keyValue[1] && keyValue[1].trim();
+            }
+        });
+    return headers;
+}
+
+export const defaultResponseHeaders = {
+    'content-type': 'application/json',
+};
+
 export function Response(url, status, responseText) {
     const keys = [];
     const all = [];
-    const headers = {};
+    const headers = {
+        ...defaultResponseHeaders,
+    };
     // eslint-disable-next-line no-bitwise
     this.ok = ((status / 100) | 0) === 2; // 200-299
     this.statusText = statusTextMap[status.toString()];

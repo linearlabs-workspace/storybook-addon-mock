@@ -9,9 +9,9 @@ import {
 } from './styles';
 import { StoryContainer } from '../story-container';
 import { ResponseContainer } from '../response-container';
-import { DEFAULT_URL, callAxios, callFetch } from '../../utils';
+import { DEFAULT_URL } from '../../utils';
 
-export const GetRequest = ({ title, isFetch = true }) => {
+export const GetRequest = ({ title, callApi }) => {
     const [todoId, setTodoId] = useState('1');
     const [response, setResponse] = useState({});
     const [loading, setLoading] = useState(false);
@@ -21,13 +21,8 @@ export const GetRequest = ({ title, isFetch = true }) => {
         const url = `${DEFAULT_URL}/${todoId}`;
 
         setLoading(true);
-        if (isFetch) {
-            const fetchResponse = await callFetch({ url });
-            setResponse(fetchResponse);
-        } else {
-            const axiosResponse = await callAxios({ url });
-            setResponse(axiosResponse);
-        }
+        const apiResponse = await callApi({ url });
+        setResponse(apiResponse);
         setLoading(false);
     };
 
@@ -52,5 +47,5 @@ export const GetRequest = ({ title, isFetch = true }) => {
 
 GetRequest.propTypes = {
     title: PropTypes.string,
-    isFetch: PropTypes.bool,
+    callApi: PropTypes.func.isRequired,
 };
