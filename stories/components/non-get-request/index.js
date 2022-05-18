@@ -9,9 +9,9 @@ import {
 } from './styles';
 import { StoryContainer } from '../story-container';
 import { ResponseContainer } from '../response-container';
-import { DEFAULT_URL, callAxios, callFetch } from '../../utils';
+import { DEFAULT_URL } from '../../utils';
 
-export const NonGetRequest = ({ title, method, isFetch = true }) => {
+export const NonGetRequest = ({ title, method, callApi }) => {
     const [todoId, setTodoId] = useState('1');
     const [todoName, setTodoName] = useState('Item 1');
     const [response, setResponse] = useState({});
@@ -23,21 +23,12 @@ export const NonGetRequest = ({ title, method, isFetch = true }) => {
             method === 'POST' ? DEFAULT_URL : `${DEFAULT_URL}/${todoId}`;
 
         setLoading(true);
-        if (isFetch) {
-            const fetchResponse = await callFetch({
-                url,
-                method,
-                body: { name: todoName },
-            });
-            setResponse(fetchResponse);
-        } else {
-            const axiosResponse = await callAxios({
-                url,
-                method,
-                body: { name: todoName },
-            });
-            setResponse(axiosResponse);
-        }
+        const fetchResponse = await callApi({
+            url,
+            method,
+            body: { name: todoName },
+        });
+        setResponse(fetchResponse);
         setLoading(false);
     };
 
@@ -79,5 +70,5 @@ export const NonGetRequest = ({ title, method, isFetch = true }) => {
 NonGetRequest.propTypes = {
     title: PropTypes.string,
     method: PropTypes.string,
-    isFetch: PropTypes.bool,
+    callApi: PropTypes.func.isRequired,
 };

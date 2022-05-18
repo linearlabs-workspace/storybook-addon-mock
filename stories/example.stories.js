@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { GetRequest } from './components/get-request';
 import { NonGetRequest } from './components/non-get-request';
 import { SearchParamsRequest } from './components/search-params-request';
+import { callAxios, callFetch } from './utils';
 import withMock from '../dist';
 
 const mockData = [
@@ -105,33 +106,61 @@ const mockCustomFunctionData = [
 
 storiesOf('Examples/Default/Fetch', module)
     .addDecorator(withMock)
-    .add('GET request', () => <GetRequest title="Fetch GET Request" />, {
-        mockData,
-    })
+    .add(
+        'GET request',
+        () => <GetRequest title="Fetch GET Request" callApi={callFetch} />,
+        {
+            mockData,
+        }
+    )
     .add(
         'POST request',
-        () => <NonGetRequest title="Fetch POST Request" method="POST" />,
+        () => (
+            <NonGetRequest
+                title="Fetch POST Request"
+                method="POST"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'PUT request',
-        () => <NonGetRequest title="Fetch PUT Request" method="PUT" />,
+        () => (
+            <NonGetRequest
+                title="Fetch PUT Request"
+                method="PUT"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'PATCH request',
-        () => <NonGetRequest title="Fetch PATCH Request" method="PATCH" />,
+        () => (
+            <NonGetRequest
+                title="Fetch PATCH Request"
+                method="PATCH"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'DELETE request',
-        () => <NonGetRequest title="Fetch DELETE Request" method="DELETE" />,
+        () => (
+            <NonGetRequest
+                title="Fetch DELETE Request"
+                method="DELETE"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData,
         }
@@ -139,33 +168,61 @@ storiesOf('Examples/Default/Fetch', module)
 
 storiesOf('Examples/Default/Axios', module)
     .addDecorator(withMock)
-    .add('GET request', () => <GetRequest title="Axios GET Request" />, {
-        mockData,
-    })
+    .add(
+        'GET request',
+        () => <GetRequest title="Axios GET Request" callApi={callAxios} />,
+        {
+            mockData,
+        }
+    )
     .add(
         'POST request',
-        () => <NonGetRequest title="Axios POST Request" method="POST" />,
+        () => (
+            <NonGetRequest
+                title="Axios POST Request"
+                method="POST"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'PUT request',
-        () => <NonGetRequest title="Axios PUT Request" method="PUT" />,
+        () => (
+            <NonGetRequest
+                title="Axios PUT Request"
+                method="PUT"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'PATCH request',
-        () => <NonGetRequest title="Axios PATCH Request" method="PATCH" />,
+        () => (
+            <NonGetRequest
+                title="Axios PATCH Request"
+                method="PATCH"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData,
         }
     )
     .add(
         'DELETE request',
-        () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
+        () => (
+            <NonGetRequest
+                title="Axios DELETE Request"
+                method="DELETE"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData,
         }
@@ -173,33 +230,55 @@ storiesOf('Examples/Default/Axios', module)
 
 storiesOf('Examples/Custom Function/Fetch', module)
     .addDecorator(withMock)
-    .add('GET request', () => <GetRequest title="Fetch GET Request" />, {
-        mockData: mockCustomFunctionData,
-    })
+    .add(
+        'GET request',
+        () => <GetRequest title="Fetch GET Request" callApi={callFetch} />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
     .add(
         'POST request',
-        () => <NonGetRequest title="Fetch POST Request" method="POST" />,
+        () => <NonGetRequest title="Fetch POST Request" method="POST" callApi={callFetch} />,
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'PUT request',
-        () => <NonGetRequest title="Fetch PUT Request" method="PUT" />,
+        () => (
+            <NonGetRequest
+                title="Fetch PUT Request"
+                method="PUT"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'PATCH request',
-        () => <NonGetRequest title="Fetch PATCH Request" method="PATCH" />,
+        () => (
+            <NonGetRequest
+                title="Fetch PATCH Request"
+                method="PATCH"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'DELETE request',
-        () => <NonGetRequest title="Fetch DELETE Request" method="DELETE" />,
+        () => (
+            <NonGetRequest
+                title="Fetch DELETE Request"
+                method="DELETE"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
@@ -207,33 +286,61 @@ storiesOf('Examples/Custom Function/Fetch', module)
 
 storiesOf('Examples/Custom Function/Axios', module)
     .addDecorator(withMock)
-    .add('GET request', () => <GetRequest title="Axios GET Request" />, {
-        mockData: mockCustomFunctionData,
-    })
+    .add(
+        'GET request',
+        () => <GetRequest title="Axios GET Request" callApi={callAxios} />,
+        {
+            mockData: mockCustomFunctionData,
+        }
+    )
     .add(
         'POST request',
-        () => <NonGetRequest title="Axios POST Request" method="POST" />,
+        () => (
+            <NonGetRequest
+                title="Axios POST Request"
+                method="POST"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'PUT request',
-        () => <NonGetRequest title="Axios PUT Request" method="PUT" />,
+        () => (
+            <NonGetRequest
+                title="Axios PUT Request"
+                method="PUT"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'PATCH request',
-        () => <NonGetRequest title="Axios PATCH Request" method="PATCH" />,
+        () => (
+            <NonGetRequest
+                title="Axios PATCH Request"
+                method="PATCH"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
     )
     .add(
         'DELETE request',
-        () => <NonGetRequest title="Axios DELETE Request" method="DELETE" />,
+        () => (
+            <NonGetRequest
+                title="Axios DELETE Request"
+                method="DELETE"
+                callApi={callAxios}
+            />
+        ),
         {
             mockData: mockCustomFunctionData,
         }
@@ -243,7 +350,12 @@ storiesOf('Examples/Special Cases', module)
     .addDecorator(withMock)
     .add(
         'Same API calls multiple times',
-        () => <SearchParamsRequest title="Same API calls multiple times" />,
+        () => (
+            <SearchParamsRequest
+                title="Same API calls multiple times"
+                callApi={callFetch}
+            />
+        ),
         {
             mockData: [
                 {
