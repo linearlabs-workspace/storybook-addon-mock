@@ -130,7 +130,11 @@ export class Faker {
                     const data = response(new Request(url, { method, body }));
                     xhr.respond(status, defaultResponseHeaders, data);
                 } else {
-                    xhr.respond(+status, defaultResponseHeaders, response);
+                    xhr.respond(
+                        +status,
+                        defaultResponseHeaders,
+                        JSON.stringify(response)
+                    );
                 }
             }, +delay);
         } else {

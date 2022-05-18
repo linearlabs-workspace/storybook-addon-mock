@@ -1,3 +1,4 @@
+import request from 'superagent';
 import axios from 'axios';
 
 export const DEFAULT_URL = 'https://jsonplaceholder.typicode.com/todos';
@@ -61,6 +62,31 @@ export const callAxios = async ({
     } catch (err) {
         error = err.response.data;
         status = err.response.status;
+    }
+    return {
+        data,
+        error,
+        status,
+    };
+};
+
+export const callSuperAgent = async ({
+    method = DEFAULT_METHOD,
+    url = DEFAULT_URL,
+    body,
+}) => {
+    let data = null;
+    let error = null;
+    let status = null;
+
+    try {
+        const response = await request(method, url, body);
+
+        data = response.body;
+        status = response.status;
+    } catch (err) {
+        error = err.message;
+        status = err.status;
     }
     return {
         data,
