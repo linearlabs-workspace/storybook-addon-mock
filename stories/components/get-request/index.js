@@ -21,8 +21,8 @@ export const GetRequest = ({ title, callApi }) => {
         const url = `${DEFAULT_URL}/${todoId}`;
 
         setLoading(true);
-        const fetchResponse = await callApi({ url });
-        setResponse(fetchResponse);
+        const apiResponse = await callApi({ url });
+        setResponse(apiResponse);
         setLoading(false);
     };
 

@@ -23,12 +23,12 @@ export const NonGetRequest = ({ title, method, callApi }) => {
             method === 'POST' ? DEFAULT_URL : `${DEFAULT_URL}/${todoId}`;
 
         setLoading(true);
-        const fetchResponse = await callApi({
+        const apiResponse = await callApi({
             url,
             method,
             body: { name: todoName },
         });
-        setResponse(fetchResponse);
+        setResponse(apiResponse);
         setLoading(false);
     };
 

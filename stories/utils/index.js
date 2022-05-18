@@ -54,7 +54,7 @@ export const callAxios = async ({
         const response = await axios({
             url,
             method,
-            body: body ? JSON.stringify(body) : undefined,
+            data: body ? JSON.stringify(body) : undefined,
         });
         data = response.data;
         status = response.status;
