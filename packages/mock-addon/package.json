@@ -1,0 +1,82 @@
+{
+  "name": "storybook-addon-mock",
+  "version": "0.0.0",
+  "description": "everything you need to build a Storybook addon",
+  "keywords": [
+    "storybook-addons"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/storybookjs/storybook-addon-kit"
+  },
+  "author": "package-author",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/ts/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
+    "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
+    "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
+    "prebuild": "yarn clean",
+    "build": "yarn buildBabel",
+    "build:watch": "yarn buildBabel:esm -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prerelease": "zx scripts/prepublish-checks.mjs",
+    "release": "yarn build && auto shipit"
+  },
+  "dependencies": {
+    "mock-xmlhttprequest": "^7.0.3",
+    "path-to-regexp": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "@babel/preset-typescript": "^7.13.0",
+    "auto": "^10.3.0",
+    "babel-loader": "^8.1.0",
+    "boxen": "^5.0.1",
+    "concurrently": "^6.2.0",
+    "dedent": "^0.7.0",
+    "prettier": "^2.3.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4",
+    "zx": "^1.14.1"
+  },
+  "peerDependencies": {
+    "@storybook/addons": "^6.4.0",
+    "@storybook/api": "^6.4.0",
+    "@storybook/components": "^6.4.0",
+    "@storybook/core-events": "^6.4.0",
+    "@storybook/theming": "^6.4.0",
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "storybook": {
+    "displayName": "Addon Kit",
+    "supportedFrameworks": [
+      "supported-frameworks"
+    ],
+    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+  }
+}
