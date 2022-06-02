@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button } from './Button';
+import { mockData } from './mock';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -30,7 +31,7 @@ Primary.args = {
   label: 'Button',
 };
 Primary.parameters = {
-  mockData: [],
+  mockData,
 }
 
 export const Secondary = Template.bind({});
