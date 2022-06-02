@@ -14,11 +14,9 @@ export const Panel = (props) => {
   
   const emit = useChannel({
     [EVENTS.SEND]: (newMockData) => {
-      console.log('on send');
       setState(newMockData);
     },
     [EVENTS.UPDATE]: (item, name, value) => {
-      console.log('on update', item, name, value);
       faker.update(item, name, value);
       emit(EVENTS.SEND, faker.getRequests());
     },
@@ -47,10 +45,10 @@ export const Panel = (props) => {
     <AddonPanel {...props}>
         <ScrollArea>
         {
-          mockData.map((item) => {
+          mockData.map((item, index) => {
             const {searchParamKeys, path, ...rest} = item;
             return (
-              <MockItem onChange={(name, value) => onChange(item, name, value)} {...rest} />
+              <MockItem key={index} onChange={(name, value) => onChange(item, name, value)} {...rest} />
             )
           })
         }
