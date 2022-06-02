@@ -1,9 +1,0 @@
-# ignore all
-
-*
-
-# override above and include followings
-
-!dist/**/*
-!register.js
-!index.d.ts

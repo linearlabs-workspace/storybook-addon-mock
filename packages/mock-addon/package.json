@@ -1,16 +1,25 @@
 {
   "name": "storybook-addon-mock",
-  "version": "0.0.0",
-  "description": "everything you need to build a Storybook addon",
+  "version": "2.4.0",
+  "description": "A storybook addon to mock fetch/XHR request",
   "keywords": [
-    "storybook-addons"
+    "storybook",
+    "mock",
+    "http-mock",
+    "fetch-mock",
+    "xhr-mock",
+    "mock-data",
+    "storybook-addon",
+    "data-state",
+    "storybook-mock-request",
+    "mock-request"
   ],
+  "author": "Farhad Yasir (nutboltu)",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/storybookjs/storybook-addon-kit"
+    "url": "https://github.com/nutboltu/storybook-addon-mock.git"
   },
-  "author": "package-author",
-  "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/ts/index.d.ts",
@@ -28,7 +37,9 @@
     "prebuild": "yarn clean",
     "build": "yarn buildBabel",
     "build:watch": "yarn buildBabel:esm -- --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "yarn run lint --fix",
+    "test": "jest src",
     "prerelease": "zx scripts/prepublish-checks.mjs",
     "release": "yarn build && auto shipit"
   },
@@ -38,16 +49,13 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "^7.13.0",
     "auto": "^10.3.0",
-    "babel-loader": "^8.1.0",
     "boxen": "^5.0.1",
     "concurrently": "^6.2.0",
     "dedent": "^0.7.0",
-    "prettier": "^2.3.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4",
     "zx": "^1.14.1"
@@ -56,10 +64,9 @@
     "@storybook/addons": "^6.4.0",
     "@storybook/api": "^6.4.0",
     "@storybook/components": "^6.4.0",
-    "@storybook/core-events": "^6.4.0",
     "@storybook/theming": "^6.4.0",
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
   },
   "peerDependenciesMeta": {
     "react": {
@@ -73,10 +80,10 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "Addon Kit",
+    "displayName": "Mock API Request",
     "supportedFrameworks": [
-      "supported-frameworks"
+      "react"
     ],
-    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg"
   }
 }

@@ -1,22 +1,18 @@
 {
   "name": "storybook-addon-mock",
-  "version": "2.4.1",
-  "description": "A storybook addon to mock fetch/XHR request",
-  "main": "dist/index.js",
+  "description": "A monorepo for storybook-addon-mock",
   "private": true,
-  "types": "index.d.ts",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "storybook": "yarn run build && start-storybook -p 6006 --no-manager-cache",
     "clean": "rm -rf dist",
-    "build": "yarn run clean && babel src -d dist --ignore **/*.test.js",
-    "lint": "eslint .",
-    "lint:fix": "yarn run lint --fix",
-    "test": "jest src",
+    "build": "yarn workspace storybook-addon-mock run build",
+    "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
+    "test": "yarn workspaces run test",
     "ci": "yarn run lint && yarn run test && yarn run build",
-    "deploy-storybook": "yarn run build && storybook-to-ghpages",
+    "deploy-storybook": "yarn workspace storybook-addon-mock-docs run deploy-storybook",
     "dedup": "yarn-deduplicate"
   },
   "repository": {
@@ -35,16 +31,19 @@
     "storybook-mock-request",
     "mock-request"
   ],
-  "author": "Farhad Yasir (nutboltu)",
-  "license": "MIT",
-  "storybook": {
-    "displayName": "Mock API Request",
-    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg",
-    "supportedFrameworks": [
-      "react"
-    ]
-  },
+  
   "devDependencies": {
-    "webpack": "^5.72.1"
+    "@babel/core": "^7.18.2",
+    "babel-loader": "^8.2.5",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.1",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "webpack": "^5.72.1",
+    "yarn-deduplicate": "^5.0.0"
   }
 }
