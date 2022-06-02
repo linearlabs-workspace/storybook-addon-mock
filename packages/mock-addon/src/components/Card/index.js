@@ -43,7 +43,7 @@ export const Card = ({ children, onToggle, enabled }) => {
 };
 
 Card.propTypes = {
-    children: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     onToggle: PropTypes.func,
     enabled: PropTypes.bool.isRequired,
 };

@@ -82,7 +82,7 @@ const Label = styled.label(({ theme }) => ({
 
 export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }) => {
     return (
-        <Label htmlFor={name} title={value}>
+        <Label htmlFor={name} title={value.toString()}>
             <input
                 id={name}
                 type="checkbox"

@@ -1,5 +1,5 @@
 {
-  "name": "storybook-mock-addon-docs",
+  "name": "storybook-addon-mock-docs",
   "version": "1.0.0",
   "description": "A package with documentation and example for storybook-addon-mock",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "yarn run lint --fix",
     "test": "echo \"Error: no test specified\"",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn run build && storybook-to-ghpages"
   },

@@ -8,6 +8,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn workspace storybook-addon-mock run build",
+    "storybook": "yarn workspace storybook-addon-mock-docs run storybook",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
