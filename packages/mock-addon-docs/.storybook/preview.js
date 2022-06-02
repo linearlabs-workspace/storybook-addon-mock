@@ -6,4 +6,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  globalMockData: [{
+    url: 'http://localhost:0000',
+    method: 'PUT',
+    response: {},
+  }]
 }
