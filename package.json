@@ -31,9 +31,9 @@
     "storybook-mock-request",
     "mock-request"
   ],
-  
   "devDependencies": {
     "@babel/core": "^7.18.2",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.3.0",
@@ -43,6 +43,7 @@
     "eslint-plugin-react": "^7.23.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
+    "prop-types": "^15.8.1",
     "webpack": "^5.72.1",
     "yarn-deduplicate": "^5.0.0"
   }

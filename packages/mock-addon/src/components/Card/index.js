@@ -1,12 +1,13 @@
-import React from "react";
-import { styled } from "@storybook/theming";
-import { ButtonToggle } from "../ButtonToggle";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { styled } from '@storybook/theming';
+import { ButtonToggle } from '../ButtonToggle';
 
 const Container = styled.div`
-  margin: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px;
+    margin: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px;
 `;
 
 const Header = styled.div`
@@ -17,8 +18,8 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-    opacity: ${(props) => props.enabled ? 1 : 0.5};
-    pointer-events: ${(props) => props.enabled ? 'inherit' : 'none'};
+    opacity: ${(props) => (props.enabled ? 1 : 0.5)};
+    pointer-events: ${(props) => (props.enabled ? 'inherit' : 'none')};
 
     > label:last-child {
         padding: 1rem;
@@ -30,11 +31,19 @@ export const Card = ({ children, onToggle, enabled }) => {
     return (
         <Container>
             <Header>
-                <ButtonToggle name="Enabled" value={enabled} onChange={onToggle} />
+                <ButtonToggle
+                    name="Enabled"
+                    value={enabled}
+                    onChange={onToggle}
+                />
             </Header>
-            <Content enabled={enabled}>
-                {children}
-            </Content>
+            <Content enabled={enabled}>{children}</Content>
         </Container>
-    )
-}
+    );
+};
+
+Card.propTypes = {
+    children: PropTypes.string.isRequired,
+    onToggle: PropTypes.func,
+    enabled: PropTypes.bool.isRequired,
+};
