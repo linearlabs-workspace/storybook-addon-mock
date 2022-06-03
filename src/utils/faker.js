@@ -3,7 +3,11 @@ import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
 import { Response } from './response';
-import { setRequestHeaders, getResponseHeaderMap, defaultResponseHeaders } from './headers';
+import {
+    setRequestHeaders,
+    getResponseHeaderMap,
+    defaultResponseHeaders,
+} from './headers';
 import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
 
