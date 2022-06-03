@@ -2,11 +2,12 @@
 import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
+import { Response } from './response';
 import {
-    Response,
+    setRequestHeaders,
     getResponseHeaderMap,
     defaultResponseHeaders,
-} from './response';
+} from './headers';
 import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
 
@@ -141,6 +142,9 @@ export class Faker {
             // eslint-disable-next-line new-cap
             const realXhr = new global.realXMLHttpRequest();
             realXhr.open(method, url);
+
+            setRequestHeaders(realXhr, xhr.requestHeaders._headers);
+            realXhr.withCredentials = xhr._withCredentials;
 
             realXhr.onreadystatechange = function onReadyStateChange() {
                 if (realXhr.readyState === 4 && realXhr.status === 200) {
