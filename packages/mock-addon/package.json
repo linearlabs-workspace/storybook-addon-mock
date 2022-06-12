@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mock",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "A storybook addon to mock fetch/XHR request",
   "keywords": [
     "storybook",
