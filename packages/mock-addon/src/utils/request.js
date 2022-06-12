@@ -1,12 +1,5 @@
 import { getBaseUrl } from './url';
 
-export const setRequestHeaders = (xhr, headerContainers) => {
-    const { _headers: headers } = headerContainers;
-    for (let [key, value] of headers) {
-        xhr.setRequestHeader(key, value);
-    }
-};
-
 export function Request(input, options = {}) {
     if (typeof input === 'object') {
         this.method = options.method || input.method || 'GET';
