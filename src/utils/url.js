@@ -14,8 +14,13 @@ export const getNormalizedUrl = (rawUrl = '') => {
             searchParamKeys.push(key);
         }
     }
+
+    const searchEscaped = url.search ? '\\' + url.search : '';
+
     return {
         path: url.host + url.pathname,
         searchParamKeys,
+        fullUrl: url.host + url.pathname + url.search,
+        fullUrlEscaped: url.host + url.pathname + searchEscaped,
     };
 };

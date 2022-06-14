@@ -8,13 +8,9 @@ describe('Faker', () => {
             const actual = faker.getKey('', [], '');
             expect(actual).toEqual('');
         });
-        it('should return a string binding url and method with underscore if searchParamKeys is empty', () => {
-            const actual = faker.getKey('google.com', [], 'GET');
+        it('should return a string binding url and method with underscore', () => {
+            const actual = faker.getKey('google.com', 'GET');
             expect(actual).toEqual('google.com_get');
-        });
-        it('should return a string binding url, search params keys, and method with underscore', () => {
-            const actual = faker.getKey('google.com', ['all', 'only'], 'GET');
-            expect(actual).toEqual('google.com_all_only_get');
         });
     });
     describe('makeInitialRequestMap', () => {
@@ -69,6 +65,13 @@ describe('Faker', () => {
                 response: {},
                 delay: 0,
             },
+            {
+                url: 'http://request.com?a=1&b=2',
+                method: 'GET',
+                status: 200,
+                response: {},
+                delay: 0,
+            },
         ];
         faker.makeInitialRequestMap(requests);
 
@@ -86,6 +89,12 @@ describe('Faker', () => {
             const actual = faker.matchMock('http://request2.com/3', 'POST');
             expect(actual.url).toEqual(requests[2].url);
             expect(actual.method).toEqual(requests[2].method);
+            expect(actual.skip).toEqual(false);
+        });
+        it('should return request if url matches with the query parameters', () => {
+            const actual = faker.matchMock('http://request.com?a=1&b=2', 'GET');
+            expect(actual.url).toEqual(requests[3].url);
+            expect(actual.method).toEqual(requests[3].method);
             expect(actual.skip).toEqual(false);
         });
     });
