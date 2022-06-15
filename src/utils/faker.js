@@ -8,7 +8,6 @@ import {
     getResponseHeaderMap,
     defaultResponseHeaders,
 } from './headers';
-import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
 
 let global =
@@ -34,9 +33,9 @@ export class Faker {
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url = '', searchParamKeys = [], method = 'GET') =>
+    getKey = (url = '', method = 'GET') =>
         url && method
-            ? [url, ...searchParamKeys, method.toLowerCase()].join('_')
+            ? [url, method.toLowerCase()].join('_')
             : '';
 
     makeInitialRequestMap = (requests) => {
@@ -51,12 +50,9 @@ export class Faker {
     };
 
     add = (request) => {
-        const { path, searchParamKeys } = getNormalizedUrl(request.url);
-        const key = this.getKey(path, searchParamKeys, request.method);
+        const key = this.getKey(request.url, request.method);
         this.requestMap[key] = {
             ...request,
-            path,
-            searchParamKeys,
             method: request.method || 'GET',
             status: request.status || 200,
             delay: request.delay || 0,
@@ -66,8 +62,7 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const { path, searchParamKeys } = getNormalizedUrl(url);
-        const itemKey = this.getKey(path, searchParamKeys, method);
+        const itemKey = this.getKey(url, method);
 
         if (
             // eslint-disable-next-line no-prototype-builtins
@@ -80,17 +75,17 @@ export class Faker {
     };
 
     matchMock = (url, method = 'GET') => {
-        const { path, searchParamKeys } = getNormalizedUrl(url);
+        const { fullUrl } = getNormalizedUrl(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
-            const { path: requestPath, searchParamKeys: requestSearchKeys } =
+            const { fullUrlEscaped } =
                 getNormalizedUrl(requestUrl);
+
             if (
-                match(requestPath)(path) &&
+                match(fullUrlEscaped)(fullUrl) &&
                 method == requestMethod &&
-                arrayEquals(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];

@@ -32,7 +32,7 @@ There are few packages those help the developers to mock the backend requests wh
 
 | Property   | Description                                                                                 | Required | Default |
 | ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | Y        |    -    |
+| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters** (`/foo?bar=true`) in [path-to-regexp](https://github.com/pillarjs/path-to-regexp/blob/master/Readme.md) format. | Y        |    -    |
 | `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |     -    | `GET`   |
 | `status`   | All possible HTTP status codes.                                                              |     -    | `200`   |
 | `response` | JSON format or function. <br/> <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | Y        |    -    |
@@ -155,7 +155,7 @@ Default.parameters = {
                 if (searchParams.id == 1) {
                      return {
                         data: 'Custom data for id 1',
-                    };   
+                    };
                 } else if (body.name === 'mock') {
                     return {
                         data: 'Custom data for name mock',
