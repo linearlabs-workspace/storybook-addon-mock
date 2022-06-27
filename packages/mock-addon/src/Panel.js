@@ -33,6 +33,7 @@ export const Panel = (props) => {
                     const { searchParamKeys, path, ...rest } = item;
                     return (
                         <MockItem
+                            id={index}
                             key={index}
                             onChange={(name, value) =>
                                 onChange(item, name, value)

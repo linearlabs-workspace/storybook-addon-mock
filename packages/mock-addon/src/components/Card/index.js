@@ -20,6 +20,7 @@ const Header = styled.div`
 const Content = styled.div`
     opacity: ${(props) => (props.enabled ? 1 : 0.5)};
     pointer-events: ${(props) => (props.enabled ? 'inherit' : 'none')};
+    padding: 0 0.75rem;
 
     > label:last-child {
         padding: 1rem;

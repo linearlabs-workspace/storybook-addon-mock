@@ -10,7 +10,7 @@ const Label = styled.label(({ theme }) => ({
     position: 'relative',
     whiteSpace: 'nowrap',
     background: `${opacify(0.05, theme.appBorderColor)}`,
-    borderRadius: '3em',
+    borderRadius: '0.3em',
     padding: 1,
 
     input: {
@@ -25,7 +25,7 @@ const Label = styled.label(({ theme }) => ({
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
-        borderRadius: '3em',
+        borderRadius: '0.3em',
 
         '&:focus': {
             outline: 'none',
@@ -40,10 +40,11 @@ const Label = styled.label(({ theme }) => ({
         lineHeight: '1',
         cursor: 'pointer',
         display: 'inline-block',
-        padding: '5px',
+        padding: '10px 5px',
         transition: 'all 100ms ease-out',
         userSelect: 'none',
-        borderRadius: '3em',
+        borderRadius: '0.3em',
+        width: '50%',
 
         color: transparentize(0.4, theme.color.defaultText),
         background: 'transparent',
@@ -68,15 +69,17 @@ const Label = styled.label(({ theme }) => ({
     'input:checked ~ span:last-of-type, input:not(:checked) ~ span:first-of-type':
         {
             boxShadow: `${opacify(0.1, theme.appBorderColor)} 0 0 2px`,
-            color: theme.color.defaultText,
-            padding: '5px',
+            padding: '10px 5px',
         },
 
     'input:checked ~ span:last-of-type': {
-        background: theme.background.positive,
+        background: '#1ea7fd',
+        color: theme.color.light,
+        border: '1px solid #1ea7fd',
     },
     'input:not(:checked) ~ span:first-of-type': {
         background: theme.background.bar,
+        color: theme.color.defaultText,
     },
 }));
 
