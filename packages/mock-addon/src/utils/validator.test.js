@@ -211,6 +211,52 @@ describe('Validator', () => {
             expect(actual).toEqual(['response: null is not valid.']);
         });
     });
+    describe('validate delay', () => {
+        it('should return empty error if delay is an object', () => {
+            const mock = {
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
+                method: 'GET',
+                status: 200,
+                delay: 0,
+                response: {
+                    id: '1',
+                    name: 'Item 1',
+                },
+            };
+            const actual = validate(mock, schema);
+            expect(actual).toEqual([]);
+        });
+
+        it('should return not valid delay error if delay is a string', () => {
+            const mock = {
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
+                method: 'GET',
+                status: 200,
+                delay: 'string',
+                response: {
+                    id: '1',
+                    name: 'Item 1',
+                },
+            };
+            const actual = validate(mock, schema);
+            expect(actual).toEqual(['delay: "string" is not valid.']);
+        });
+
+        it('should return empty error if delay is null', () => {
+            const mock = {
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
+                method: 'GET',
+                status: 200,
+                delay: null,
+                response: {
+                    id: '1',
+                    name: 'Item 1',
+                },
+            };
+            const actual = validate(mock, schema);
+            expect(actual).toEqual([]);
+        });
+    });
     describe('validate multiple fields', () => {
         it('should return empty error if response is an object', () => {
             const mock = {
