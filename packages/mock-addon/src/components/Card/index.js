@@ -28,16 +28,23 @@ const Content = styled.div`
     }
 `;
 
-export const Card = ({ children, onToggle, enabled }) => {
+export const Card = ({
+    children,
+    onToggle,
+    enabled = true,
+    showHeader = true,
+}) => {
     return (
         <Container>
-            <Header>
-                <ButtonToggle
-                    name="Enabled"
-                    value={enabled}
-                    onChange={onToggle}
-                />
-            </Header>
+            {showHeader && (
+                <Header>
+                    <ButtonToggle
+                        name="Enabled"
+                        value={enabled}
+                        onChange={onToggle}
+                    />
+                </Header>
+            )}
             <Content enabled={enabled}>{children}</Content>
         </Container>
     );
@@ -46,5 +53,11 @@ export const Card = ({ children, onToggle, enabled }) => {
 Card.propTypes = {
     children: PropTypes.node.isRequired,
     onToggle: PropTypes.func,
-    enabled: PropTypes.bool.isRequired,
+    enabled: PropTypes.bool,
+    showHeader: PropTypes.bool,
+};
+
+Card.defaultProps = {
+    showHeader: true,
+    enabled: true,
 };

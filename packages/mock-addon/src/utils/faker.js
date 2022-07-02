@@ -10,6 +10,7 @@ import {
 } from './headers';
 import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
+import { validate, schema } from './validator';
 
 let global =
     // eslint-disable-next-line no-undef
@@ -53,6 +54,16 @@ export class Faker {
     add = (request) => {
         const { path, searchParamKeys } = getNormalizedUrl(request.url);
         const key = this.getKey(path, searchParamKeys, request.method);
+        const errors = validate(request, schema);
+
+        if (errors && errors.length) {
+            this.requestMap[key] = {
+                errors,
+                originalRequest: request,
+            };
+            return;
+        }
+
         this.requestMap[key] = {
             ...request,
             path,
@@ -61,6 +72,7 @@ export class Faker {
             status: request.status || 200,
             delay: request.delay || 0,
             skip: false,
+            errors: [],
         };
     };
 

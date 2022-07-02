@@ -133,7 +133,7 @@ export const MockItem = ({
 };
 
 MockItem.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     url: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
     status: PropTypes.number.isRequired,

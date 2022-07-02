@@ -1,23 +1,46 @@
+import statusTextMap from '../utils/statusMap';
+
+const methods = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'];
+const statusCodes = Object.keys(statusTextMap);
+
+const isObject = (value) =>
+    value && !Array.isArray(value) && typeof value === 'object';
+
 export const schema = {
-    url : (value) => { return ''; },
-    method: (value) => { return ''; },
-    status: (value) => { return ''; },
-    response: (value) => { return ''; },
+    url: (value) => {
+        return typeof value === 'string';
+    },
+    method: (value) => {
+        return (
+            typeof value === 'string' &&
+            methods.find(
+                (method) => method.toLowerCase() === value.toLowerCase()
+            )
+        );
+    },
+    status: (value) => {
+        return value && statusCodes.indexOf(value.toString()) >= 0;
+    },
+    response: (value) => {
+        return (
+            (isObject(value) || typeof value === 'function') && value !== null
+        );
+    },
+    delay: (value) => {
+        return value ? typeof value === 'number' : true;
+    },
 };
 
 export function validate(object, schema) {
-    var errors = Object.keys(schema).filter(function (key) {
-      return !schema[key](object[key]);
-    }).map(function (key) {
-      //
-      return new Error(key + " is invalid.");
-    });
-  
-    if (errors.length > 0) {
-      errors.forEach(function (error) {
-        console.log(error.message);
-      });
-    } else {
-      console.log("info is valid");
+    if (!isObject(object)) {
+        return [`item: ${JSON.stringify(object)} is not a valid object.`];
     }
-  }
+    const errors = Object.keys(schema)
+        .filter(function (key) {
+            return !schema[key](object[key]);
+        })
+        .map(function (key) {
+            return key + `: ${JSON.stringify(object[key])} is not valid.`;
+        });
+    return errors;
+}
