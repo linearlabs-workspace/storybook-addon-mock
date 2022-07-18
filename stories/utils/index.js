@@ -46,6 +46,7 @@ export const callAxios = async ({
     method = DEFAULT_METHOD,
     url = DEFAULT_URL,
     body,
+    onUploadProgress,
 }) => {
     let data = null;
     let error = null;
@@ -56,6 +57,7 @@ export const callAxios = async ({
             url,
             method,
             data: body ? JSON.stringify(body) : undefined,
+            onUploadProgress,
         });
         data = response.data;
         status = response.status;

@@ -52,6 +52,55 @@ const mockData = [
     },
 ];
 
+const mockWithDelayData = [
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'GET',
+        status: 200,
+        delay: 5000,
+        response: {
+            id: '1',
+            name: 'Item 1',
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos',
+        method: 'POST',
+        status: 201,
+        delay: 5000,
+        uploadFrameCount: 10,
+        response: {
+            message: 'New item created',
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PUT',
+        status: 200,
+        delay: 5000,
+        uploadFrameCount: 100,
+        response: {
+            id: '1',
+            name: 'Item 1',
+        },
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'PATCH',
+        status: 204,
+        delay: 5000,
+        uploadFrameCount: 100,
+        response: null,
+    },
+    {
+        url: 'https://jsonplaceholder.typicode.com/todos/:id',
+        method: 'DELETE',
+        status: 202,
+        delay: 5000,
+        uploadFrameCount: 100,
+        response: null,
+    },
+];
 const mockCustomFunctionData = [
     {
         url: 'https://jsonplaceholder.typicode.com/todos/:id',
@@ -320,6 +369,17 @@ storiesOf('Examples/Custom Function/Axios', module)
 
 storiesOf('Examples/Special Cases', module)
     .addDecorator(withMock)
+    .add(
+        'Axios request with uploadProgress',
+        () => (
+            <NonGetRequest
+                title="Axios POST Request"
+                method="POST"
+                callApi={callAxios}
+            />
+        ),
+        { mockData: mockWithDelayData }
+    )
     .add(
         'Same API calls multiple times',
         () => (

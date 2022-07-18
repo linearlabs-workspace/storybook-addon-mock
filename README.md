@@ -37,6 +37,8 @@ There are few packages those help the developers to mock the backend requests wh
 | `status`   | All possible HTTP status codes.                                                              |     -    | `200`   |
 | `response` | JSON format or function. <br/> <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | Y        |    -    |
 | `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
+| `uploadFrameCount`    | Emulate response progress, progress will be emitted in delayed time duration.                         |     -    | `5`     |
+| `uploadTimingFunction`    | Emulate response progress, the timing function makes customized progress. Supports `linear`, `ease-in`, `ease-out`.         |     -    | `linear`     |
 
 > You can change the **status**, **response** and **delay** from the storybook panel on the fly! :rocket:
 
