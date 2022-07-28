@@ -107,15 +107,22 @@ export class Faker {
 
         if (matched) {
             const { response, status, delay = 0 } = matched;
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    if (typeof response === 'function') {
-                        resolve(new Response(url, status, response(request)));
-                    } else {
-                        resolve(new Response(url, status, response));
-                    }
-                }, +delay);
-            });
+            const getResponse = () =>
+                new Response(
+                    url,
+                    status,
+                    typeof response === 'function'
+                        ? response(request)
+                        : response
+                );
+            if (+delay > 0) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(getResponse());
+                    }, +delay);
+                });
+            }
+            return Promise.resolve(getResponse());
         }
         // eslint-disable-next-line no-restricted-globals
         return global.realFetch(input, options);
