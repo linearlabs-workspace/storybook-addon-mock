@@ -16,6 +16,7 @@ export const NonGetRequest = ({ title, method, callApi }) => {
     const [todoName, setTodoName] = useState('Item 1');
     const [response, setResponse] = useState({});
     const [loading, setLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,6 +28,9 @@ export const NonGetRequest = ({ title, method, callApi }) => {
             url,
             method,
             body: { name: todoName },
+            onUploadProgress: (pev) => {
+                setUploadProgress(pev.loaded / pev.total);
+            },
         });
         setResponse(apiResponse);
         setLoading(false);
@@ -62,7 +66,11 @@ export const NonGetRequest = ({ title, method, callApi }) => {
                 )}
                 <input type="submit" value="Submit" style={buttonStyles} />
             </form>
-            <ResponseContainer loading={loading} {...response} />
+            <ResponseContainer
+                uploadProgress={uploadProgress}
+                loading={loading}
+                {...response}
+            />
         </StoryContainer>
     );
 };

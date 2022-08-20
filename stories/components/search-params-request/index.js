@@ -15,6 +15,7 @@ export const SearchParamsRequest = ({ title, isFetch = true }) => {
     const [todoId, setTodoId] = useState('1');
     const [response, setResponse] = useState({});
     const [loading, setLoading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,7 +26,12 @@ export const SearchParamsRequest = ({ title, isFetch = true }) => {
             const fetchResponse = await callFetch({ url });
             setResponse(fetchResponse);
         } else {
-            const axiosResponse = await callAxios({ url });
+            const axiosResponse = await callAxios({
+                url,
+                onUploadProgress: (pev) => {
+                    setUploadProgress(pev.loaded / pev.total);
+                },
+            });
             setResponse(axiosResponse);
         }
         setLoading(false);
@@ -45,7 +51,11 @@ export const SearchParamsRequest = ({ title, isFetch = true }) => {
                 </div>
                 <input type="submit" value="Submit" style={buttonStyles} />
             </form>
-            <ResponseContainer loading={loading} {...response} />
+            <ResponseContainer
+                uploadProgress={uploadProgress}
+                loading={loading}
+                {...response}
+            />
         </StoryContainer>
     );
 };

@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 
 import { errorContainerStyles, responseContainerStyles } from './styles';
 
-export const ResponseContainer = ({ loading, status, error, data }) => (
+export const ResponseContainer = ({
+    loading,
+    uploadProgress,
+    status,
+    error,
+    data,
+}) => (
     <>
         {loading ? (
-            <div style={responseContainerStyles}>Loading...</div>
+            <div style={responseContainerStyles}>
+                Loading...
+                {!!uploadProgress && <span>{uploadProgress * 100} %</span>}
+            </div>
         ) : (
             <div style={responseContainerStyles}>
                 {status && <div>Status: {status}</div>}
@@ -29,6 +38,7 @@ export const ResponseContainer = ({ loading, status, error, data }) => (
 
 ResponseContainer.propTypes = {
     loading: PropTypes.bool,
+    uploadProgress: PropTypes.number,
     status: PropTypes.number,
     error: PropTypes.object,
     data: PropTypes.object,

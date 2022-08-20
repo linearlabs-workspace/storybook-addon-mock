@@ -121,11 +121,38 @@ export class Faker {
         return global.realFetch(input, options);
     };
 
+    /**
+     * mock xhr request
+     * @param {import('mock-xmlhttprequest').MockXhr} xhr
+     */
     mockXhrRequest = (xhr) => {
         const { method, url, body } = xhr;
         const matched = this.matchMock(url, method);
         if (matched) {
-            const { response, status, delay = 0 } = matched;
+            const {
+                response,
+                status,
+                delay = 0,
+                uploadTimingFunction = 'linear',
+                uploadFrameCount = 5,
+            } = matched;
+            // split delays
+            let timeForTransitionEmit = [];
+            if (delay > 0) {
+                timeForTransitionEmit = getTimingSlice(
+                    uploadTimingFunction,
+                    uploadFrameCount
+                );
+            }
+
+            timeForTransitionEmit.forEach((progressRatio, timeoutIndex) => {
+                setTimeout(() => {
+                    xhr.uploadProgress(
+                        progressRatio * xhr.getRequestBodySize()
+                    );
+                }, ((timeoutIndex + 1) * +delay) / uploadFrameCount);
+            });
+
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
@@ -170,6 +197,30 @@ export class Faker {
     restore = () => {
         this.requestMap = {};
     };
+}
+
+function getTimingSlice(timingFunction, sliceCount) {
+    const timeSlice = [];
+
+    if (timingFunction === 'ease-in') {
+        for (let i = 0; i < sliceCount; i++) {
+            timeSlice.splice(i, 0, Math.pow((i + 1) / sliceCount, 1.675));
+        }
+    } else if (timingFunction === 'ease-out') {
+        for (let i = 0; i < sliceCount; i++) {
+            timeSlice.splice(
+                i,
+                0,
+                1 - Math.pow(1 - (i + 1) / sliceCount, 1.675)
+            );
+        }
+    } else {
+        // linear
+        for (let i = 0; i < sliceCount; i++) {
+            timeSlice.splice(i, 0, (i + 1) / sliceCount);
+        }
+    }
+    return timeSlice;
 }
 
 export default new Faker();
