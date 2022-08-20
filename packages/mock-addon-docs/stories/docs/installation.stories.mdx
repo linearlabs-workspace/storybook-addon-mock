@@ -3,15 +3,45 @@ import { Meta } from '@storybook/addon-docs';
 
 <Meta title="Docs/Installation" />
 
-<h2>Install storybook-addon-mock </h2>
+<style>
+    {`
+        .subheading {
+            margin-bottom: 1.5rem;
+        }
+    `}
+</style>
 
-With npm:
+<h2 className="subheading">Installation and Setup</h2>
+
+<h3 className="subheading">Install storybook-addon-mock</h3>
+
+<div>Using npm</div>
 
 ```sh
-npm i storybook-addon-mock -D
+    npm i storybook-addon-mock -D
+```
+<div> Using yarn </div>
+
+```sh
+    yarn add storybook-addon-mock -D
 ```
 
-Or with yarn:
+<h3 className="subheading">Setting up addon</h3>
 
-```sh
-yarn add storybook-addon-mock -D
+
+<h4 className="subheading next">Next</h4>
+<div className="footer">
+    <div className="link-item">
+        <div className="link-item-content">
+            <strong>Advanced setup</strong>
+            Setup the addon with advanced configuration
+        </div>
+        <LinkTo
+            className="continue"
+            kind="Docs/AdvancedSetup"
+            story="page"
+        >
+            Continue
+        </LinkTo>
+    </div>
+</div>
