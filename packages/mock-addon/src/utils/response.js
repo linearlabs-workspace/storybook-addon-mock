@@ -1,5 +1,6 @@
 import statusTextMap from './statusMap';
- 
+import { defaultResponseHeaders } from './headers';
+
 export function Response(url, status, responseText) {
     const keys = [];
     const all = [];
