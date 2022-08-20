@@ -1,7 +1,8 @@
 export const parameters = {
   options: {
     storySort: {
-      order: ['Introduction', 'Installation']
+      order: ['Docs/Introduction', 'Docs/Installation'],
+      includeName: true
     }
   },
   actions: { argTypesRegex: "^on[A-Z].*" },
