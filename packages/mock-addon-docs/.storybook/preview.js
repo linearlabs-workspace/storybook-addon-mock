@@ -1,7 +1,7 @@
 export const parameters = {
   options: {
     storySort: {
-      order: ['Docs/Introduction', 'Docs/Installation'],
+      order: ['Docs', ['Introduction', 'Installation']],
       includeName: true
     }
   },
