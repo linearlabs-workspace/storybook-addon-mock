@@ -1,18 +1,19 @@
 {
   "name": "storybook-addon-mock",
-  "version": "2.4.1",
-  "description": "A storybook addon to mock fetch/XHR request",
-  "main": "dist/index.js",
-  "types": "index.d.ts",
+  "description": "A monorepo for storybook-addon-mock",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "storybook": "yarn run build && start-storybook -p 6006 --no-manager-cache",
     "clean": "rm -rf dist",
-    "build": "yarn run clean && babel src -d dist --ignore **/*.test.js",
-    "lint": "eslint .",
-    "lint:fix": "yarn run lint --fix",
-    "test": "jest src",
+    "build": "yarn workspace storybook-addon-mock run build",
+    "storybook": "yarn workspace storybook-addon-mock-docs run storybook",
+    "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
+    "test": "yarn workspaces run test",
     "ci": "yarn run lint && yarn run test && yarn run build",
-    "deploy-storybook": "yarn run build && storybook-to-ghpages",
+    "deploy-storybook": "yarn workspace storybook-addon-mock-docs run deploy-storybook",
     "dedup": "yarn-deduplicate"
   },
   "repository": {
@@ -31,32 +32,10 @@
     "storybook-mock-request",
     "mock-request"
   ],
-  "author": "Farhad Yasir (nutboltu)",
-  "license": "MIT",
-  "dependencies": {
-    "@storybook/addons": "^6.2.9",
-    "@storybook/api": "^6.2.9",
-    "@storybook/components": "^6.2.9",
-    "mock-xmlhttprequest": "^7.0.3",
-    "path-to-regexp": "^6.2.0",
-    "react-json-editor-ajrm": "^2.5.13"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.13.8",
-    "@babel/preset-env": "^7.13.12",
-    "@babel/preset-react": "^7.12.13",
-    "@storybook/react": "^6.2.9",
-    "@storybook/storybook-deployer": "^2.8.10",
-    "axios": "^0.21.1",
+    "@babel/core": "^7.18.2",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.2.5",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
@@ -65,21 +44,8 @@
     "eslint-plugin-react": "^7.23.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "superagent": "^7.1.3",
-    "yarn-deduplicate": "^3.1.0"
-  },
-  "resolutions": {
-    "**/postcss": "^8.2.13",
-    "**/prismjs": "^1.25.0"
-  },
-  "storybook": {
-    "displayName": "Mock API Request",
-    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg",
-    "supportedFrameworks": [
-      "react"
-    ]
+    "prop-types": "^15.8.1",
+    "webpack": "^5.72.1",
+    "yarn-deduplicate": "^5.0.0"
   }
 }

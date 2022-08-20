@@ -1,0 +1,32 @@
+{
+  "name": "storybook-addon-mock-docs",
+  "version": "1.0.0",
+  "description": "A package with documentation and example for storybook-addon-mock",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "yarn run lint --fix",
+    "test": "echo \"Error: no test specified\"",
+    "storybook": "start-storybook -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "yarn run build && storybook-to-ghpages"
+  },
+  "keywords": [],
+  "author": "Farhad Yasir(nutboltu)",
+  "license": "MIT",
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.5.6",
+    "@storybook/addon-essentials": "^6.5.6",
+    "@storybook/addon-interactions": "^6.5.6",
+    "@storybook/addon-links": "^6.5.6",
+    "@storybook/builder-webpack5": "^6.5.6",
+    "@storybook/manager-webpack5": "^6.5.6",
+    "@storybook/storybook-deployer": "^2.8.11",
+    "@storybook/react": "^6.5.6"
+    
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}
