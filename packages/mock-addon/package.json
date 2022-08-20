@@ -77,7 +77,7 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://registry.npmjs.org/"
   },
   "storybook": {
     "displayName": "Mock API Request",
