@@ -20,6 +20,9 @@
 
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 
+> <h4> 📣 We are working on Version 3.0.0 with a more robust UI and validation. Please stay tuned. The new major version will be released soon!
+</h4>
+
 This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend requests, and your backend requests are not ready yet to feed your component, this addon provides mock response to build your component.
 
 [Live Demo :rocket:](https://nutboltu.github.io/storybook-addon-mock)
