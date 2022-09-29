@@ -16,6 +16,7 @@ export const parameters = {
     globalMockData: [{
       url: 'http://localhost:0000',
       method: 'PUT',
+      status: 200,
       response: {},
     }],
     refreshStoryOnUpdate: true,

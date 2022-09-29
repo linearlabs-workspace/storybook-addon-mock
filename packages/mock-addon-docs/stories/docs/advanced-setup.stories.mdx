@@ -1,7 +1,7 @@
 
 import { Meta } from '@storybook/addon-docs';
 
-<Meta title="Docs/Advanced" />
+<Meta title="Docs/Advanced Setup" />
 
 <style>
     {`
@@ -13,7 +13,30 @@ import { Meta } from '@storybook/addon-docs';
 
 <h2 className="subheading">Advanced Setup</h2>
 
-TBD
+You can set <strong>global configuration</strong> for the addons. Update `.storybook/preview.js` file with the following fields.
+
+
+```js
+export const parameters = {
+  ...
+  mockAddonConfigs: {
+    globalMockData: [{
+      // This is an example. This data will reflect in every story.
+      url: 'http://localhost:0000',
+      method: 'PUT',
+      status: 201,
+      response: {},
+    }],
+    refreshStoryOnUpdate: true, // This boolean will refresh the story when user changes any field.
+  }
+  ...
+}
+```
+1. global configuration
+2. story based parameter
+3. custom function
+
+
 <h4 className="subheading next">Next</h4>
 <div className="footer">
     <div className="link-item">

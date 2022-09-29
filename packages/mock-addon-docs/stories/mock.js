@@ -2,7 +2,7 @@ export const mockData = [
     {
         url: 'https://jsonplaceholder.typicode.com/todos/:id',
         method: 'GET',
-        status: 600,
+        status: 200,
         delay: 0,
         response: {
             id: '1',

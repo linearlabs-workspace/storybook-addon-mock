@@ -1,5 +1,6 @@
 
 import { Meta } from '@storybook/addon-docs';
+import LinkTo from '@storybook/addon-links/react';
 
 <Meta title="Docs/Installation" />
 
@@ -28,6 +29,65 @@ import { Meta } from '@storybook/addon-docs';
 
 <h3 className="subheading">Setting up addon</h3>
 
+Firstly, add `storybook-addon-mock` addon in your `.storybook/main.js` file.
+
+```js
+
+module.exports = {
+    ...
+    addons: [
+        ...
+        'storybook-addon-mock',
+    ],
+    ...
+};
+```
+
+There are <strong>global configurations</strong> that you can set in the preview.
+See the <LinkTo kind="Docs/Advanced Setup" story="page">Advanced Setup</LinkTo> section for more details.
+
+<h3 className="subheading">Configure mock data</h3>
+
+Add your mock data in the story parameters. This `mockData` attirbutes is an <strong>array</strong> of mock object.
+
+```js
+import React from 'react';
+import { FetchExample } from './index';
+
+export default {
+    title: 'Examples/Fetch',
+    component: FetchExample,
+    parameters: {
+        mockData: [
+            {
+                url: 'https://jsonplaceholder.typicode.com/todos/1',
+                method: 'GET',
+                status: 200,
+                response: {
+                    data: 'Hello storybook-addon-mock!',
+                },
+            },
+        ],
+    },
+};
+
+const Template = () => <FetchExample />;
+
+export const FetchCall = Template.bind({});
+
+```
+Each mock object contains the following properties. 
+
+| Property   | Description                                                                                 | Required | Default |
+| ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
+| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | true        |    -    |
+| `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |    true    | - |
+| `status`   | All possible [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).                                                              |     true   |  -  |
+| `response` | A valid JSON format or function. <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | true        |    -    |
+| `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
+
+
+<br />
 
 <h4 className="subheading next">Next</h4>
 <div className="footer">
@@ -38,7 +98,7 @@ import { Meta } from '@storybook/addon-docs';
         </div>
         <LinkTo
             className="continue"
-            kind="Docs/AdvancedSetup"
+            kind="Docs/Advanced Setup"
             story="page"
         >
             Continue

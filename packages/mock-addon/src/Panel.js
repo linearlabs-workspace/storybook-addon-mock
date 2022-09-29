@@ -10,7 +10,9 @@ export const Panel = (props) => {
     const [mockData, setState] = useAddonState(ADDON_ID, []);
 
     const emit = useChannel({
-        [EVENTS.SEND]: (newMockData) => setState(newMockData),
+        [EVENTS.SEND]: (newMockData) => {
+            setState(newMockData);
+        },
     });
 
     const onChange = (item, name, value) => {
