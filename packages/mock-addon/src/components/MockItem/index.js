@@ -136,7 +136,8 @@ MockItem.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     url: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
-    status: PropTypes.number.isRequired,
+    status: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+        .isRequired,
     skip: PropTypes.bool.isRequired,
     response: PropTypes.any,
     delay: PropTypes.number.isRequired,

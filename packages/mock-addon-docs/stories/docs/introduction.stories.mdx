@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs';
-import LinkTo from '@storybook/addon-links/react';
 import Logo from '../assets/logo.svg';
+import { Footer } from './footer';
 
 <Meta title="Docs/Introduction" />
 
@@ -75,19 +75,9 @@ Mostly, there's no playground to modify the response and see the changes in the 
     <li> A <strong>delay option which helps you delaying the response</strong> so that you can test any kind of loading behaviour.</li>
  </ul>
 
-<h4 className="subheading next">Next</h4>
-<div className="footer">
-    <div className="link-item">
-        <div className="link-item-content">
-            <strong>Installation</strong>
-            Install the package in your project
-        </div>
-        <LinkTo
-            className="continue"
-            kind="Docs/Installation"
-            story="page"
-        >
-            Continue
-        </LinkTo>
-    </div>
-</div>
+<Footer
+    title="Installation"
+    subtitle="Install the package in your project"
+    actionText="Next"
+    actionLink="Docs/Installation"
+/>

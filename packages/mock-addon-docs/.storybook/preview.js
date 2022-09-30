@@ -1,7 +1,7 @@
 export const parameters = {
   options: {
     storySort: {
-      order: ['Docs', ['Introduction', 'Installation']],
+      order: ['Docs', ['Introduction', 'Installation', 'Advanced setup', 'User guide']],
       includeName: true
     }
   },
@@ -13,12 +13,7 @@ export const parameters = {
     },
   },
   mockAddonConfigs: {
-    globalMockData: [{
-      url: 'http://localhost:0000',
-      method: 'PUT',
-      status: 200,
-      response: {},
-    }],
+    globalMockData: [],
     refreshStoryOnUpdate: true,
   }
 }

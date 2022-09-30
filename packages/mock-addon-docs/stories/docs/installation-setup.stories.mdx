@@ -1,6 +1,6 @@
 
 import { Meta } from '@storybook/addon-docs';
-import LinkTo from '@storybook/addon-links/react';
+import { Footer } from './footer';
 
 <Meta title="Docs/Installation" />
 
@@ -14,7 +14,7 @@ import LinkTo from '@storybook/addon-links/react';
 
 <h2 className="subheading">Installation and Setup</h2>
 
-<h3 className="subheading">Install storybook-addon-mock</h3>
+<h3 className="subheading">1. Install storybook-addon-mock</h3>
 
 <div>Using npm</div>
 
@@ -27,7 +27,7 @@ import LinkTo from '@storybook/addon-links/react';
     yarn add storybook-addon-mock -D
 ```
 
-<h3 className="subheading">Setting up addon</h3>
+<h3 className="subheading">2. Setting up addon</h3>
 
 Firstly, add `storybook-addon-mock` addon in your `.storybook/main.js` file.
 
@@ -46,7 +46,7 @@ module.exports = {
 There are <strong>global configurations</strong> that you can set in the preview.
 See the <LinkTo kind="Docs/Advanced Setup" story="page">Advanced Setup</LinkTo> section for more details.
 
-<h3 className="subheading">Configure mock data</h3>
+<h3 className="subheading">3. Configure mock data</h3>
 
 Add your mock data in the story parameters. This `mockData` attirbutes is an <strong>array</strong> of mock object.
 
@@ -89,19 +89,9 @@ Each mock object contains the following properties.
 
 <br />
 
-<h4 className="subheading next">Next</h4>
-<div className="footer">
-    <div className="link-item">
-        <div className="link-item-content">
-            <strong>Advanced setup</strong>
-            Setup the addon with advanced configuration
-        </div>
-        <LinkTo
-            className="continue"
-            kind="Docs/Advanced Setup"
-            story="page"
-        >
-            Continue
-        </LinkTo>
-    </div>
-</div>
+<Footer
+    title="Advanced setup"
+    subtitle="Setup the addon with advanced configuration"
+    actionText="Next"
+    actionLink="Docs/Advanced setup"
+/>
