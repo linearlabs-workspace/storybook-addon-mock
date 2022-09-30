@@ -9,5 +9,6 @@ addons.register(ADDON_ID, () => {
         title: 'Mock Request',
         match: ({ viewMode }) => viewMode === 'story',
         render: Panel,
+        paramKey: 'mockAddonConfigs',
     });
 });
