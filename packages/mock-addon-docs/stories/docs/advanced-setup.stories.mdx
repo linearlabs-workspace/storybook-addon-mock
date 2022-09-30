@@ -126,31 +126,24 @@ export const FetchCall = Template.bind({});
 
 FetchCall.parameters = {
     mockData: [
-        {
-            url: 'https://jsonplaceholder.typicode.com/todos/1',
-            method: 'GET',
-            status: 200,
-            response: (request) => {
-                const {
-                    url,
-                    method,
-                    body,
-                    searchParams,
-                } = request;
+        url: 'https://jsonplaceholder.typicode.com/todos/1',
+        method: 'GET',
+        status: 200,
+        response: (request) => {
+            const { body, searchParams } = request;
 
-                if (searchParams.id == 1) {
-                     return {
-                        data: 'Custom data for id 1',
-                    };   
-                } else if (body.name === 'mock') {
-                    return {
-                        data: 'Custom data for name mock',
-                    }
-                }
+            if (searchParams.id == 1) {
                 return {
-                    data: 'Default data',
-                }
-            },
+                    data: 'Custom data for id 1',
+                };
+            } else if (body.name === 'mock') {
+                return {
+                    data: 'Custom data for name mock',
+                };
+            }
+            return {
+                data: 'Default data',
+            };
         },
     ],
 };

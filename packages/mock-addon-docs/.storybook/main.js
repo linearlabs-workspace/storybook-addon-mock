@@ -5,8 +5,9 @@ module.exports = {
     ],
     addons: [
         '@storybook/addon-links',
-        '@storybook/addon-essentials',
-        '@storybook/addon-interactions',
+        '@storybook/addon-docs',
+        '@storybook/addon-viewport',
+        '@storybook/addon-toolbars',
         '../../mock-addon/preset.js',
     ],
     framework: '@storybook/react',

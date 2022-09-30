@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { containerStyles, headerStyles } from './styles';
+import { containerStyles, contentStyles, headerStyles } from './styles';
 
 export const Container = ({ title, children }) => (
     <div style={containerStyles}>
-        <div>
+        <div style={contentStyles}>
             <h2 style={headerStyles}>{title}</h2>
             {children}
         </div>

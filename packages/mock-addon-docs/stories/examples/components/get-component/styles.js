@@ -32,3 +32,18 @@ export const inputStyles = {
     borderRadius: '5px',
     border: '1px solid #ddd',
 };
+
+export const contentStyles = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+};
+
+export const headerStyles = {
+    fontWeight: '400',
+};
+
+export const codeStyles = {
+    overflow: 'scroll',
+    height: '320px',
+};

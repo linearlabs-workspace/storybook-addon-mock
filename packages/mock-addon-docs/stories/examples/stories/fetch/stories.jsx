@@ -1,7 +1,8 @@
 import React from 'react';
-import { mockData } from '../../../mock';
+import { customMockData, mockData } from '../../../mock';
 import { GetComponent } from '../../components/get-component';
 import { callFetch } from '../../utils';
+import { customFunctinBlock } from '../../utils/code-blocks';
 
 export default {
     title: 'Examples/Fetch',
@@ -14,9 +15,19 @@ const Template = (args) => (
 
 export const Get = Template.bind({});
 Get.args = {
-    name: 'Fetch',
+    title: 'Fetch (GET request)',
 };
 
 Get.parameters = {
     mockData: mockData.slice(0, 1),
+};
+
+export const ResponseFunction = Template.bind({});
+ResponseFunction.args = {
+    title: 'Fetch (Response function)',
+};
+
+ResponseFunction.parameters = {
+    mockData: customMockData,
+    code: customFunctinBlock,
 };
