@@ -20,164 +20,36 @@
 
 [![NPM](https://nodei.co/npm/storybook-addon-mock.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/storybook-addon-mock/)
 
-> <h4> 📣 We are working on Version 3.0.0 with a more robust UI and validation. Please stay tuned. The new major version will be released soon!
-</h4>
 
-This addon allows you to mock fetch or XMLHttprequest requests in storybook. If your component depends on backend requests, and your backend requests are not ready yet to feed your component, this addon provides mock response to build your component.
-
-[Live Demo :rocket:](https://nutboltu.github.io/storybook-addon-mock)
-
-## Why we need this
-
-There are few packages those help the developers to mock the backend requests while building components. But those packages aren't integrated properly in storybook and also there's no scope to play with those requests in the storybook. `storybook-addon-mock` provides a dedicated panel in the storybook which helps the developers to update the status and the response on the fly.
-
-### Mock data properties
-
-| Property   | Description                                                                                 | Required | Default |
-| ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | Y        |    -    |
-| `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |     -    | `GET`   |
-| `status`   | All possible HTTP status codes.                                                              |     -    | `200`   |
-| `response` | JSON format or function. <br/> <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | Y        |    -    |
-| `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
-
-> You can change the **status**, **response** and **delay** from the storybook panel on the fly! :rocket:
-
----
-
-## How to use
-
-Install the addon in your project as dev dependencies.
-
-```bash
-  yarn add -D storybook-addon-mock
-```
-
-### Using Storybook 6
-
-Add the decorator in your addons, in `.storybook/main.js`:
-
-```js
-module.exports = {
-    addons: ['storybook-addon-mock/register'],
-};
-```
-
-Add decorator in the stories.
-
-```js
-import React from 'react';
-import withMock from 'storybook-addon-mock';
-import Component from './Component';
-
-export default {
-    title: 'Component',
-    component: Component,
-    decorators: [withMock],
-};
-
-const Template = (args) => <Component {...args} />;
-
-export const Default = Template.bind({});
-Default.parameters = {
-    mockData: [
-        {
-            url: 'https://jsonplaceholder.typicode.com/todos/1',
-            method: 'GET',
-            status: 200,
-            response: {
-                data: 'Hello storybook-addon-mock!',
-            },
-        },
-    ],
-};
-```
-
-Thanks to [shilman](https://github.com/storybookjs/storybook/issues/14817) for this solution
-
-### Using older versions of Storybook
-
-Add the register in your `.storybook/addons.js` file
-
-```js
-import 'storybook-addon-mock/register';
-```
-
-Add `withMock` as a decorator in the stories.
-
-```js
-import React from 'react';
-import withMock from 'storybook-addon-mock';
-
-storiesOf('Mock Response Story', module)
-    .addDecorator(withMock)
-    .add('Story Item', () => <ComponentWithAPICall />, {
-        mockData: [
-            {
-                url: 'https://jsonplaceholder.typicode.com/todos/1',
-                method: 'GET',
-                status: 200,
-                response: {
-                    data: 'Hello storybook-addon-mock!',
-                },
-            },
-        ],
-    });
-```
-
-### Custom Response
-
-```js
-import React from 'react';
-import withMock from 'storybook-addon-mock';
-import Component from './Component';
-
-export default {
-    title: 'Component',
-    component: Component,
-    decorators: [withMock],
-};
-
-const Template = (args) => <Component {...args} />;
-
-export const Default = Template.bind({});
-Default.parameters = {
-    mockData: [
-        {
-            url: 'https://jsonplaceholder.typicode.com/todos/1',
-            method: 'GET',
-            status: 200,
-            response: (request) => {
-                const {
-                    url,
-                    method,
-                    body,
-                    searchParams,
-                } = request;
-
-                if (searchParams.id == 1) {
-                     return {
-                        data: 'Custom data for id 1',
-                    };   
-                } else if (body.name === 'mock') {
-                    return {
-                        data: 'Custom data for name mock',
-                    }
-                }
-                return {
-                    data: 'Default data',
-                }
-            },
-        },
-    ],
-};
-```
-
-## User guide
+This addon allows you to mock fetch or XMLHttprequest requests in [storybook](https://storybook.js.org/).
+If your component depends on backend requests, and your backend requests are not ready yet to feed your component,
+this addon provides mock response to build your component.
 
 
-[See the documentation - User guide](https://nutboltu.github.io/storybook-addon-mock)
+### Purpose
 
-## License
+There are few packages those help the developers to mock the backend requests while building components.
+But those packages aren't integrated properly in storybook and also there's no scope to play with those requests in the storybook.
+Mostly, there's no playground to modify the response and see the changes in the storybook.
+
+### Highlights
+
+`storybook-addon-mock` provides the following features.
+ 
+ <ul>
+    <li> You can mock <strong>fetch or XMLHttpRequest</strong>.</li>
+    <li> A <strong>dedicated panel</strong> where you can see the list of mock requests.</li>
+    <li> An <strong>on/off button for each request</strong> which can turn off the mock and try the real request.</li>
+    <li> A <strong>dropdown list of status code</strong> where you can change the status and experience the difference.</li>
+    <li> A <strong>response JSON object which can be modified in the panel.</strong> You can see the changes straight away in the story.</li>
+    <li> A <strong>delay option which helps you delaying the response</strong> so that you can test any kind of loading behaviour.</li>
+ </ul>
+
+### Documentation
+
+[See the documentation](https://storybook-addon-mock.vercel.app)
+
+[Older(2.*) version documentation](https://github.com/nutboltu/storybook-addon-mock/blob/2.4.1/README.md)
+### License
 
 This project is licensed under the MIT License - see the LICENSE file in the source code for details.
