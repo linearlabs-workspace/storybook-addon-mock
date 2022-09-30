@@ -24,6 +24,7 @@ You can set <strong>global configuration</strong> for the addon. Go to the `.sto
 | ---------- | :------------------------------------------------------------------------------------------ | :------ |
 | `globalMockData` | An array of mock objects which will add in every story |   []    |
 | `refreshStoryOnUpdate`   |  This re-render the story if there's any data changes |  false |
+| `disable`   |  This disables the panel from all the stories |  false |
 
 
 ```js
@@ -38,6 +39,7 @@ export const parameters = {
       response: {},
     }],
     refreshStoryOnUpdate: true, // This re-render the story if there's any data changes
+    disable: true, // This disables the panel from all the stories
   }
   ...
 }
@@ -146,6 +148,25 @@ FetchCall.parameters = {
             };
         },
     ],
+};
+```
+<h3 className="subheading">2. Disable the panel for a story</h3>
+
+```js
+import React from 'react';
+import { FetchExample } from './index';
+
+export default {
+    title: 'Examples/Fetch',
+    component: FetchExample,
+};
+
+const Template = () => <FetchExample />;
+
+export const FetchCall = Template.bind({});
+
+FetchCall.parameters = {
+    mockAddonConfigs: { disable: true }
 };
 ```
 
