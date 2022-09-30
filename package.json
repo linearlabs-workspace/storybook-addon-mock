@@ -13,6 +13,7 @@
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
     "ci": "yarn run lint && yarn run test && yarn run build",
+    "build-addon": "yarn workspace storybook-addon-mock run build",
     "build-storybook": "yarn workspace storybook-addon-mock-docs run build",
     "serve-storybook": "yarn workspace storybook-addon-mock-docs run serve-storybook",
     "dedup": "yarn-deduplicate"
