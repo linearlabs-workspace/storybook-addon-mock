@@ -8,7 +8,7 @@
     "lint:fix": "yarn run lint --fix",
     "test": "echo \"Error: no test specified\"",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
+    "build": "build-storybook",
     "serve-storybook": "serve storybook-static"
   },
   "keywords": [],
