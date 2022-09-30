@@ -16,3 +16,7 @@ package-lock.json
 
 # OS Files
 .DS_Store
+
+# ignore static storybook
+
+**/storybook-static

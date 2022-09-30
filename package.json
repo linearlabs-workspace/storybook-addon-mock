@@ -13,7 +13,8 @@
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
     "ci": "yarn run lint && yarn run test && yarn run build",
-    "deploy-storybook": "yarn workspace storybook-addon-mock-docs run deploy-storybook",
+    "build-storybook": "yarn workspace storybook-addon-mock-docs run build-storybook",
+    "serve-storybook": "yarn workspace storybook-addon-mock-docs run serve-storybook",
     "dedup": "yarn-deduplicate"
   },
   "repository": {
