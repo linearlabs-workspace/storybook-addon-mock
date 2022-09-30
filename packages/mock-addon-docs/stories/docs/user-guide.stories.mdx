@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs';
+import { Footer } from './footer';
+
+<Meta title="Docs/User guide" />
+
+<style>
+    {`
+        .subheading {
+            margin-bottom: 1.5rem;
+        }
+    `}
+</style>
+
+<h2 className="subheading">User guide</h2>
+
+Navigate the panel
+ 
+ <ul>
+    <li> Use the On/Off button in the panel to stop the mock response and try the real API</li>
+    <li> Change the status to any error status code (e.g: 404, 503) to experience the error message.</li>
+    <li> Change the delay with numbers in milliseconds (e.g: 1000) to experience the loading state.</li>
+    <li> Change the response with invalid JSON format to experience the validity of the response</li>
+ </ul>
+
+<Footer
+    title="Examples"
+    subtitle="See examples of different packages"
+    actionText="Finish"
+    actionLink=""
+/>
+

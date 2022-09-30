@@ -1,7 +1,8 @@
 
 import { Meta } from '@storybook/addon-docs';
+import { Footer } from './footer';
 
-<Meta title="Docs/Advanced" />
+<Meta title="Docs/Advanced setup" />
 
 <style>
     {`
@@ -11,22 +12,146 @@ import { Meta } from '@storybook/addon-docs';
     `}
 </style>
 
-<h2 className="subheading">Advanced Setup</h2>
+<h2 className="subheading">Advanced setup</h2>
 
-TBD
-<h4 className="subheading next">Next</h4>
-<div className="footer">
-    <div className="link-item">
-        <div className="link-item-content">
-            <strong>Custom response</strong>
-            Use a function to customize the response.
-        </div>
-        <LinkTo
-            className="continue"
-            kind="Docs/AdvancedSetup"
-            story="page"
-        >
-            Continue
-        </LinkTo>
-    </div>
-</div>
+<h3 className="subheading">1. Global configuration</h3>
+
+You can set <strong>global configuration</strong> for the addon. Go to the `.storybook/preview.js` file and add `mockAddonConfigs` fields with the following properties.
+
+
+
+| Property   | Description                                                                                 | Default |
+| ---------- | :------------------------------------------------------------------------------------------ | :------ |
+| `globalMockData` | An array of mock objects which will add in every story |   []    |
+| `refreshStoryOnUpdate`   |  This re-render the story if there's any data changes |  false |
+
+
+```js
+export const parameters = {
+  ...
+  mockAddonConfigs: {
+    globalMockData: [{
+      // An array of mock objects which will add in every story
+      url: 'http://localhost:0000',
+      method: 'PUT',
+      status: 201,
+      response: {},
+    }],
+    refreshStoryOnUpdate: true, // This re-render the story if there's any data changes
+  }
+  ...
+}
+```
+
+
+<h3 className="subheading">2. Story and Component parameters</h3>
+
+We can set mock data for a <strong>single story </strong> with the parameters
+
+```js
+
+import React from 'react';
+import { FetchExample } from './index';
+
+export default {
+    title: 'Examples/Fetch',
+    component: FetchExample,
+};
+
+const Template = () => <FetchExample />;
+
+export const FetchCall = Template.bind({});
+
+FetchCall.parameters = {
+    mockData: [
+        {
+            url: 'https://jsonplaceholder.typicode.com/todos/1',
+            method: 'GET',
+            status: 200,
+            response: {
+                data: 'Hello storybook-addon-mock!',
+            },
+        },
+    ],
+};
+
+```
+
+We can set mock data for <strong>all stories of a component </strong> using the parameters key on the default CSF export
+
+```js
+import React from 'react';
+import { FetchExample } from './index';
+
+export default {
+    title: 'Examples/Fetch',
+    component: FetchExample,
+    parameters: {
+        mockData: [
+            {
+                url: 'https://jsonplaceholder.typicode.com/todos/1',
+                method: 'GET',
+                status: 200,
+                response: {
+                    data: 'Hello storybook-addon-mock!',
+                },
+            },
+        ],
+    },
+};
+
+const Template = () => <FetchExample />;
+
+export const FetchCall = Template.bind({});
+
+```
+
+<h3 className="subheading">3. Custom response function</h3>
+
+You can customise the response using the custom response function. Response function is a function that contains request object as a parameter.
+You can return custom response depends on the request payload.
+
+```js
+import React from 'react';
+import { FetchExample } from './index';
+
+export default {
+    title: 'Examples/Fetch',
+    component: FetchExample,
+};
+
+const Template = () => <FetchExample />;
+
+export const FetchCall = Template.bind({});
+
+FetchCall.parameters = {
+    mockData: [
+        url: 'https://jsonplaceholder.typicode.com/todos/1',
+        method: 'GET',
+        status: 200,
+        response: (request) => {
+            const { body, searchParams } = request;
+
+            if (searchParams.id == 1) {
+                return {
+                    data: 'Custom data for id 1',
+                };
+            } else if (body.name === 'mock') {
+                return {
+                    data: 'Custom data for name mock',
+                };
+            }
+            return {
+                data: 'Default data',
+            };
+        },
+    ],
+};
+```
+
+<Footer
+    title="User guide"
+    subtitle="Navigate the addon panel"
+    actionText="Next"
+    actionLink="Docs/User guide"
+/>

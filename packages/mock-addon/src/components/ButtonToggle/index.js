@@ -10,8 +10,9 @@ const Label = styled.label(({ theme }) => ({
     position: 'relative',
     whiteSpace: 'nowrap',
     background: `${opacify(0.05, theme.appBorderColor)}`,
-    borderRadius: '0.3em',
-    padding: 1,
+    padding: 0,
+    border: '1px solid #1ea7fd',
+    borderRadius: '0.75em',
 
     input: {
         appearance: 'none',
@@ -25,11 +26,9 @@ const Label = styled.label(({ theme }) => ({
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
-        borderRadius: '0.3em',
 
         '&:focus': {
             outline: 'none',
-            boxShadow: `${theme.color.secondary} 0 0 0 1px inset !important`,
         },
     },
 
@@ -43,7 +42,6 @@ const Label = styled.label(({ theme }) => ({
         padding: '10px 5px',
         transition: 'all 100ms ease-out',
         userSelect: 'none',
-        borderRadius: '0.3em',
         width: '50%',
 
         color: transparentize(0.4, theme.color.defaultText),
@@ -60,22 +58,25 @@ const Label = styled.label(({ theme }) => ({
 
         '&:first-of-type': {
             paddingRight: 8,
+            borderTopLeftRadius: '0.75em',
+            borderBottomLeftRadius: '0.75em',
         },
         '&:last-of-type': {
             paddingLeft: 8,
+            borderTopRightRadius: '0.75em',
+            borderBottomRightRadius: '0.75em',
         },
     },
 
     'input:checked ~ span:last-of-type, input:not(:checked) ~ span:first-of-type':
         {
-            boxShadow: `${opacify(0.1, theme.appBorderColor)} 0 0 2px`,
+            // boxShadow: `${opacify(0.1, theme.appBorderColor)} 0 0 2px`,
             padding: '10px 5px',
         },
 
     'input:checked ~ span:last-of-type': {
         background: '#1ea7fd',
         color: theme.color.light,
-        border: '1px solid #1ea7fd',
     },
     'input:not(:checked) ~ span:first-of-type': {
         background: theme.background.bar,

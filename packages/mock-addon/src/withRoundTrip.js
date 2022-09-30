@@ -14,8 +14,10 @@ export const withRoundTrip = (storyFn) => {
     const emit = useChannel({
         [EVENTS.UPDATE]: (item, name, value) => {
             faker.update(item, name, value);
+
             const { refreshStoryOnUpdate } = mockAddonConfigs;
-            emit(EVENTS.SEND, faker.getRequests());
+            const req = faker.getRequests();
+            emit(EVENTS.SEND, req);
             refreshStoryOnUpdate && emit(FORCE_RE_RENDER);
         },
     });
@@ -25,7 +27,7 @@ export const withRoundTrip = (storyFn) => {
         const data = [...globalMockData, ...paramData];
         faker.makeInitialRequestMap(data);
         emit(EVENTS.SEND, faker.getRequests());
-    }, [paramData]);
+    }, []);
 
     return storyFn();
 };
