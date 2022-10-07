@@ -45,7 +45,8 @@
   },
   "dependencies": {
     "mock-xmlhttprequest": "^7.0.3",
-    "path-to-regexp": "^6.2.0"
+    "path-to-regexp": "^6.2.0",
+    "polished": "^4.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
