@@ -81,7 +81,6 @@ export const callSuperAgent = async ({
 
     try {
         const response = await request(method, url, body);
-
         data = response.body;
         status = response.status;
     } catch (err) {

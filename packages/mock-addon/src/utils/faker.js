@@ -141,7 +141,11 @@ export class Faker {
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
-                    xhr.respond(status, defaultResponseHeaders, data);
+                    xhr.respond(
+                        status,
+                        defaultResponseHeaders,
+                        JSON.stringify(data)
+                    );
                 } else {
                     xhr.respond(
                         +status,
