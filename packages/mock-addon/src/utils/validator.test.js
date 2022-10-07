@@ -175,6 +175,23 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
+        it('should return empty error if response is an object', () => {
+            const mock = {
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
+                method: 'GET',
+                status: 200,
+                delay: 0,
+                response: [
+                    {
+                        id: '1',
+                        name: 'Item 1',
+                    },
+                ],
+            };
+            const actual = validate(mock, schema);
+            expect(actual).toEqual([]);
+        });
+
         it('should return empty error if response is a function', () => {
             const mock = {
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
