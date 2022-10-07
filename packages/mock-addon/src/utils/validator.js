@@ -23,7 +23,10 @@ export const schema = {
     },
     response: (value) => {
         return (
-            (isObject(value) || typeof value === 'function') && value !== null
+            (isObject(value) ||
+                Array.isArray(value) ||
+                typeof value === 'function') &&
+            value !== null
         );
     },
     delay: (value) => {
