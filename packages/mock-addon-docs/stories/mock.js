@@ -4,12 +4,10 @@ export const mockData = [
         method: 'GET',
         status: 200,
         delay: 0,
-        response: [
-            {
-                id: '1',
-                name: 'Item 1',
-            },
-        ],
+        response: {
+            id: '1',
+            name: 'Item 1',
+        },
     },
     {
         url: 'https://jsonplaceholder.typicode.com/todos',

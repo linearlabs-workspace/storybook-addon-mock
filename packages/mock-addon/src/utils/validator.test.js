@@ -181,10 +181,12 @@ describe('Validator', () => {
                 method: 'GET',
                 status: 200,
                 delay: 0,
-                response: [{
-                    id: '1',
-                    name: 'Item 1',
-                }],
+                response: [
+                    {
+                        id: '1',
+                        name: 'Item 1',
+                    },
+                ],
             };
             const actual = validate(mock, schema);
             expect(actual).toEqual([]);
