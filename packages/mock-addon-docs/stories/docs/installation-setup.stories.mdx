@@ -84,7 +84,7 @@ Each mock object contains the following properties.
 | `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | true        |    -    |
 | `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |    true    | - |
 | `status`   | All possible [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).                                                              |     true   |  -  |
-| `response` | A valid JSON format or function. <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | true        |    -    |
+| `response` | A valid JSON format(Array or Object) or function. <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | true        |    -    |
 | `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
 
 
