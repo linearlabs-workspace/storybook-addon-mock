@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-mock",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "A storybook addon to mock fetch/XHR request",
   "keywords": [
     "storybook",
@@ -83,7 +83,8 @@
   "storybook": {
     "displayName": "Mock API Request",
     "supportedFrameworks": [
-      "react"
+      "react",
+      "vue"
     ],
     "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg"
   }
