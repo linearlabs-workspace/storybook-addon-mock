@@ -10,7 +10,7 @@ export default {
 };
 
 const Template = (args) => (
-    <GetComponent title={`${args.name} GET Request`} callApi={callFetch} />
+    <GetComponent title={args.title} callApi={callFetch} />
 );
 
 export const Get = Template.bind({});
@@ -25,9 +25,9 @@ Get.parameters = {
 export const ResponseFunction = Template.bind({});
 ResponseFunction.args = {
     title: 'Fetch (Response function)',
+    code: customFunctinBlock,
 };
 
 ResponseFunction.parameters = {
     mockData: customMockData,
-    code: customFunctinBlock,
 };
