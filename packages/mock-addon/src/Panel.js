@@ -15,8 +15,8 @@ export const Panel = (props) => {
         },
     });
 
-    const onChange = (item, name, value) => {
-        emit(EVENTS.UPDATE, item, name, value);
+    const onChange = (item, key, value) => {
+        emit(EVENTS.UPDATE, { item, key, value });
     };
 
     if (!mockData || mockData.length === 0) {
@@ -49,8 +49,8 @@ export const Panel = (props) => {
                         <MockItem
                             id={index}
                             key={index}
-                            onChange={(name, value) =>
-                                onChange(item, name, value)
+                            onChange={(key, value) =>
+                                onChange(item, key, value)
                             }
                             {...rest}
                         />

@@ -142,7 +142,7 @@ export class Faker {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
                     xhr.respond(
-                        status,
+                        +status,
                         defaultResponseHeaders,
                         JSON.stringify(data)
                     );
