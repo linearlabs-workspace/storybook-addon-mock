@@ -133,21 +133,21 @@ export class Faker {
         return global.realFetch(input, options);
     };
 
-    mockXhrRequest = (xhr) => {
-        const { method, url, body } = xhr;
+    mockXhrRequest = (request) => {
+        const { method, url, body } = request;
         const matched = this.matchMock(url, method);
         if (matched) {
             const { response, status, delay = 0 } = matched;
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
-                    xhr.respond(
+                    request.respond(
                         +status,
                         defaultResponseHeaders,
                         JSON.stringify(data)
                     );
                 } else {
-                    xhr.respond(
+                    request.respond(
                         +status,
                         defaultResponseHeaders,
                         JSON.stringify(response)
@@ -159,12 +159,15 @@ export class Faker {
             const realXhr = new global.realXMLHttpRequest();
             realXhr.open(method, url);
 
-            setRequestHeaders(realXhr, xhr.requestHeaders._headers);
-            realXhr.withCredentials = xhr._withCredentials;
+            setRequestHeaders(
+                realXhr,
+                new Map(Object.entries(request.requestHeaders.getHash()))
+            );
+            realXhr.withCredentials = request.withCredentials;
 
             realXhr.onreadystatechange = function onReadyStateChange() {
                 if (realXhr.readyState === 4 && realXhr.status === 200) {
-                    xhr.respond(
+                    request.respond(
                         200,
                         getResponseHeaderMap(realXhr),
                         realXhr.responseText

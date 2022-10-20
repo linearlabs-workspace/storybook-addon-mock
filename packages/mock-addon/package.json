@@ -44,7 +44,7 @@
     "release": "yarn build && auto shipit"
   },
   "dependencies": {
-    "mock-xmlhttprequest": "^7.0.3",
+    "mock-xmlhttprequest": "^8.1.0",
     "path-to-regexp": "^6.2.0",
     "polished": "^4.2.2"
   },
