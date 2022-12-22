@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "path": "packages/mock-addon"
+    },
+    {
+      "path": "packages/mock-addon-docs"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "packages/mock-addon": true,
+      "packages/mock-addon-docs": true,
+    }
+  }
+}

@@ -9,7 +9,7 @@ node_modules
 yarn-error.log
 
 #build files
-dist
+#dist
 
 #lock files
 package-lock.json

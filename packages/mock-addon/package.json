@@ -44,6 +44,11 @@
     "release": "yarn build && auto shipit"
   },
   "dependencies": {
+    "@storybook/blocks": "7.0.0-alpha.8",
+    "@storybook/addons": "^7.0.0-beta.13",
+    "@storybook/api": "^7.0.0-beta.13",
+    "@storybook/components": "^7.0.0-beta.13",
+    "@storybook/theming": "^7.0.0-beta.13",
     "mock-xmlhttprequest": "^8.1.0",
     "path-to-regexp": "^6.2.0",
     "polished": "^4.2.2"
@@ -62,10 +67,6 @@
     "zx": "^1.14.1"
   },
   "peerDependencies": {
-    "@storybook/addons": "^6.4.0",
-    "@storybook/api": "^6.4.0",
-    "@storybook/components": "^6.4.0",
-    "@storybook/theming": "^6.4.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },

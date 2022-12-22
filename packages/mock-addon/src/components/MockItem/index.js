@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@storybook/theming';
-import {
-    Form,
-    ObjectControl,
-    Placeholder,
-    RangeControl,
-    TabsState,
-} from '@storybook/components';
+import { ObjectControl, RangeControl } from '@storybook/blocks';
+import { Form, Placeholder, TabsState } from '@storybook/components';
 import { Card } from '../Card';
 import statusTextMap from '../../utils/statusMap';
 
