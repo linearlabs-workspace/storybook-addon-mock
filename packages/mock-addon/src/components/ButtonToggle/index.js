@@ -39,7 +39,7 @@ const Label = styled.label(({ theme }) => ({
         lineHeight: '1',
         cursor: 'pointer',
         display: 'inline-block',
-        padding: '10px 5px',
+        padding: '0.6em',
         transition: 'all 100ms ease-out',
         userSelect: 'none',
         width: '50%',
@@ -71,7 +71,7 @@ const Label = styled.label(({ theme }) => ({
     'input:checked ~ span:last-of-type, input:not(:checked) ~ span:first-of-type':
         {
             // boxShadow: `${opacify(0.1, theme.appBorderColor)} 0 0 2px`,
-            padding: '10px 5px',
+            padding: '0.6em',
         },
 
     'input:checked ~ span:last-of-type': {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAddonState, useChannel } from '@storybook/api';
+import { useAddonState, useChannel } from '@storybook/manager-api';
 import { AddonPanel, Placeholder, ScrollArea } from '@storybook/components';
 
 import { ADDON_ID, EVENTS } from './utils/constants';

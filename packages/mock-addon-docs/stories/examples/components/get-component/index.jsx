@@ -2,15 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LinkTo from '@storybook/addon-links/react';
 
-import {
-    contentStyles,
-    buttonStyles,
-    inputStyles,
-    formStyles,
-    labelStyles,
-    formGroupStyles,
-    headerStyles,
-} from './styles';
+import { buttonStyles, inputStyles, formStyles, labelStyles } from './styles';
 import { Container } from '../container';
 import { Response } from '../response';
 import { DEFAULT_URL } from '../../utils';
@@ -31,41 +23,28 @@ export const GetComponent = ({ title, callApi, code }) => {
 
     return (
         <Container title={title}>
-            <div style={contentStyles}>
+            <h3>Sample form</h3>
+            <form onSubmit={handleSubmit} style={formStyles}>
                 <div>
-                    <h3 style={headerStyles}>Sample form</h3>
-                    <form onSubmit={handleSubmit} style={formStyles}>
-                        <div style={formGroupStyles}>
-                            <label style={labelStyles}>Id</label>
-                            <input
-                                style={inputStyles}
-                                name="id"
-                                onChange={(event) =>
-                                    setTodoId(event.target.value)
-                                }
-                                defaultValue={todoId}
-                            />
-                        </div>
-                        <input
-                            type="submit"
-                            value="Submit"
-                            style={buttonStyles}
-                        />
-                    </form>
-                    <Response loading={loading} {...response} />
+                    <label htmlFor="id">Id</label>
+                    <input
+                        style={inputStyles}
+                        name="id"
+                        onChange={(event) => setTodoId(event.target.value)}
+                        defaultValue={todoId}
+                    />
                 </div>
+                <input type="submit" value="Submit" style={buttonStyles} />
+            </form>
+            <Response loading={loading} {...response} />
+            {code && (
                 <div>
-                    {code && (
-                        <span>
-                            {' '}
-                            To see the custom function implementation, go to{' '}
-                            <LinkTo kind="Docs/Advanced Setup" story="page">
-                                Advanced Setup &gt; 3. Custom response function
-                            </LinkTo>
-                        </span>
-                    )}
+                    To see the custom function implementation, go to{' '}
+                    <LinkTo kind="Docs/Advanced Setup" story="page">
+                        Advanced Setup &gt; 3. Custom response function
+                    </LinkTo>
                 </div>
-            </div>
+            )}
         </Container>
     );
 };

@@ -3,10 +3,12 @@ export const errorContainerStyles = {
 };
 
 export const responseContainerStyles = {
-    minWidth: '300px',
-    minHeight: '130px',
-    background: '#ddd',
-    margin: '6px',
-    padding: '12px',
-    borderRadius: '5px',
+    minWidth: '200px',
+    minHeight: '150px',
+    color: 'ButtonText',
+    backgroundColor: 'ButtonFace',
+    border: 'thin solid ButtonBorder',
+    margin: '1rem 0',
+    padding: '0.8rem',
+    borderRadius: '0.6rem',
 };
