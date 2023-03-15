@@ -46,7 +46,7 @@
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "prop-types": "^15.8.1",
-    "webpack": "^5.72.1",
+    "webpack": "^5.76.0",
     "yarn-deduplicate": "^5.0.0"
   }
 }
