@@ -62,12 +62,12 @@
     "zx": "^1.14.1"
   },
   "peerDependencies": {
-    "@storybook/addons": "^7.0.0-rc.5",
-    "@storybook/manager-api": "^7.0.0-rc.5",
-    "@storybook/blocks": "^7.0.0-rc.5",
-    "@storybook/components": "^7.0.0-rc.5",
-    "@storybook/theming": "^7.0.0-rc.5",
-    "storybook": "^7.0.0-rc.5",
+    "@storybook/addons": "^7.0.0-rc.6",
+    "@storybook/manager-api": "^7.0.0-rc.6",
+    "@storybook/blocks": "^7.0.0-rc.6",
+    "@storybook/components": "^7.0.0-rc.6",
+    "@storybook/theming": "^7.0.0-rc.6",
+    "storybook": "^7.0.0-rc.6",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
