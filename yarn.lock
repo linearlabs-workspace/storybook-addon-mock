@@ -2315,6 +2315,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-7.0.0.tgz#f3f047916b01b9ce09c76a0300352cfd8d53815b"
   integrity sha512-adPIkvL4q37dGTWCpSzV8ETLdkxsg7BAgzeT9pustZJjRIZqAHGUAm7krDtGT7jbV4dU0Zw0VpUrnmyfxIkOKQ==
 
+"@storybook/channels@7.0.2":
+  version "7.0.2"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/channels/-/channels-7.0.2.tgz#2eb124d14fff50d4686888dca88f130c5aee358d"
+  integrity sha512-qkI8mFy9c8mxN2f01etayKhCaauL6RAsxRzbX1/pKj6UqhHWqqUbtHwymrv4hG5qDYjV1e9pd7ae5eNF8Kui0g==
+
 "@storybook/cli@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/cli/-/cli-7.0.0.tgz#fd64dd0edeabbad041ce3a9aff078bf04851105e"
@@ -2374,6 +2379,13 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
+"@storybook/client-logger@7.0.2":
+  version "7.0.2"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/client-logger/-/client-logger-7.0.2.tgz#2701d862236f1b7ae181d9c168abc67cc79ea001"
+  integrity sha512-rv7W2BhzIQHbFpUM5/CP/acS6T5lTmaxT0MbZ9n+9h++9QQU/cFOdkZgSUbLVAb1AeUGoLsk0HYzcqPpV35Xsw==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+
 "@storybook/codemod@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/codemod/-/codemod-7.0.0.tgz#0dcc824ee5ba20542fc3d5c1f944c3d7c993b922"
@@ -2403,6 +2415,20 @@
     "@storybook/global" "^5.0.0"
     "@storybook/theming" "7.0.0"
     "@storybook/types" "7.0.0"
+    memoizerific "^1.11.3"
+    use-resize-observer "^9.1.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/components@^7.0.2":
+  version "7.0.2"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/components/-/components-7.0.2.tgz#3cbceb6e1525bddd855896d3268c2a1fce784535"
+  integrity sha512-Ee9pY6WlpricPUdYiyR0Ov8zgHkUt541yl1CZ6Ytaom2TA12cAnRjKewbLAgVPPhIE1LsMRhOPFYql0JMtnN4Q==
+  dependencies:
+    "@storybook/client-logger" "7.0.2"
+    "@storybook/csf" "^0.1.0"
+    "@storybook/global" "^5.0.0"
+    "@storybook/theming" "7.0.2"
+    "@storybook/types" "7.0.2"
     memoizerific "^1.11.3"
     use-resize-observer "^9.1.0"
     util-deprecate "^1.0.2"
@@ -2526,6 +2552,13 @@
     fs-extra "^11.1.0"
     recast "^0.23.1"
     ts-dedent "^2.0.0"
+
+"@storybook/csf@^0.1.0":
+  version "0.1.0"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/csf/-/csf-0.1.0.tgz#62315bf9704f3aa4e0d4d909b9033833774ddfbe"
+  integrity sha512-uk+jMXCZ8t38jSTHk2o5btI+aV2Ksbvl6DoOv3r6VaCM1KZqeuMwtwywIQdflkA8/6q/dKT8z8L+g8hC4GC3VQ==
+  dependencies:
+    type-fest "^2.19.0"
 
 "@storybook/csf@next":
   version "0.0.2-next.11"
@@ -2770,12 +2803,32 @@
     "@storybook/global" "^5.0.0"
     memoizerific "^1.11.3"
 
+"@storybook/theming@7.0.2":
+  version "7.0.2"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/theming/-/theming-7.0.2.tgz#a7df6c6cd5533804a9435c2be2181c7605537285"
+  integrity sha512-c9sE+QAZNbopPvLiJ6BMxBERfTaq1ATyIri97FBvTucuSotNXw7X5q+ip5/nrCOPZuvK2f5wF4DRyD2HnB/rIQ==
+  dependencies:
+    "@emotion/use-insertion-effect-with-fallbacks" "^1.0.0"
+    "@storybook/client-logger" "7.0.2"
+    "@storybook/global" "^5.0.0"
+    memoizerific "^1.11.3"
+
 "@storybook/types@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/types/-/types-7.0.0.tgz#01e0a6bdd94207ea2316dc126dd780438fcb1f2c"
   integrity sha512-eCMW/xTVMswgD/58itibw8s8f2hZ7tciT3saRdGCymg9tPUhMC/9eGIIUSr/C+xfnCJEZm6J6DgEUo1xlifonw==
   dependencies:
     "@storybook/channels" "7.0.0"
+    "@types/babel__core" "^7.0.0"
+    "@types/express" "^4.7.0"
+    file-system-cache "^2.0.0"
+
+"@storybook/types@7.0.2":
+  version "7.0.2"
+  resolved "https://packages.atlassian.com/api/npm/npm-remote/@storybook/types/-/types-7.0.2.tgz#32ae7b9521d42617bd8fb87f3b85b0f77d2739f5"
+  integrity sha512-0OCt/kAexa8MCcljxA+yZxGMn0n2U2Ync0KxotItqNbKBKVkaLQUls0+IXTWSCpC/QJvNZ049jxUHHanNi/96w==
+  dependencies:
+    "@storybook/channels" "7.0.2"
     "@types/babel__core" "^7.0.0"
     "@types/express" "^4.7.0"
     file-system-cache "^2.0.0"
