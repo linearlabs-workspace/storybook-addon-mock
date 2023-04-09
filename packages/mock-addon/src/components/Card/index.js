@@ -5,7 +5,7 @@ import { ButtonToggle } from '../ButtonToggle';
 
 const Container = styled.div`
     margin: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid ${({ theme }) => theme.appBorderColor};
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px;
 `;

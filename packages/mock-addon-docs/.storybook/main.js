@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     stories: [
         '../stories/**/*stories.mdx',
         '../stories/**/*stories.@(js|jsx|ts|tsx)',
@@ -10,8 +10,5 @@ module.exports = {
         '@storybook/addon-toolbars',
         '../../mock-addon/preset.js',
     ],
-    framework: '@storybook/react',
-    core: {
-        builder: 'webpack5',
-    },
+    framework: '@storybook/react-webpack5',
 };

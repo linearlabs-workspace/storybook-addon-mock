@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@storybook/theming';
-import {
-    Form,
-    ObjectControl,
-    Placeholder,
-    RangeControl,
-    TabsState,
-} from '@storybook/components';
+import { ObjectControl, RangeControl } from '@storybook/blocks';
+import { Form, Placeholder, TabsState } from '@storybook/components';
 import { Card } from '../Card';
 import statusTextMap from '../../utils/statusMap';
 
@@ -26,28 +21,34 @@ const ObjectContent = styled.div`
 `;
 
 const Method = styled.div`
-    padding: 0.75rem;
     font-weight: 700;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid ${({ theme }) => theme.appBorderColor};
 `;
 
 const Url = styled.div`
-    padding: 0.75rem;
     flex: 1;
+    overflow-x: auto;
 `;
 
 const UrlMethodContainer = styled.div`
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    background: #eee;
-    border-radius: 5px;
+    border: ${({ theme }) => theme.input.border};
+    background: ${({ theme }) => theme.input.background};
+    border-radius: ${({ theme }) => theme.input.borderRadius};
+
+    > * {
+        padding: 0.5rem 0.75rem;
+    }
 `;
 
 const StatusDelayContainer = styled.div`
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     flex: 1 0 0;
+    padding: 0.5rem 0.75rem;
+    gap: 1rem;
 
     > label:last-child {
         margin-bottom: 0;
@@ -56,12 +57,22 @@ const StatusDelayContainer = styled.div`
 
 const Field = styled(SBField)`
     border: none;
-    padding: 1rem 0 0.25rem 0;
-    flex: 0.5;
+    flex: 1;
+    padding: 0;
     margin: 0;
 
     > span {
         min-width: 0;
+        margin-right: 0.75rem;
+    }
+
+    > select {
+        width: 6em;
+        flex: 1 1 auto;
+    }
+
+    & input {
+        min-width: 2em;
     }
 `;
 
