@@ -1,6 +1,20 @@
 import { getNormalizedUrl } from './url';
 
 describe('Url', () => {
+    let nativeLocation;
+    beforeAll(() => {
+        nativeLocation = window.location;
+        Object.defineProperty(window, 'location', {
+            value: {
+                href: 'http://localhost/?path=/story/examples-fetch--get',
+            },
+        });
+    });
+    afterAll(() => {
+        Object.defineProperty(window, 'location', {
+            value: nativeLocation,
+        });
+    });
     describe('getNormalizedUrl', () => {
         it('should remove protocol like http', () => {
             const input = 'http://google.com/test';
