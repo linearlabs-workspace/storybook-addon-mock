@@ -123,7 +123,6 @@ export class Faker {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     if (typeof response === 'function') {
-
                         const data = response(request);
 
                         let status = 200;
@@ -152,7 +151,6 @@ export class Faker {
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
-
                     let status = 200;
                     const customStatusCode = data?.header?.status;
                     if (customStatusCode) {
