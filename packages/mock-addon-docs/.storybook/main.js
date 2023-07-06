@@ -1,3 +1,5 @@
+import remarkGfm from 'remark-gfm';
+
 export default {
     stories: [
         '../stories/**/*stories.mdx',
@@ -5,7 +7,16 @@ export default {
     ],
     addons: [
         '@storybook/addon-links',
-        '@storybook/addon-docs',
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                mdxPluginOptions: {
+                    mdxCompileOptions: {
+                        remarkPlugins: [remarkGfm],
+                    },
+                },
+            },
+        },
         '@storybook/addon-viewport',
         '@storybook/addon-toolbars',
         '../../mock-addon/preset.js',
