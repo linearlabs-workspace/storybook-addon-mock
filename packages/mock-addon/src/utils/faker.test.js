@@ -120,4 +120,59 @@ describe('Faker', () => {
             expect(faker.getRequests().length).toEqual(0);
         });
     });
+
+    describe('mockFetch', () => {
+        describe('abort signal', () => {
+            const faker = new Faker();
+            const requests = [
+                {
+                    url: 'http://request.com',
+                    method: 'GET',
+                    status: 200,
+                    response: {},
+                },
+            ];
+
+            faker.makeInitialRequestMap(requests);
+
+            it('should abort request if abort is called', (done) => {
+                const abortController = new AbortController();
+
+                fetch('http://request.com', {
+                    method: 'GET',
+                    signal: abortController.signal,
+                })
+                    .then(() => {
+                        done(
+                            'should have aborted, preventing resolve from being called'
+                        );
+                    })
+                    .catch((err) => {
+                        expect(err.name).toEqual('AbortError');
+                        expect(err.message).toEqual('The reason for aborting');
+                        done();
+                    });
+
+                abortController.abort('The reason for aborting');
+            });
+
+            it('should not abort request if aborted signal is not supplied as fetch option', (done) => {
+                const abortController = new AbortController();
+
+                fetch('http://request.com', {
+                    method: 'GET',
+                    delay: 1000, // <- NOTE signal is not provided
+                })
+                    .then((res) => {
+                        expect(res.status).toEqual(200);
+                        done();
+                    })
+                    .catch(() => {
+                        done.fail('should not catch');
+                    });
+
+                abortController.abort('The reason for aborting');
+            });
+        });
+    });
 });

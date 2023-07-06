@@ -40,6 +40,7 @@
     "lint": "eslint .",
     "lint:fix": "yarn run lint --fix",
     "test": "jest src",
+    "test:debug": "node --nolazy --inspect-brk ../../node_modules/.bin/jest --runInBand --colors --verbose",
     "prerelease": "zx scripts/prepublish-checks.mjs",
     "release": "yarn build && auto shipit"
   },
