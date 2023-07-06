@@ -47,7 +47,7 @@ Mostly, there's no playground to modify the response and see the changes in the 
 
 ### Documentation
 
-[See the documentation](https://storybook-addon-mock.vercel.app)
+[See the documentation](https://storybook-addon-mock.netlify.app)
 
 [Older(2.*) version documentation](https://github.com/nutboltu/storybook-addon-mock/blob/2.4.1/README.md)
 ### License
