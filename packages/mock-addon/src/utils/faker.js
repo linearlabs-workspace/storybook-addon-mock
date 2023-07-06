@@ -117,20 +117,36 @@ export class Faker {
         const { url, method } = request;
         const matched = this.matchMock(url, method);
 
-        if (matched) {
-            const { response, status, delay = 0 } = matched;
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    if (typeof response === 'function') {
-                        resolve(new Response(url, status, response(request)));
-                    } else {
-                        resolve(new Response(url, status, response));
-                    }
-                }, +delay);
-            });
+        if (!matched) {
+            // eslint-disable-next-line no-restricted-globals
+            return global.realFetch(input, options);
         }
-        // eslint-disable-next-line no-restricted-globals
-        return global.realFetch(input, options);
+
+        const { response, status, delay = 0 } = matched;
+
+        let mockResponseSent = false;
+
+        return new Promise((resolve, reject) => {
+            const timeoutId = setTimeout(() => {
+                if (typeof response === 'function') {
+                    resolve(new Response(url, status, response(request)));
+                } else {
+                    resolve(new Response(url, status, response));
+                }
+
+                mockResponseSent = true;
+            }, +delay);
+
+            request.signal?.addEventListener('abort', () => {
+                if (mockResponseSent) {
+                    return;
+                }
+
+                timeoutId && clearTimeout(timeoutId);
+
+                reject(new DOMException(request.signal.reason, 'AbortError'));
+            });
+        });
     };
 
     mockXhrRequest = (request) => {
