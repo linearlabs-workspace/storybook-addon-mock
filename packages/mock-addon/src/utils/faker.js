@@ -144,7 +144,11 @@ export class Faker {
 
                 timeoutId && clearTimeout(timeoutId);
 
-                reject(new DOMException(request.signal.reason, 'AbortError'));
+                const error = new Error(request.signal.reason);
+
+                error.name = 'AbortError';
+
+                reject(error);
             });
         });
     };
