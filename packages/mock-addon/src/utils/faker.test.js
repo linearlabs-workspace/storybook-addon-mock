@@ -135,6 +135,9 @@ describe('Faker', () => {
 
             faker.makeInitialRequestMap(requests);
 
+            /**
+             * @jest-environment jsdom
+             */
             it('should abort request if abort is called', (done) => {
                 const abortController = new AbortController();
 
