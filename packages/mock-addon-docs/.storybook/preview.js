@@ -8,5 +8,6 @@ export const parameters = {
   mockAddonConfigs: {
     globalMockData: [],
     refreshStoryOnUpdate: true,
+    disableUsingOriginal: false,
   },
 }

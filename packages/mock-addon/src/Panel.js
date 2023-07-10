@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAddonState, useChannel } from '@storybook/manager-api';
+import { useAddonState, useChannel, useParameter } from '@storybook/manager-api';
 import { AddonPanel, Placeholder, ScrollArea } from '@storybook/components';
 
 import { ADDON_ID, EVENTS } from './utils/constants';
@@ -8,7 +8,6 @@ import { ErrorItem } from './components/ErrorItem';
 
 export const Panel = (props) => {
     const [mockData, setState] = useAddonState(ADDON_ID, []);
-
     const emit = useChannel({
         [EVENTS.SEND]: (newMockData) => {
             setState(newMockData);

@@ -23,8 +23,9 @@ You can set <strong>global configuration</strong> for the addon. Go to the `.sto
 | Property   | Description                                                                                 | Default |
 | ---------- | :------------------------------------------------------------------------------------------ | :------ |
 | `globalMockData` | An array of mock objects which will add in every story |   []    |
-| `refreshStoryOnUpdate`   |  This re-render the story if there's any data changes |  false |
-| `disable`   |  This disables the panel from all the stories |  false |
+| `refreshStoryOnUpdate`   |  This property re-renders the story if there's any data changes |  false |
+| `disableUsingOriginal`   |  This property disables the toggle (on/off) option to use the original endpoint |  false |
+| `disable`   |  This property disables the panel from all the stories |  false |
 
 
 ```js
@@ -38,8 +39,9 @@ export const parameters = {
       status: 201,
       response: {},
     }],
-    refreshStoryOnUpdate: true, // This re-render the story if there's any data changes
-    disable: true, // This disables the panel from all the stories
+    refreshStoryOnUpdate: true, // This property re-renders the story if there's any data changes
+    disableUsingOriginal: false, // This property disables the toggle (on/off) option to use the original endpoint
+    disable: true, // This property disables the panel from all the stories
   }
   ...
 }

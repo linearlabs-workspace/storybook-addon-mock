@@ -86,8 +86,9 @@ export const MockItem = ({
     delay,
     onChange,
 }) => {
+    const { disableUsingOriginal } = useParameter();
     return (
-        <Card onToggle={(value) => onChange('skip', !value)} enabled={!skip}>
+        <Card onToggle={(value) => onChange('skip', !value)} enabled={!skip} showHeader={!disableUsingOriginal}>
             <UrlMethodContainer>
                 <Method>{method}</Method>
                 <Url>{url}</Url>
