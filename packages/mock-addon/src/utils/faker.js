@@ -119,10 +119,20 @@ export class Faker {
 
         if (matched) {
             const { response, status, delay = 0 } = matched;
+
             return new Promise((resolve) => {
                 setTimeout(() => {
                     if (typeof response === 'function') {
-                        resolve(new Response(url, status, response(request)));
+                        const data = response(request);
+
+                        let status = 200;
+                        const customStatusCode = data?.header?.status;
+                        if (customStatusCode) {
+                            status = customStatusCode;
+                        }
+                        delete data.header;
+
+                        resolve(new Response(url, status, data));
                     } else {
                         resolve(new Response(url, status, response));
                     }
@@ -141,6 +151,13 @@ export class Faker {
             setTimeout(() => {
                 if (typeof response === 'function') {
                     const data = response(new Request(url, { method, body }));
+                    let status = 200;
+                    const customStatusCode = data?.header?.status;
+                    if (customStatusCode) {
+                        status = customStatusCode;
+                    }
+                    delete data.header;
+
                     request.respond(
                         +status,
                         defaultResponseHeaders,
