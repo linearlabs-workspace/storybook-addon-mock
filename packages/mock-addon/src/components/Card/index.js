@@ -32,6 +32,7 @@ export const Card = ({
     children,
     onToggle,
     enabled = true,
+    showHeader = true,
 }) => {
     return (
         <Container>
