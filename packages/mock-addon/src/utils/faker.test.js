@@ -1,13 +1,13 @@
 import { Faker } from './faker';
-import { newMockXhr } from 'mock-xmlhttprequest';
+// import { newMockXhr } from 'mock-xmlhttprequest';
 
-function setRealRequestInterceptors(realRequestInterceptor) {
-    global.XMLHttpRequest = newMockXhr();
-    global.XMLHttpRequest.onSend = realRequestInterceptor;
-    return () => {
-        delete global.XMLHttpRequest;
-    };
-}
+// function setRealRequestInterceptors(realRequestInterceptor) {
+//     global.XMLHttpRequest = newMockXhr();
+//     global.XMLHttpRequest.onSend = realRequestInterceptor;
+//     return () => {
+//         delete global.XMLHttpRequest;
+//     };
+// }
 
 let mockFaker = null;
 function setupMockFaker(mockFakerRequests) {

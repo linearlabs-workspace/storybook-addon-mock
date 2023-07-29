@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useParameter } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
 import { ObjectControl, RangeControl } from '@storybook/blocks';
 import { Form, Placeholder, TabsState } from '@storybook/components';
@@ -88,7 +89,11 @@ export const MockItem = ({
 }) => {
     const { disableUsingOriginal } = useParameter();
     return (
-        <Card onToggle={(value) => onChange('skip', !value)} enabled={!skip} showHeader={!disableUsingOriginal}>
+        <Card
+            onToggle={(value) => onChange('skip', !value)}
+            enabled={!skip}
+            showHeader={!disableUsingOriginal}
+        >
             <UrlMethodContainer>
                 <Method>{method}</Method>
                 <Url>{url}</Url>
