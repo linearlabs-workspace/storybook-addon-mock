@@ -117,20 +117,40 @@ export class Faker {
         const { url, method } = request;
         const matched = this.matchMock(url, method);
 
-        if (matched) {
-            const { response, status, delay = 0 } = matched;
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    if (typeof response === 'function') {
-                        resolve(new Response(url, status, response(request)));
-                    } else {
-                        resolve(new Response(url, status, response));
-                    }
-                }, +delay);
-            });
+        if (!matched) {
+            // eslint-disable-next-line no-restricted-globals
+            return global.realFetch(input, options);
         }
-        // eslint-disable-next-line no-restricted-globals
-        return global.realFetch(input, options);
+
+        const { response, status, delay = 0 } = matched;
+
+        let mockResponseSent = false;
+
+        return new Promise((resolve, reject) => {
+            const timeoutId = setTimeout(() => {
+                if (typeof response === 'function') {
+                    resolve(new Response(url, status, response(request)));
+                } else {
+                    resolve(new Response(url, status, response));
+                }
+
+                mockResponseSent = true;
+            }, +delay);
+
+            request.signal?.addEventListener('abort', () => {
+                if (mockResponseSent) {
+                    return;
+                }
+
+                timeoutId && clearTimeout(timeoutId);
+
+                const error = new Error(request.signal.reason);
+
+                error.name = 'AbortError';
+
+                reject(error);
+            });
+        });
     };
 
     mockXhrRequest = (request) => {
@@ -155,36 +175,65 @@ export class Faker {
                 }
             }, +delay);
         } else {
-            // eslint-disable-next-line new-cap
-            const realXhr = new global.realXMLHttpRequest();
+            const RealXMLHTTPRequest = global.realXMLHttpRequest;
+            const realXhr = new RealXMLHTTPRequest();
+            const fakeXhr = request._responseReceiver;
+
             realXhr.open(method, url);
 
+            realXhr.timeout = fakeXhr.timeout;
+            realXhr.withCredentials = fakeXhr.withCredentials;
+            this.transferEventListeners(fakeXhr, realXhr);
             setRequestHeaders(
                 realXhr,
                 new Map(Object.entries(request.requestHeaders.getHash()))
             );
-            realXhr.withCredentials = request.withCredentials;
 
-            realXhr.onreadystatechange = function onReadyStateChange() {
-                if (realXhr.readyState === 4 && realXhr.status === 200) {
+            realXhr.addEventListener('readystatechange', () => {
+                if (realXhr.readyState === XMLHttpRequest.DONE) {
                     request.respond(
-                        200,
+                        realXhr.status,
                         getResponseHeaderMap(realXhr),
-                        realXhr.responseText
+                        realXhr.responseText,
+                        realXhr.statusText
                     );
                 }
-            };
+            });
+
+            realXhr.addEventListener('abort', () => request.abort());
+            realXhr.addEventListener('error', () => request.setNetworkError());
+            realXhr.addEventListener('timeout', () =>
+                request.setRequestTimeout()
+            );
 
             realXhr.send(body);
-
-            const errorHandler = function () {
-                return 'Network failed';
-            };
-
-            realXhr.onerror = errorHandler;
-            realXhr.ontimeout = errorHandler;
         }
     };
+
+    transferEventListeners(fakeXhr, realXhr) {
+        fakeXhr._listeners.forEach((handlers, eventName) => {
+            if (eventName === 'loadstart') {
+                // We can't transfer loadstart because it fires as soon as the user calls xhr.start() and
+                // before this method is called, so to avoid calling it twice, we refrain from transferring it.
+                return;
+            }
+
+            handlers.forEach(
+                ({ isEventHandlerProperty, listener, useCapture, once }) => {
+                    if (isEventHandlerProperty) {
+                        realXhr[`on${eventName}`] = listener;
+                    } else {
+                        realXhr.addEventListener(eventName, listener, {
+                            once,
+                            capture: useCapture,
+                        });
+                    }
+                }
+            );
+        });
+
+        fakeXhr._listeners.clear();
+    }
 
     restore = () => {
         this.requestMap = {};
