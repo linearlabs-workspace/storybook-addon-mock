@@ -8,7 +8,6 @@ import { ErrorItem } from './components/ErrorItem';
 
 export const Panel = (props) => {
     const [mockData, setState] = useAddonState(ADDON_ID, []);
-
     const emit = useChannel({
         [EVENTS.SEND]: (newMockData) => {
             setState(newMockData);
