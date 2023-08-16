@@ -7,10 +7,10 @@ import { MockItem } from './components/MockItem';
 import { ErrorItem } from './components/ErrorItem';
 
 export const Panel = (props) => {
-    const [mockData, setState] = useAddonState(ADDON_ID, []);
+    const [state, setState] = useAddonState(ADDON_ID, { mockData: [], disableUsingOriginal: false });
     const emit = useChannel({
-        [EVENTS.SEND]: (newMockData) => {
-            setState(newMockData);
+        [EVENTS.SEND]: (newState) => {
+            setState(newState);
         },
     });
 
@@ -18,6 +18,7 @@ export const Panel = (props) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
+    const { mockData, disableUsingOriginal } = state;
     if (!mockData || mockData.length === 0) {
         return (
             <AddonPanel {...props}>
@@ -51,6 +52,7 @@ export const Panel = (props) => {
                             onChange={(key, value) =>
                                 onChange(item, key, value)
                             }
+                            disableUsingOriginal={disableUsingOriginal}
                             {...rest}
                         />
                     );
