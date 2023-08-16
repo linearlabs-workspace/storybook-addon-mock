@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParameter } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
 import { ObjectControl, RangeControl } from '@storybook/blocks';
 import { Form, Placeholder, TabsState } from '@storybook/components';
@@ -86,8 +85,8 @@ export const MockItem = ({
     response,
     delay,
     onChange,
+    disableUsingOriginal,
 }) => {
-    const { disableUsingOriginal } = useParameter();
     return (
         <Card
             onToggle={(value) => onChange('skip', !value)}
@@ -159,4 +158,5 @@ MockItem.propTypes = {
     response: PropTypes.any,
     delay: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
+    disableUsingOriginal: PropTypes.bool.isRequired,
 };

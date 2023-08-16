@@ -18,8 +18,10 @@ export const withRoundTrip = (storyFn, context) => {
     const mockAddonConfigs = getParameter(parameters, GLOBAL_PARAM_KEY, {
         refreshStoryOnUpdate: false,
         globalMockData: [],
+        disableUsingOriginal: false,
     });
-    const { globalMockData, refreshStoryOnUpdate } = mockAddonConfigs;
+    const { globalMockData, refreshStoryOnUpdate, disableUsingOriginal } =
+        mockAddonConfigs;
     const data = [...globalMockData, ...paramData];
 
     /**
@@ -29,7 +31,10 @@ export const withRoundTrip = (storyFn, context) => {
     if (INITIAL_MOUNT_STATE) {
         faker.makeInitialRequestMap(data);
 
-        channel.emit(EVENTS.SEND, faker.getRequests());
+        channel.emit(EVENTS.SEND, {
+            mockData: faker.getRequests(),
+            disableUsingOriginal,
+        });
 
         channel.on(STORY_CHANGED, () => {
             STORY_CHANGED_STATE = true;
@@ -38,7 +43,10 @@ export const withRoundTrip = (storyFn, context) => {
         channel.on(EVENTS.UPDATE, ({ item, key, value }) => {
             faker.update(item, key, value);
             const req = faker.getRequests();
-            channel.emit(EVENTS.SEND, req);
+            channel.emit(EVENTS.SEND, {
+                mockData: req,
+                disableUsingOriginal,
+            });
             refreshStoryOnUpdate && channel.emit(FORCE_RE_RENDER);
         });
 
@@ -51,7 +59,10 @@ export const withRoundTrip = (storyFn, context) => {
      */
     if (STORY_CHANGED_STATE) {
         faker.makeInitialRequestMap(data);
-        channel.emit(EVENTS.SEND, faker.getRequests());
+        channel.emit(EVENTS.SEND, {
+            mockData: faker.getRequests(),
+            disableUsingOriginal,
+        });
         STORY_CHANGED_STATE = false;
     }
     return storyFn(context);
