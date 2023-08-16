@@ -20,7 +20,8 @@ export const withRoundTrip = (storyFn, context) => {
         globalMockData: [],
         disableUsingOriginal: false,
     });
-    const { globalMockData, refreshStoryOnUpdate, disableUsingOriginal } = mockAddonConfigs;
+    const { globalMockData, refreshStoryOnUpdate, disableUsingOriginal } =
+        mockAddonConfigs;
     const data = [...globalMockData, ...paramData];
 
     /**
