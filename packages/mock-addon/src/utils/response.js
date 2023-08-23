@@ -2,8 +2,6 @@ import statusTextMap from './statusMap';
 import { defaultResponseHeaders } from './headers';
 
 export function Response(url, status, responseText) {
-    const keys = [];
-    const all = [];
     this.headers = new Headers({
         ...defaultResponseHeaders,
     });
@@ -21,10 +19,4 @@ export function Response(url, status, responseText) {
         );
     this.json = () => Promise.resolve(responseText);
     (this.clone = () => new Response(url, status, responseText))
-        // (this.headers = {
-        //     keys: () => keys,
-        //     entries: () => all,
-        //     get: (n) => headers[n.toLowerCase()],
-        //     has: (n) => n.toLowerCase() in headers,
-        // });
 }
