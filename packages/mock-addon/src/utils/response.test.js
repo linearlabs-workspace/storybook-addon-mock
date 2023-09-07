@@ -34,7 +34,9 @@ describe('Response', () => {
         const response = new Response(mockURL, 200, {});
         const headers = response.headers;
         expect(headers).toBeDefined();
-        const hasAll = Object.keys(Headers).every((key) => headers[key] !== undefined);
+        const hasAll = Object.keys(Headers).every(
+            (key) => headers[key] !== undefined
+        );
         expect(hasAll).toBe(true);
     });
 });

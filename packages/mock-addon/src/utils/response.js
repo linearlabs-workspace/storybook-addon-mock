@@ -18,5 +18,5 @@ export function Response(url, status, responseText) {
                 : JSON.stringify(responseText)
         );
     this.json = () => Promise.resolve(responseText);
-    (this.clone = () => new Response(url, status, responseText))
+    this.clone = () => new Response(url, status, responseText);
 }
