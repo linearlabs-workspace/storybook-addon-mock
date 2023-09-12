@@ -8,7 +8,6 @@ import {
     getResponseHeaderMap,
     defaultResponseHeaders,
 } from './headers';
-import { arrayEquals } from './array';
 import { getNormalizedUrl } from './url';
 import { validate, schema } from './validator';
 
@@ -35,10 +34,8 @@ export class Faker {
 
     getRequests = () => Object.values(this.requestMap);
 
-    getKey = (url = '', searchParamKeys = [], method = 'GET') =>
-        url && method
-            ? [url, ...searchParamKeys, method.toLowerCase()].join('_')
-            : '';
+    getKey = (url = '', method = 'GET') =>
+        url && method ? [url, method.toLowerCase()].join('_') : '';
 
     makeInitialRequestMap = (requests) => {
         if (!requests || !Array.isArray(requests)) {
@@ -53,7 +50,7 @@ export class Faker {
 
     add = (request) => {
         const { path, searchParamKeys } = getNormalizedUrl(request.url);
-        const key = this.getKey(path, searchParamKeys, request.method);
+        const key = this.getKey(request.url, request.method);
         const errors = validate(request, schema);
 
         if (errors && errors.length) {
@@ -78,8 +75,8 @@ export class Faker {
 
     update = (item, fieldKey, value) => {
         const { url, method } = item;
-        const { path, searchParamKeys } = getNormalizedUrl(url);
-        const itemKey = this.getKey(path, searchParamKeys, method);
+        const path = this.getPath(url);
+        const itemKey = this.getKey(path, method);
 
         if (
             // eslint-disable-next-line no-prototype-builtins
@@ -91,18 +88,40 @@ export class Faker {
         }
     };
 
+    isUrl = (url) => {
+        try {
+            new URL(url);
+
+            return true;
+        } catch (error) {
+            return false;
+        }
+    };
+
+    getPath = (url) => {
+        if (!this.isUrl(url)) {
+            throw new Error(`${url} is invalid url`);
+        }
+
+        const { origin, pathname } = new URL(url);
+
+        if (pathname === '/') {
+            return pathname;
+        }
+
+        return url.replace(origin, '');
+    };
+
     matchMock = (url, method = 'GET') => {
-        const { path, searchParamKeys } = getNormalizedUrl(url);
+        const path = this.getPath(url);
 
         for (let key in this.requestMap) {
             const { url: requestUrl, method: requestMethod } =
                 this.requestMap[key];
-            const { path: requestPath, searchParamKeys: requestSearchKeys } =
-                getNormalizedUrl(requestUrl);
+            const requestPath = this.getPath(requestUrl);
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
-                arrayEquals(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];

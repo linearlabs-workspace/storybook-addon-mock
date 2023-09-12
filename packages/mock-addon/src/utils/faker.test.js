@@ -121,18 +121,13 @@ describe('Faker - getKey', () => {
     });
 
     it('should return empty string if url and method are empty strings', () => {
-        const actual = faker.getKey('', [], '');
+        const actual = faker.getKey('', '');
         expect(actual).toEqual('');
     });
 
     it('should return a string binding url and method with underscore if searchParamKeys is empty', () => {
-        const actual = faker.getKey('google.com', [], 'GET');
+        const actual = faker.getKey('google.com', 'GET');
         expect(actual).toEqual('google.com_get');
-    });
-
-    it('should return a string binding url, search params keys, and method with underscore', () => {
-        const actual = faker.getKey('google.com', ['all', 'only'], 'GET');
-        expect(actual).toEqual('google.com_all_only_get');
     });
 });
 
@@ -177,6 +172,39 @@ describe('Faker - makeInitialRequestMap', () => {
     });
 });
 
+describe('Faker - getPath', () => {
+    const [faker, resetMock] = setupMockFaker();
+
+    afterAll(() => {
+        resetMock();
+    });
+
+    it('should return path and query string', () => {
+        expect(faker.getPath('http://request.com/one/two/three')).toEqual(
+            '/one/two/three'
+        );
+        expect(
+            faker.getPath('http://request.com/one/two/three?hello=world')
+        ).toEqual('/one/two/three?hello=world');
+    });
+
+    it('should return path with regex', () => {
+        expect(
+            faker.getPath(
+                'http://request.com/:one/:two/:three\\?page=([^&]*)&ok=([^&]*)'
+            )
+        ).toEqual('/:one/:two/:three\\?page=([^&]*)&ok=([^&]*)');
+    });
+
+    it('should return only slash', () => {
+        expect(faker.getPath('http://request.com/')).toEqual('/');
+    });
+
+    it('should throw error if the url is invalid', () => {
+        expect(() => faker.getPath('hello-world')).toThrow();
+    });
+});
+
 describe('Faker - matchMock', () => {
     const requests = [
         {
@@ -194,9 +222,16 @@ describe('Faker - matchMock', () => {
             delay: 0,
         },
         {
-            url: 'http://request2.com/:id',
+            url: 'http://request2.com/:path\\?page=([^&]*)&ok=([^&]*)',
             method: 'POST',
-            status: 404,
+            status: 200,
+            response: {},
+            delay: 0,
+        },
+        {
+            url: 'http://request2.com/search(.*)',
+            method: 'POST',
+            status: 200,
             response: {},
             delay: 0,
         },
@@ -219,15 +254,23 @@ describe('Faker - matchMock', () => {
         expect(actual.skip).toEqual(false);
     });
 
-    it('should return null if url does not match', () => {
-        const actual = faker.matchMock('http://notmatched.com', 'GET');
-        expect(actual).toBeNull();
-    });
-
     it('should return request if url matches with the regex', () => {
-        const actual = faker.matchMock('http://request2.com/3', 'POST');
+        const actual = faker.matchMock(
+            'http://request2.com/category?page=1&ok=true',
+            'POST'
+        );
         expect(actual.url).toEqual(requests[2].url);
         expect(actual.method).toEqual(requests[2].method);
+        expect(actual.skip).toEqual(false);
+    });
+
+    it('should ignore the rest of the url', () => {
+        const actual = faker.matchMock(
+            'http://request2.com/search?hello=world',
+            'POST'
+        );
+        expect(actual.url).toEqual(requests[3].url);
+        expect(actual.method).toEqual(requests[3].method);
         expect(actual.skip).toEqual(false);
     });
 });
