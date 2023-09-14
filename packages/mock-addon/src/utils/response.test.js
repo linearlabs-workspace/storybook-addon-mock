@@ -30,4 +30,13 @@ describe('Response', () => {
         // eslint-disable-next-line prettier/prettier
         expect(actual).toEqual("{\"key\":\"test\"}");
     });
+    it('should return a response with headers that contain required properties and methods', async () => {
+        const response = new Response(mockURL, 200, {});
+        const headers = response.headers;
+        expect(headers).toBeDefined();
+        const hasAll = Object.keys(Headers).every(
+            (key) => headers[key] !== undefined
+        );
+        expect(hasAll).toBe(true);
+    });
 });
