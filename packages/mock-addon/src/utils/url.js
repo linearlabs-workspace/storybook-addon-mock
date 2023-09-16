@@ -1,9 +1,5 @@
 export const getBaseUrl = (rawUrl = '') => {
-    const baseUrl =
-        rawUrl.indexOf('http') == 0 ? undefined : 'http://localhost';
-    const url = new URL(rawUrl, baseUrl);
-
-    return url;
+    return new URL(rawUrl, location.href);
 };
 
 export const getNormalizedUrl = (rawUrl = '') => {

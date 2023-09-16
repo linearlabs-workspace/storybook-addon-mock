@@ -1,7 +1,11 @@
 import { getBaseUrl } from './url';
 
 export function Request(input, options = {}) {
-    if (typeof input === 'object') {
+    if (input instanceof URL) {
+        this.method = options.method || 'GET';
+        this.url = input.href;
+        this.body = options.body || null;
+    } else if (typeof input === 'object') {
         this.method = options.method || input.method || 'GET';
         this.url = input.url;
         this.body = options.body || input.body || null;
