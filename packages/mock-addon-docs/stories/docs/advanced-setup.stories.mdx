@@ -20,12 +20,13 @@ You can set <strong>global configuration</strong> for the addon. Go to the `.sto
 
 
 
-| Property   | Description                                                                                 | Default |
-| ---------- | :------------------------------------------------------------------------------------------ | :------ |
-| `globalMockData` | An array of mock objects which will add in every story |   []    |
-| `refreshStoryOnUpdate`   |  This property re-renders the story if there's any data changes |  false |
-| `disableUsingOriginal`   |  This property disables the toggle (on/off) option to use the original endpoint |  false |
-| `disable`   |  This property disables the panel from all the stories |  false |
+| Property                 | Description                                                                    | Default |
+| ------------------------ | :----------------------------------------------------------------------------- | :------ |
+| `globalMockData`         | An array of mock objects which will add in every story                         | []      |
+| `ignoreQueryParams`      | Whether or not to ignore query parameters globally                             | false   |
+| `refreshStoryOnUpdate`   | This property re-renders the story if there's any data changes                 | false   |
+| `disableUsingOriginal`   | This property disables the toggle (on/off) option to use the original endpoint | false   |
+| `disable`                | This property disables the panel from all the stories                          | false   |
 
 
 ```js
@@ -39,6 +40,7 @@ export const parameters = {
       status: 201,
       response: {},
     }],
+    ignoreQueryParams: true, // Whether or not to ignore query parameters globally
     refreshStoryOnUpdate: true, // This property re-renders the story if there's any data changes
     disableUsingOriginal: false, // This property disables the toggle (on/off) option to use the original endpoint
     disable: true, // This property disables the panel from all the stories
