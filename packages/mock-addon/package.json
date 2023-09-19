@@ -47,7 +47,8 @@
     "mock-xmlhttprequest": "^8.1.0",
     "path-to-regexp": "^6.2.1",
     "polished": "^4.2.2",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "whatwg-fetch": "^3.6.19"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

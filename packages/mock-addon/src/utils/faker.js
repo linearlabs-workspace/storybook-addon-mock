@@ -2,7 +2,7 @@
 import { newMockXhr } from 'mock-xmlhttprequest';
 import { match } from 'path-to-regexp';
 import { Request } from './request';
-import { Response } from './response';
+import { CustomResponse } from './response';
 import {
     setRequestHeaders,
     getResponseHeaderMap,
@@ -129,9 +129,9 @@ export class Faker {
         return new Promise((resolve, reject) => {
             const timeoutId = setTimeout(() => {
                 if (typeof response === 'function') {
-                    resolve(new Response(url, status, response(request)));
+                    resolve(CustomResponse(url, status, response(request)));
                 } else {
-                    resolve(new Response(url, status, response));
+                    resolve(CustomResponse(url, status, response));
                 }
 
                 mockResponseSent = true;
