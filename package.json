@@ -11,8 +11,8 @@
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
-    "ci": "yarn run lint && yarn run test && yarn run build-addon && yarn run docs:build",
-    "build-addon": "yarn workspace storybook-addon-mock run build",
+    "ci": "yarn run lint && yarn run test && yarn run addon:build && yarn run docs:build",
+    "addon:build": "yarn workspace storybook-addon-mock run build",
     "docs:start": "yarn workspace storybook-addon-mock-docs run storybook",
     "docs:build": "yarn workspace storybook-addon-mock-docs run build",
     "dedup": "yarn-deduplicate"
@@ -31,6 +31,7 @@
     "storybook-addon",
     "data-state",
     "storybook-mock-request",
+    "storybook-mock-fetch",
     "mock-request"
   ],
   "devDependencies": {
