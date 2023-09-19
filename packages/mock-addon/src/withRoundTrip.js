@@ -19,9 +19,14 @@ export const withRoundTrip = (storyFn, context) => {
         refreshStoryOnUpdate: false,
         globalMockData: [],
         disableUsingOriginal: false,
+        ignoreQueryParams: false,
     });
-    const { globalMockData, refreshStoryOnUpdate, disableUsingOriginal } =
-        mockAddonConfigs;
+    const {
+        globalMockData,
+        refreshStoryOnUpdate,
+        disableUsingOriginal,
+        ignoreQueryParams,
+    } = mockAddonConfigs;
     const data = [...globalMockData, ...paramData];
 
     /**
@@ -30,6 +35,7 @@ export const withRoundTrip = (storyFn, context) => {
      */
     if (INITIAL_MOUNT_STATE) {
         faker.makeInitialRequestMap(data);
+        faker.setIgnoreQueryParams(ignoreQueryParams);
 
         channel.emit(EVENTS.SEND, {
             mockData: faker.getRequests(),
@@ -59,10 +65,13 @@ export const withRoundTrip = (storyFn, context) => {
      */
     if (STORY_CHANGED_STATE) {
         faker.makeInitialRequestMap(data);
+        faker.setIgnoreQueryParams(ignoreQueryParams);
+
         channel.emit(EVENTS.SEND, {
             mockData: faker.getRequests(),
             disableUsingOriginal,
         });
+
         STORY_CHANGED_STATE = false;
     }
     return storyFn(context);

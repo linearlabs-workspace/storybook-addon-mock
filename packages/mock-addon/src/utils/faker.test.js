@@ -200,15 +200,38 @@ describe('Faker - matchMock', () => {
             response: {},
             delay: 0,
         },
+        {
+            url: 'http://request3.com?foo=1&bar=2',
+            method: 'GET',
+            status: 200,
+            response: {},
+            delay: 0,
+        },
+        {
+            url: 'http://request4.com',
+            method: 'GET',
+            status: 200,
+            response: {},
+            delay: 0,
+            ignoreQueryParams: true,
+        },
+        {
+            url: 'http://request5.com?foo=1&bar=2',
+            method: 'GET',
+            status: 200,
+            response: {},
+            delay: 0,
+            ignoreQueryParams: true,
+        },
     ];
 
     const [faker, resetMock] = setupMockFaker();
 
-    beforeAll(() => {
+    beforeEach(() => {
         faker.makeInitialRequestMap(requests);
     });
 
-    afterAll(() => {
+    afterEach(() => {
         resetMock();
     });
 
@@ -229,6 +252,100 @@ describe('Faker - matchMock', () => {
         expect(actual.url).toEqual(requests[2].url);
         expect(actual.method).toEqual(requests[2].method);
         expect(actual.skip).toEqual(false);
+    });
+
+    it('should return request if url and query parameters match', () => {
+        const actual = faker.matchMock(
+            'http://request3.com?foo=1&bar=2',
+            'GET'
+        );
+        expect(actual.url).toEqual(requests[3].url);
+        expect(actual.method).toEqual(requests[3].method);
+        expect(actual.skip).toEqual(false);
+    });
+
+    it('should return request if url and query parameters match with different order', () => {
+        const actual = faker.matchMock(
+            'http://request3.com?bar=2&foo=1',
+            'GET'
+        );
+        expect(actual.url).toEqual(requests[3].url);
+        expect(actual.method).toEqual(requests[3].method);
+        expect(actual.skip).toEqual(false);
+    });
+
+    it('should return null if unexpected query parameters are provided', () => {
+        const actual = faker.matchMock('http://request.com?foo=1', 'GET');
+        expect(actual).toBeNull();
+    });
+
+    it('should return null if query parameters are missing', () => {
+        const actual = faker.matchMock('http://request3.com?baz=1', 'GET');
+        expect(actual).toBeNull();
+    });
+
+    it('should return request if unexpected query parameters are provided but are globally ignored', () => {
+        faker.setIgnoreQueryParams(true);
+        const actual = faker.matchMock('http://request.com?foo=1', 'GET');
+        expect(actual.url).toEqual(requests[0].url);
+        expect(actual.method).toEqual(requests[0].method);
+        expect(actual.skip).toEqual(false);
+    });
+
+    it('should return request if query parameters are missing but are globally ignored', () => {
+        faker.setIgnoreQueryParams(true);
+        const actual = faker.matchMock('http://request3.com?baz=1', 'GET');
+        expect(actual.url).toEqual(requests[3].url);
+        expect(actual.method).toEqual(requests[3].method);
+        expect(actual.skip).toEqual(false);
+    });
+});
+
+describe('Faker - matchQueryParams', () => {
+    const [faker, resetMock] = setupMockFaker();
+
+    afterEach(() => {
+        resetMock();
+    });
+
+    it('should return true if query parameters match', () => {
+        const actual = faker.matchQueryParams(
+            ['foo', 'bar'],
+            ['foo', 'bar'],
+            false
+        );
+        expect(actual).toBe(true);
+    });
+
+    it('should return true if query parameters match with different order', () => {
+        const actual = faker.matchQueryParams(
+            ['foo', 'bar'],
+            ['bar', 'foo'],
+            false
+        );
+        expect(actual).toBe(true);
+    });
+
+    it('should return false if unexpected query parameters are provided', () => {
+        const actual = faker.matchQueryParams([], ['foo'], false);
+        expect(actual).toBe(false);
+    });
+
+    it('should return false if query parameters are missing', () => {
+        const actual = faker.matchQueryParams(['foo', 'bar'], ['baz'], false);
+        expect(actual).toBe(false);
+    });
+
+    it('should return true if unexpected query parameters are provided but are globally ignored', () => {
+        faker.setIgnoreQueryParams(true);
+        const actual = faker.matchQueryParams([], ['foo'], false);
+        expect(actual).toBe(true);
+    });
+
+    it('should return true if query parameters are missing but are globally ignored', () => {
+        faker.setIgnoreQueryParams(true);
+        const actual = faker.matchQueryParams([], ['foo'], false);
+        expect(actual).toBe(true);
     });
 });
 

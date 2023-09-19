@@ -31,6 +31,7 @@ export class Faker {
         global.XMLHttpRequest = this.MockXhr;
 
         this.requestMap = {};
+        this.ignoreQueryParams = false;
     }
 
     getRequests = () => Object.values(this.requestMap);
@@ -49,6 +50,10 @@ export class Faker {
         requests.forEach((request) => {
             this.add(request);
         });
+    };
+
+    setIgnoreQueryParams = (value) => {
+        this.ignoreQueryParams = value;
     };
 
     add = (request) => {
@@ -102,7 +107,7 @@ export class Faker {
             if (
                 match(requestPath)(path) &&
                 method == requestMethod &&
-                arrayEquals(searchParamKeys, requestSearchKeys) &&
+                this.matchQueryParams(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
                 return this.requestMap[key];
@@ -110,6 +115,13 @@ export class Faker {
         }
 
         return null;
+    };
+
+    matchQueryParams = (searchParams, requestSearchParams) => {
+        return (
+            this.ignoreQueryParams ||
+            arrayEquals(searchParams, requestSearchParams)
+        );
     };
 
     mockFetch = (input, options) => {
@@ -237,6 +249,7 @@ export class Faker {
 
     restore = () => {
         this.requestMap = {};
+        this.ignoreQueryParams = false;
     };
 }
 
