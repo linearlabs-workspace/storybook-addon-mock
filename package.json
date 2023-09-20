@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "yarn workspaces run build",
+    "build": "yarn run addon:build && yarn run docs:build",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "test": "yarn workspaces run test",
