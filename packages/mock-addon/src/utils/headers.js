@@ -21,3 +21,7 @@ export function getResponseHeaderMap(xhr) {
 export const defaultResponseHeaders = {
     'content-type': 'application/json',
 };
+
+export const textResponseHeaders = {
+    'content-type': 'text/plain',
+};

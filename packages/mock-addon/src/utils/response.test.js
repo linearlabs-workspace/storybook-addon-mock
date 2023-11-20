@@ -21,8 +21,10 @@ describe('CustomResponse', () => {
     });
     it('should return text as a string if responseText is string', async () => {
         const response = new CustomResponse(mockURL, 200, 'This is a string');
-        const actual = await response.text();
-        expect(actual).toEqual('This is a string');
+        const actualText = await response.text();
+        const actualContentType = await response.headers.get("content-type");
+        expect(actualText).toEqual('This is a string');
+        expect(actualContentType).toEqual('text/plain')
     });
     it('should return text as a string if responseText is an object', async () => {
         const response = new CustomResponse(mockURL, 200, { key: 'test' });
