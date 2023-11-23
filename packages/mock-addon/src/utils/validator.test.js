@@ -52,7 +52,7 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
-        it('should return rul error array if url is not a string', () => {
+        it('should return url error array if url is not a string', () => {
             const mock = {
                 url: {},
                 method: 'GET',
@@ -204,16 +204,16 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
-        it('should return not valid response error if response is a string', () => {
+        it('should return empty error if response is a string', () => {
             const mock = {
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
                 status: 200,
                 delay: 0,
-                response: 'string',
+                response: 'a string value',
             };
             const actual = validate(mock, schema);
-            expect(actual).toEqual(['response: "string" is not valid.']);
+            expect(actual).toEqual([]);
         });
 
         it('should return not valid response error if response is null', () => {
