@@ -25,7 +25,7 @@ export const schema = {
         return (
             (isObject(value) ||
                 Array.isArray(value) ||
-                value === 'string' ||
+                typeof value === 'string' ||
                 typeof value === 'function') &&
             value !== null
         );

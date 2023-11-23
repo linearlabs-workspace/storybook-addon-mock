@@ -210,7 +210,7 @@ describe('Validator', () => {
                 method: 'GET',
                 status: 200,
                 delay: 0,
-                response: 'string',
+                response: 'a string value',
             };
             const actual = validate(mock, schema);
             expect(actual).toEqual([]);
