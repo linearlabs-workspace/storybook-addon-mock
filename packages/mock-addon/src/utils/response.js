@@ -14,8 +14,8 @@ export function CustomResponse(url, status, responseText, headers) {
         statusText: statusTextMap[status.toString()],
         headers: new Headers({
             ...defaultResponseHeaders,
-            ...headers
+            ...headers,
         }),
-        url
+        url,
     });
 }

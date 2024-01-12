@@ -1,6 +1,6 @@
 import statusTextMap from '../utils/statusMap';
 
-const methods = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'];
+const methods = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
 const statusCodes = Object.keys(statusTextMap);
 
 const isObject = (value) =>

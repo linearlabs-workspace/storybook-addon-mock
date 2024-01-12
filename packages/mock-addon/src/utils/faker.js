@@ -134,16 +134,25 @@ export class Faker {
             return global.realFetch(input, options);
         }
 
-        const { response, status, delay = 0, headers = {} } = matched;
+        const { response, status, delay = 0, responseHeaders = {} } = matched;
 
         let mockResponseSent = false;
 
         return new Promise((resolve, reject) => {
             const timeoutId = setTimeout(() => {
                 if (typeof response === 'function') {
-                    resolve(CustomResponse(url, status, response(request), headers));
+                    resolve(
+                        CustomResponse(
+                            url,
+                            status,
+                            response(request),
+                            responseHeaders
+                        )
+                    );
                 } else {
-                    resolve(CustomResponse(url, status, response, headers));
+                    resolve(
+                        CustomResponse(url, status, response, responseHeaders)
+                    );
                 }
 
                 mockResponseSent = true;
