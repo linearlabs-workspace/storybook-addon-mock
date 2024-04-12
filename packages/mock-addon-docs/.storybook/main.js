@@ -4,7 +4,7 @@ const config = {
         '../stories/**/stories.@(js|jsx|mjs|ts|tsx)',
     ],
     addons: [
-        '../../mock-addon/preset.js',
+        '../../mock-addon/src/preset/manager.js',
         '@storybook/addon-links',
         '@storybook/addon-essentials',
         '@storybook/addon-interactions',
@@ -15,6 +15,6 @@ const config = {
     },
     docs: {
         autodocs: 'tag',
-    },
+    }
 };
 export default config;
