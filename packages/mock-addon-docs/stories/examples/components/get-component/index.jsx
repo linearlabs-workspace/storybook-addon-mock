@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LinkTo from '@storybook/addon-links/react';
 
-import { buttonStyles, inputStyles, formStyles, labelStyles } from './styles';
+import { buttonStyles, inputStyles, formStyles } from './styles';
 import { Container } from '../container';
 import { Response } from '../response';
 import { DEFAULT_URL } from '../../utils';
