@@ -242,6 +242,13 @@ describe('Faker - matchMock', () => {
         expect(actual.skip).toEqual(false);
     });
 
+    it('should return request if url matches but method only b/c GET=get', () => {
+        const actual = faker.matchMock('http://request.com', 'get');
+        expect(actual.url).toEqual(requests[0].url);
+        expect(actual.method).toEqual(requests[0].method);
+        expect(actual.skip).toEqual(false);
+    });
+
     it('should return null if url does not match', () => {
         const actual = faker.matchMock('http://notmatched.com', 'GET');
         expect(actual).toBeNull();

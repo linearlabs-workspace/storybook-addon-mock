@@ -106,7 +106,7 @@ export class Faker {
                 getNormalizedUrl(requestUrl);
             if (
                 match(requestPath)(path) &&
-                method == requestMethod &&
+                method.toUpperCase() == requestMethod.toUpperCase() &&
                 this.matchQueryParams(searchParamKeys, requestSearchKeys) &&
                 !this.requestMap[key].skip
             ) {
