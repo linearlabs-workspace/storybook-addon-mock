@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAddonState, useChannel } from '@storybook/manager-api';
-import { AddonPanel, Placeholder, ScrollArea } from '@storybook/components';
+import { AddonPanel, Placeholder } from '@storybook/components';
 
 import { ADDON_ID, EVENTS } from './utils/constants';
 import { MockItem } from './components/MockItem';
@@ -32,35 +32,31 @@ export const Panel = (props) => {
 
     return (
         <AddonPanel {...props}>
-            <ScrollArea>
-                {mockData.map((item, index) => {
-                    const { errors, originalRequest } = item;
-                    if (errors && errors.length) {
-                        return (
-                            <ErrorItem
-                                key={index}
-                                errors={errors}
-                                originalRequest={originalRequest}
-                                position={index}
-                            />
-                        );
-                    }
-                    // eslint-disable-next-line no-unused-vars
-                    const { searchParamKeys, path, ...rest } = item;
-
+            {mockData.map((item, index) => {
+                const { errors, originalRequest } = item;
+                if (errors && errors.length) {
                     return (
-                        <MockItem
-                            id={index}
+                        <ErrorItem
                             key={index}
-                            onChange={(key, value) =>
-                                onChange(item, key, value)
-                            }
-                            disableUsingOriginal={disableUsingOriginal}
-                            {...rest}
+                            errors={errors}
+                            originalRequest={originalRequest}
+                            position={index}
                         />
                     );
-                })}
-            </ScrollArea>
+                }
+                // eslint-disable-next-line no-unused-vars
+                const { searchParamKeys, path, ...rest } = item;
+
+                return (
+                    <MockItem
+                        id={index}
+                        key={index}
+                        onChange={(key, value) => onChange(item, key, value)}
+                        disableUsingOriginal={disableUsingOriginal}
+                        {...rest}
+                    />
+                );
+            })}
         </AddonPanel>
     );
 };
