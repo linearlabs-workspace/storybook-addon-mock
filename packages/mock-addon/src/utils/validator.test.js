@@ -204,7 +204,7 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
-        it('should return not valid response error if response is a string', () => {
+        it('should return empty error if response is a string', () => {
             const mock = {
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
