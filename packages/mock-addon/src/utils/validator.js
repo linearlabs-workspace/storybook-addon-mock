@@ -22,12 +22,7 @@ export const schema = {
         return value && statusCodes.indexOf(value.toString()) >= 0;
     },
     response: (value) => {
-        return (
-            isObject(value) ||
-            Array.isArray(value) ||
-            typeof value === 'function' ||
-            value === null
-        );
+        return typeof value !== 'undefined';
     },
     delay: (value) => {
         return value ? typeof value === 'number' : true;

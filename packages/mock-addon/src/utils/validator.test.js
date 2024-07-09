@@ -204,6 +204,18 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
+        it('should return not valid response error if response is a string', () => {
+            const mock = {
+                url: 'https://jsonplaceholder.typicode.com/todos/:id',
+                method: 'GET',
+                status: 200,
+                delay: 0,
+                response: 'string',
+            };
+            const actual = validate(mock, schema);
+            expect(actual).toEqual([]);
+        });
+
         it('should return empty error if response is null', () => {
             const mock = {
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
@@ -216,16 +228,16 @@ describe('Validator', () => {
             expect(actual).toEqual([]);
         });
 
-        it('should return not valid response error if response is a string', () => {
+        it('should return not valid response error if response is undefined', () => {
             const mock = {
                 url: 'https://jsonplaceholder.typicode.com/todos/:id',
                 method: 'GET',
                 status: 200,
                 delay: 0,
-                response: 'string',
+                response: undefined,
             };
             const actual = validate(mock, schema);
-            expect(actual).toEqual(['response: "string" is not valid.']);
+            expect(actual).toEqual(['response: undefined is not valid.']);
         });
     });
     describe('validate delay', () => {
