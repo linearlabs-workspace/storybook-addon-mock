@@ -1,5 +1,6 @@
 
 import { Meta } from '@storybook/addon-docs';
+import { Markdown } from '@storybook/blocks';
 import { Footer } from './footer';
 
 <Meta title="Docs/Advanced setup" />
@@ -19,15 +20,15 @@ import { Footer } from './footer';
 You can set <strong>global configuration</strong> for the addon. Go to the `.storybook/preview.jsx` file and add `mockAddonConfigs` fields with the following properties.
 
 
-
+<Markdown>{`
 | Property                 | Description                                                                    | Default |
 | ------------------------ | :----------------------------------------------------------------------------- | :------ |
-| `globalMockData`         | An array of mock objects which will add in every story                         | []      |
-| `ignoreQueryParams`      | Whether or not to ignore query parameters globally                             | false   |
-| `refreshStoryOnUpdate`   | This property re-renders the story if there's any data changes                 | false   |
-| `disableUsingOriginal`   | This property disables the toggle (on/off) option to use the original endpoint | false   |
-| `disable`                | This property disables the panel from all the stories                          | false   |
-
+| \`globalMockData\`         | An array of mock objects which will add in every story                         | []      |
+| \`ignoreQueryParams\`      | Whether or not to ignore query parameters globally                             | false   |
+| \`refreshStoryOnUpdate\`   | This property re-renders the story if there's any data changes                 | false   |
+| \`disableUsingOriginal\`   | This property disables the toggle (on/off) option to use the original endpoint | false   |
+| \`disable\`                | This property disables the panel from all the stories                          | false   |
+`}</Markdown>
 
 ```js
 export const parameters = {

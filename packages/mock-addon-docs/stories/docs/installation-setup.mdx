@@ -1,5 +1,6 @@
 
 import { Meta } from '@storybook/addon-docs';
+import { Markdown } from '@storybook/blocks';
 import LinkTo from '@storybook/addon-links/react';
 import { Footer } from './footer';
 
@@ -80,13 +81,15 @@ export const FetchCall = Template.bind({});
 
 Each mock object contains the following properties.
 
-| Property   | Description                                                                                 | Required | Default |
-| ---------- | :------------------------------------------------------------------------------------------ | :------- | :------ |
-| `url`      | Supports both **named parameters** (`/:foo/:bar`) and **query parameters**.(`/foo?bar=true`) | true        |    -    |
-| `method`   | Supports `GET`, `POST`, `PUT`, `PATCH` and `DELETE` methods.                                                   |    true    | - |
-| `status`   | All possible [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).                                                              |     true   |  -  |
-| `response` | A valid JSON format(Array or Object) or function. <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example.  | true        |    -    |
-| `delay`    | Emulate delayed response time in milliseconds.                                              |     -    | `0`     |
+<Markdown>{`
+| Property     | Description                                                                                                                                                                           | Required | Default |
+|--------------|-:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-:--------|-:-------|
+| \`url\`      | Supports both **named parameters** (\`/:foo/:bar\`) and **query parameters**.(\`/foo?bar=true\`)                                                                                      | true     | -       |
+| \`method\`   | Supports \`GET\`, \`POST\`, \`PUT\`, \`PATCH\` and \`DELETE\` methods.                                                                                                                | true     | -       |
+| \`status\`   | All possible [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).                                                                                           | true     | -       |
+| \`response\` | A valid JSON format(Array or Object) or function. <br/> Response function is a function that contains request object as a parameter. See the **Custom Response** section for example. | true     | -       |
+| \`delay\`    | Emulate delayed response time in milliseconds.                                                                                                                                        | -        | \`0\`   |
+`}</Markdown>
 
 
 <br />
