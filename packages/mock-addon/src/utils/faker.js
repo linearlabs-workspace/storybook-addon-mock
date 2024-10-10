@@ -167,12 +167,13 @@ export class Faker {
 
     mockXhrRequest = (request) => {
         const { method, url, body } = request;
+        const requestHeaders = request?.requestHeaders?._headers;
         const matched = this.matchMock(url, method);
         if (matched) {
             const { response, status, delay = 0 } = matched;
             setTimeout(() => {
                 if (typeof response === 'function') {
-                    const data = response(new Request(url, { method, body }));
+                    const data = response(new Request(url, { method, body, headers: requestHeaders }));
                     request.respond(
                         +status,
                         defaultResponseHeaders,

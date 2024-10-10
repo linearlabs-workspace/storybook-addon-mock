@@ -136,7 +136,7 @@ FetchCall.parameters = {
         method: 'GET',
         status: 200,
         response: (request) => {
-            const { body, searchParams } = request;
+            const { body, headers, searchParams } = request;
 
             if (searchParams.id == 1) {
                 return {
@@ -145,6 +145,10 @@ FetchCall.parameters = {
             } else if (body.name === 'mock') {
                 return {
                     data: 'Custom data for name mock',
+                };
+            } else if (headers.get("Accept-Language") === 'fr-FR') {
+                return {
+                    data: 'Données personnalisées en français',
                 };
             }
             return {
