@@ -1,25 +1,20 @@
-import remarkGfm from 'remark-gfm';
-
-export default {
+const config = {
     stories: [
-        '../stories/**/*stories.mdx',
-        '../stories/**/*stories.@(js|jsx|ts|tsx)',
+        '../stories/**/*.mdx',
+        '../stories/**/stories.@(js|jsx|mjs|ts|tsx)',
     ],
     addons: [
+        '../../mock-addon/src/preset/manager.js',
         '@storybook/addon-links',
-        {
-            name: '@storybook/addon-docs',
-            options: {
-                mdxPluginOptions: {
-                    mdxCompileOptions: {
-                        remarkPlugins: [remarkGfm],
-                    },
-                },
-            },
-        },
-        '@storybook/addon-viewport',
-        '@storybook/addon-toolbars',
-        '../../mock-addon/preset.js',
+        '@storybook/addon-essentials',
+        '@storybook/addon-interactions',
     ],
-    framework: '@storybook/react-webpack5',
+    framework: {
+        name: '@storybook/react-vite',
+        options: {},
+    },
+    docs: {
+        autodocs: 'tag',
+    }
 };
+export default config;

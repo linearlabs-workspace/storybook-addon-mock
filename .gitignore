@@ -1,4 +1,5 @@
 # IDE files
+.idea
 .vscode
 
 # dependencies

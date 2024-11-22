@@ -85,9 +85,14 @@ export const MockItem = ({
     response,
     delay,
     onChange,
+    disableUsingOriginal,
 }) => {
     return (
-        <Card onToggle={(value) => onChange('skip', !value)} enabled={!skip}>
+        <Card
+            onToggle={(value) => onChange('skip', !value)}
+            enabled={!skip}
+            showHeader={!disableUsingOriginal}
+        >
             <UrlMethodContainer>
                 <Method>{method}</Method>
                 <Url>{url}</Url>
@@ -153,4 +158,5 @@ MockItem.propTypes = {
     response: PropTypes.any,
     delay: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
+    disableUsingOriginal: PropTypes.bool.isRequired,
 };
