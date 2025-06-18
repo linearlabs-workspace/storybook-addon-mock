@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@storybook/theming';
+import { styled } from 'storybook/theming';
 import { ButtonToggle } from '../ButtonToggle';
 
 const Container = styled.div`
