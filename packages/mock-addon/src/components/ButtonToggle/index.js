@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { opacify, transparentize } from 'polished';
-import { styled } from '@storybook/theming';
+import { styled } from 'storybook/theming';
 
 const Label = styled.label(({ theme }) => ({
     lineHeight: '14px',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@storybook/theming';
+import { styled } from 'storybook/theming';
 import PropTypes from 'prop-types';
 import { Card } from '../Card';
 

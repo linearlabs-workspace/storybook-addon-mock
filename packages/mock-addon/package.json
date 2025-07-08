@@ -1,97 +1,92 @@
 {
-  "name": "storybook-addon-mock",
-  "version": "5.0.0",
-  "description": "A storybook addon to mock fetch/XHR request",
-  "keywords": [
-    "storybook",
-    "mock",
-    "http-mock",
-    "fetch-mock",
-    "xhr-mock",
-    "mock-data",
-    "storybook-addon",
-    "data-state",
-    "storybook-mock-request",
-    "mock-request"
-  ],
-  "author": "Farhad Yasir (nutboltu)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nutboltu/storybook-addon-mock.git"
-  },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/ts/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "*.js",
-    "*.d.ts"
-  ],
-  "scripts": {
-    "clean": "rimraf ./dist",
-    "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
-    "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
-    "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
-    "prebuild": "yarn clean",
-    "build": "yarn buildBabel",
-    "build:watch": "yarn buildBabel:esm -- --watch",
-    "lint": "eslint .",
-    "lint:fix": "yarn run lint --fix",
-    "test": "jest src",
-    "prerelease": "zx scripts/prepublish-checks.mjs",
-    "release": "yarn build && auto shipit"
-  },
-  "dependencies": {
-    "@storybook/blocks": "^8.0.8",
-    "@storybook/channels": "^8.0.8",
-    "@storybook/components": "^8.0.8",
-    "@storybook/core-events": "^8.0.8",
-    "@storybook/manager-api": "^8.0.8",
-    "@storybook/preview-api": "^8.0.8",
-    "@storybook/theming": "^8.0.8",
-    "mock-xmlhttprequest": "^8.1.0",
-    "path-to-regexp": "^6.2.1",
-    "polished": "^4.2.2",
-    "prop-types": "^15.8.1",
-    "storybook": "^8.0.8",
-    "whatwg-fetch": "^3.6.19"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.4",
-    "auto": "^10.43.0",
-    "boxen": "^5.0.1",
-    "concurrently": "^6.2.0",
-    "dedent": "^0.7.0",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.9.4",
-    "zx": "^1.14.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    }
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "storybook": {
-    "displayName": "Mock API Request",
-    "supportedFrameworks": [
-      "react",
-      "vue"
+    "name": "storybook-addon-mock",
+    "version": "5.0.0",
+    "description": "A storybook addon to mock fetch/XHR request",
+    "keywords": [
+        "storybook",
+        "mock",
+        "http-mock",
+        "fetch-mock",
+        "xhr-mock",
+        "mock-data",
+        "storybook-addon",
+        "data-state",
+        "storybook-mock-request",
+        "mock-request"
     ],
-    "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg"
-  }
+    "author": "Farhad Yasir (nutboltu)",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nutboltu/storybook-addon-mock.git"
+    },
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/ts/index.d.ts",
+    "files": [
+        "dist/**/*",
+        "README.md",
+        "*.js",
+        "*.d.ts"
+    ],
+    "scripts": {
+        "clean": "rimraf ./dist",
+        "buildBabel": "concurrently \"yarn buildBabel:cjs\" \"yarn buildBabel:esm\"",
+        "buildBabel:cjs": "babel ./src -d ./dist/cjs --extensions \".js,.jsx,.ts,.tsx\"",
+        "buildBabel:esm": "babel ./src -d ./dist/esm --env-name esm --extensions \".js,.jsx,.ts,.tsx\"",
+        "prebuild": "yarn clean",
+        "build": "yarn buildBabel",
+        "build:watch": "yarn buildBabel:esm -- --watch",
+        "lint": "eslint .",
+        "lint:fix": "yarn run lint --fix",
+        "test": "jest src",
+        "prerelease": "zx scripts/prepublish-checks.mjs",
+        "release": "yarn build && auto shipit"
+    },
+    "dependencies": {
+        "mock-xmlhttprequest": "^8.1.0",
+        "path-to-regexp": "^6.2.1",
+        "polished": "^4.2.2",
+        "prop-types": "^15.8.1",
+        "storybook": "^9.0.12",
+        "whatwg-fetch": "^3.6.19"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.21.0",
+        "@babel/preset-env": "^7.21.4",
+        "@babel/preset-react": "^7.18.6",
+        "@babel/preset-typescript": "^7.21.4",
+        "auto": "^10.43.0",
+        "boxen": "^5.0.1",
+        "concurrently": "^6.2.0",
+        "dedent": "^0.7.0",
+        "rimraf": "^3.0.2",
+        "storybook": "^9.0.12",
+        "typescript": "^4.9.4",
+        "zx": "^1.14.1"
+    },
+    "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^9.0.12"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        },
+        "react-dom": {
+            "optional": true
+        }
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "storybook": {
+        "displayName": "Mock API Request",
+        "supportedFrameworks": [
+            "react",
+            "vue"
+        ],
+        "icon": "https://raw.githubusercontent.com/nutboltu/storybook-addon-mock/master/assets/logo.svg"
+    }
 }

@@ -1,0 +1,33 @@
+name: Validate Build 📦
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛒
+        uses: actions/checkout@v1
+
+      - name: Configure Node 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install Dependencies 📦
+        run: |
+          npm install -g yarn
+          yarn
+          yarn run ci
+        env:
+          CI: true
+
+      - name: Validate Code Style 📏
+        run: |
+          yarn lint
+
+      - name: Validate Build ✅
+        run: |
+          yarn build
+        env:
+          CI: true
