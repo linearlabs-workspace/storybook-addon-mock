@@ -20,7 +20,6 @@ export type Response = ResponseObj | ResponseFn
 
 export type StorybookAddonMockData = {
     url: string
-    /** @default GET */
     method: Method
     /** @default 0 */
     delay?: number
