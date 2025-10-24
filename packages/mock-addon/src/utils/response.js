@@ -9,9 +9,8 @@ export function CustomResponse(url, status, responseText) {
             : JSON.stringify(responseText);
 
     return new Response(text, {
-        ok: ((status / 100) | 0) === 2, // 200-299
         status: status,
-        statusText: statusTextMap[status.toString()],
+        statusText: statusTextMap[status],
         headers: new Headers({
             ...defaultResponseHeaders,
         }),

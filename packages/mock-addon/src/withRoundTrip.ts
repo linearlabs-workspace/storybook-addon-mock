@@ -1,9 +1,15 @@
+import type { DecoratorFunction, Parameters } from 'storybook/internal/types';
+
 import { FORCE_RE_RENDER, STORY_CHANGED } from 'storybook/internal/core-events';
 import { EVENTS, PARAM_KEY, GLOBAL_PARAM_KEY } from './utils/constants';
 import faker from './utils/faker';
 import { addons } from 'storybook/preview-api';
 
-const getParameter = (parameters, key, defaultValue) => {
+const getParameter = <T = unknown>(
+    parameters: Parameters,
+    key: string,
+    defaultValue: T
+): T => {
     return parameters[key] || defaultValue;
 };
 
@@ -12,7 +18,7 @@ let STORY_CHANGED_STATE = false;
 
 const channel = addons.getChannel();
 
-export const withRoundTrip = (storyFn, context) => {
+export const withRoundTrip: DecoratorFunction = (storyFn, context) => {
     const { parameters } = context;
     const paramData = getParameter(parameters, PARAM_KEY, []);
     const mockAddonConfigs = getParameter(parameters, GLOBAL_PARAM_KEY, {

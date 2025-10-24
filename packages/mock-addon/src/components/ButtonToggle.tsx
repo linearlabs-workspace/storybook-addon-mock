@@ -84,13 +84,19 @@ const Label = styled.label(({ theme }) => ({
     },
 }));
 
-export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }) => {
+export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }: {
+    name: string;
+    value: boolean;
+    onChange?: (newValue: boolean) => void;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    onFocus?: React.FocusEventHandler<HTMLInputElement>;
+}) => {
     return (
         <Label htmlFor={name} title={value.toString()}>
             <input
                 id={name}
                 type="checkbox"
-                onChange={(e) => onChange(e.target.checked)}
+                onChange={onChange ? (e) => onChange(e.target.checked) : undefined}
                 checked={value || false}
                 {...{ name, onBlur, onFocus }}
             />

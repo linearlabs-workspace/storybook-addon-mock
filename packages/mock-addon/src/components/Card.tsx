@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from 'storybook/theming';
-import { ButtonToggle } from '../ButtonToggle';
+import { ButtonToggle } from './ButtonToggle';
 
 const Container = styled.div`
     margin: 1rem;
@@ -17,22 +17,26 @@ const Header = styled.div`
     padding: 0.5rem 1rem;
 `;
 
-const Content = styled.div`
-    opacity: ${(props) => (props.enabled ? 1 : 0.5)};
-    pointer-events: ${(props) => (props.enabled ? 'inherit' : 'none')};
-    padding: 0 0.75rem;
-
-    > label:last-child {
-        padding: 1rem;
-        margin-bottom: 0;
-    }
-`;
+const Content = styled.div<{ enabled: boolean }>(({ enabled }) => ({
+    opacity: enabled ? 1 : 0.5,
+    pointerEvents: enabled ? 'inherit' : 'none',
+    padding: '0 0.75rem',
+    '> label:last-child': {
+        padding: '1rem',
+        marginBottom: 0,
+    },
+}));
 
 export const Card = ({
     children,
     onToggle,
     enabled = true,
     showHeader = true,
+}: {
+    children: React.ReactNode;
+    onToggle?: (newValue: boolean) => void;
+    enabled?: boolean;
+    showHeader?: boolean;
 }) => {
     return (
         <Container>

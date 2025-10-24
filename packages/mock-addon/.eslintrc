@@ -4,12 +4,18 @@
       "plugin:react/recommended",
       "plugin:prettier/recommended"
     ],
+    "root": true,
     "parser": "@babel/eslint-parser",
     "parserOptions": {
       "requireConfigFile": false,
       "ecmaFeatures": {
         "jsx": true,
         "modules": true
+      }
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
       }
     },
     "env": {

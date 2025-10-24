@@ -1,8 +1,5 @@
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
 import remarkGfm from 'remark-gfm';
 
-const require = createRequire(import.meta.url);
 const config = {
     stories: [
         '../stories/**/*.mdx',
@@ -10,7 +7,6 @@ const config = {
     ],
 
     addons: [
-        getAbsolutePath('../../mock-addon/src/preset/manager.js'),
         '@storybook/addon-links',
         {
             name: '@storybook/addon-docs',
@@ -22,6 +18,7 @@ const config = {
                 },
             },
         },
+        import.meta.resolve('./local-preset.ts'),
     ],
 
     framework: {
@@ -30,11 +27,3 @@ const config = {
     },
 };
 export default config;
-
-function getAbsolutePath(value) {
-    if (value.startsWith('.') || value.startsWith('/')) {
-        return require.resolve(value);
-    }
-
-    return dirname(require.resolve(join(value, 'package.json')));
-}

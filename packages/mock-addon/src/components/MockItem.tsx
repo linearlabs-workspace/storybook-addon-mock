@@ -2,23 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from 'storybook/theming';
 import { ObjectControl, RangeControl } from '@storybook/addon-docs/blocks';
-import { Form, Placeholder, TabsState } from 'storybook/internal/components';
-import { Card } from '../Card';
-import statusTextMap from '../../utils/statusMap';
+import { Form, Placeholder } from 'storybook/internal/components';
+import { Card } from './Card';
+import statusTextMap from '../utils/statusMap';
 
-const statusCodes = Object.keys(statusTextMap);
+const statusCodes = Object.keys(statusTextMap) as unknown as (keyof typeof statusTextMap)[];
 
 const { Field: SBField, Select } = Form;
-
-const ObjectContent = styled.div`
-    display: flex;
-    flex: 1 0 0;
-    padding: 1rem;
-
-    > div {
-        flex: 1 0 0;
-    }
-`;
 
 const Method = styled.div`
     font-weight: 700;
@@ -76,6 +66,28 @@ const Field = styled(SBField)`
     }
 `;
 
+const Fieldset = styled.fieldset`
+    border: 1px solid ${({ theme }) => theme.appBorderColor};
+    background: ${({ theme }) => theme.input.background};
+    border-radius: 0.5rem;
+    margin: 0 0 1rem;
+    padding: 0;
+
+    display: flex;
+    flex: 1 0 0;
+
+    > legend {
+        margin-inline-start: calc(0.75rem - 2px);
+        font-weight: bold;
+    }
+
+    > div {
+        flex: 1 0 0;
+        margin: 1rem;
+        position: relative;
+    }
+`
+
 export const MockItem = ({
     id,
     url,
@@ -86,6 +98,16 @@ export const MockItem = ({
     delay,
     onChange,
     disableUsingOriginal,
+}: {
+    id: string | number;
+    url: string;
+    method: string;
+    status: string | number;
+    skip: boolean;
+    response: any;
+    delay: number;
+    onChange: (key: string, value: any) => void;
+    disableUsingOriginal: boolean;
 }) => {
     return (
         <Card
@@ -124,26 +146,23 @@ export const MockItem = ({
                     />
                 </Field>
             </StatusDelayContainer>
-            <TabsState initial={`response${id}`}>
-                <div id={`response${id}`} title="Response">
-                    {typeof response === 'function' ? (
-                        <Placeholder>
-                            This is a custom function. You can only change it
-                            from the declaration.
-                        </Placeholder>
-                    ) : (
-                        <ObjectContent>
-                            <ObjectControl
-                                name=""
-                                value={response}
-                                onChange={(value) =>
-                                    onChange('response', value)
-                                }
-                            />
-                        </ObjectContent>
-                    )}
-                </div>
-            </TabsState>
+            <Fieldset>
+                <legend>Response</legend>
+                {typeof response === 'function' ? (
+                    <Placeholder>
+                        This is a custom function. You can only change it
+                        from the declaration.
+                    </Placeholder>
+                ) : (
+                    <ObjectControl
+                        name=""
+                        value={response}
+                        onChange={(value) =>
+                            onChange('response', value)
+                        }
+                    />
+                )}
+            </Fieldset>
         </Card>
     );
 };

@@ -6,12 +6,28 @@ import {
     ScrollArea,
 } from 'storybook/internal/components';
 
-import { ADDON_ID, EVENTS } from './utils/constants';
-import { MockItem } from './components/MockItem';
-import { ErrorItem } from './components/ErrorItem';
+import { ADDON_ID, EVENTS } from '../utils/constants';
+import { MockItem } from './MockItem';
+import { ErrorItem } from './ErrorItem';
+import type { Addon_RenderOptions } from 'storybook/internal/types';
 
-export const Panel = (props) => {
-    const [state, setState] = useAddonState(ADDON_ID, {
+interface MockData {
+    url: string;
+    method: string;
+    status: string | number;
+    skip: boolean;
+    delay: number;
+    path: string;
+    searchParamKeys: string[];
+    errors: string[],
+    originalRequest: unknown;
+}
+
+export const Panel = (props: Partial<Addon_RenderOptions>) => {
+    const [state, setState] = useAddonState<{
+        disableUsingOriginal: boolean;
+        mockData: MockData[];
+    }>(ADDON_ID, {
         mockData: [],
         disableUsingOriginal: false,
     });
@@ -21,21 +37,21 @@ export const Panel = (props) => {
         },
     });
 
-    const onChange = (item, key, value) => {
+    const onChange = (item: MockData, key: string, value: any) => {
         emit(EVENTS.UPDATE, { item, key, value });
     };
 
     const { mockData, disableUsingOriginal } = state;
     if (!mockData || mockData.length === 0) {
         return (
-            <AddonPanel {...props}>
+            <AddonPanel {...props} active={props.active ?? false}>
                 <Placeholder>No mock data found.</Placeholder>
             </AddonPanel>
         );
     }
 
     return (
-        <AddonPanel {...props}>
+        <AddonPanel {...props} active={props.active ?? false}>
             <ScrollArea>
                 {mockData.map((item, index) => {
                     const { errors, originalRequest } = item;

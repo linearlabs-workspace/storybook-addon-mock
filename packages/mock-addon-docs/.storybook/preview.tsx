@@ -1,10 +1,8 @@
-import {withRoundTrip} from "storybook-addon-mock/src/withRoundTrip";
-
 const Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['Docs', ['Introduction', 'Installation', 'User guide']],
+        order: ['Docs', ['Introduction', 'Installation', 'Advanced setup', 'User guide']],
         includeName: true
       }
     },
@@ -14,7 +12,6 @@ const Preview = {
       disableUsingOriginal: false,
     },
   },
-  decorators: [withRoundTrip],
 }
 
 export default Preview

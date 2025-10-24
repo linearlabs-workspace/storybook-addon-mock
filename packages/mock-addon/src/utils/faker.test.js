@@ -19,7 +19,7 @@ function setupMockFaker(mockFakerRequests) {
     }
 
     const resetMock = () => {
-        mockFaker.restore();
+        mockFaker?.restore();
     };
     return [mockFaker, resetMock];
 }
@@ -144,6 +144,7 @@ describe('Faker - makeInitialRequestMap', () => {
     });
     it('should not call add method if request is empty', () => {
         const addSpy = jest.spyOn(faker, 'add');
+        // @ts-expect-error testing invalid input
         faker.makeInitialRequestMap();
         expect(addSpy).toHaveBeenCalledTimes(0);
     });

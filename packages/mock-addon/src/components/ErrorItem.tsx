@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'storybook/theming';
 import PropTypes from 'prop-types';
-import { Card } from '../Card';
+import { Card } from './Card';
 
 const Container = styled.div`
     padding: 1rem;
@@ -17,7 +17,11 @@ const Li = styled.li`
     font-style: italic;
 `;
 
-export const ErrorItem = ({ errors, originalRequest, position }) => {
+export const ErrorItem = ({ errors, originalRequest, position }: {
+    errors: string[];
+    originalRequest: any;
+    position: number;
+}) => {
     return (
         <Card showHeader={false}>
             <Container>
