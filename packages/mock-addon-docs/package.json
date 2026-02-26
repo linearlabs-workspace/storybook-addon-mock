@@ -20,7 +20,7 @@
         "@storybook/react-vite": "^9.0.12",
         "@storybook/storybook-deployer": "^2.8.16",
         "remark-gfm": "^4.0.1",
-        "storybook": "^9.0.12"
+        "storybook": "^9.1.19"
     },
     "dependencies": {
         "axios": "^1.8.2",
