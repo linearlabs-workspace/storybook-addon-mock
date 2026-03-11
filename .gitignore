@@ -21,3 +21,6 @@ package-lock.json
 # ignore static storybook
 
 **/storybook-static
+
+# config files for local development
+.tool-versions

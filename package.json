@@ -1,5 +1,5 @@
 {
-  "name": "storybook-addon-mock",
+  "name": "storybook-addon-mock-root",
   "description": "A monorepo for storybook-addon-mock",
   "private": true,
   "workspaces": [

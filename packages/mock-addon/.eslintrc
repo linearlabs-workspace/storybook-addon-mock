@@ -1,4 +1,5 @@
 {
+    "root": true,
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
@@ -21,6 +22,11 @@
     "plugins": [
       "react"
     ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
     "rules": {
       "import/no-extraneous-dependencies": 0,
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
