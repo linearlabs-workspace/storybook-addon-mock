@@ -90,7 +90,7 @@ export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }) => {
             <input
                 id={name}
                 type="checkbox"
-                onChange={(e) => onChange(e.target.checked)}
+                onChange={(e) => onChange?.(e.target.checked)}
                 checked={value || false}
                 {...{ name, onBlur, onFocus }}
             />
