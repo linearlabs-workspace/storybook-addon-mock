@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { styled } from 'storybook/theming';
 import { ButtonToggle } from '../ButtonToggle';
 
@@ -17,7 +16,7 @@ const Header = styled.div`
     padding: 0.5rem 1rem;
 `;
 
-const Content = styled.div`
+const Content = styled.div<{ enabled: boolean }>`
     opacity: ${(props) => (props.enabled ? 1 : 0.5)};
     pointer-events: ${(props) => (props.enabled ? 'inherit' : 'none')};
     padding: 0 0.75rem;
@@ -28,12 +27,19 @@ const Content = styled.div`
     }
 `;
 
+interface CardProps {
+    children: React.ReactNode;
+    onToggle?: (checked: boolean) => void;
+    enabled?: boolean;
+    showHeader?: boolean;
+}
+
 export const Card = ({
     children,
     onToggle,
     enabled = true,
     showHeader = true,
-}) => {
+}: CardProps) => {
     return (
         <Container>
             {showHeader && (
@@ -48,16 +54,4 @@ export const Card = ({
             <Content enabled={enabled}>{children}</Content>
         </Container>
     );
-};
-
-Card.propTypes = {
-    children: PropTypes.node.isRequired,
-    onToggle: PropTypes.func,
-    enabled: PropTypes.bool,
-    showHeader: PropTypes.bool,
-};
-
-Card.defaultProps = {
-    showHeader: true,
-    enabled: true,
 };

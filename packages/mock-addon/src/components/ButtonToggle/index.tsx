@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { opacify, transparentize } from 'polished';
 import { styled } from 'storybook/theming';
 
@@ -84,13 +83,21 @@ const Label = styled.label(({ theme }) => ({
     },
 }));
 
-export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }) => {
+interface ButtonToggleProps {
+    name: string;
+    value: boolean;
+    onChange?: (checked: boolean) => void;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    onFocus?: React.FocusEventHandler<HTMLInputElement>;
+}
+
+export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }: ButtonToggleProps) => {
     return (
         <Label htmlFor={name} title={value.toString()}>
             <input
                 id={name}
                 type="checkbox"
-                onChange={(e) => onChange(e.target.checked)}
+                onChange={(e) => onChange?.(e.target.checked)}
                 checked={value || false}
                 {...{ name, onBlur, onFocus }}
             />
@@ -98,12 +105,4 @@ export const ButtonToggle = ({ name, value, onChange, onBlur, onFocus }) => {
             <span>On</span>
         </Label>
     );
-};
-
-ButtonToggle.propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.bool.isRequired,
-    onChange: PropTypes.func,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
 };

@@ -1,11 +1,11 @@
-export function setRequestHeaders(xhr, headers) {
+export function setRequestHeaders(xhr: any, headers: Iterable<[string, string]>): void {
     for (let [key, value] of headers) {
         xhr.setRequestHeader(key, value);
     }
 }
 
-export function getResponseHeaderMap(xhr) {
-    const headers = {};
+export function getResponseHeaderMap(xhr: any): Record<string, string | undefined> {
+    const headers: Record<string, string | undefined> = {};
     xhr.getAllResponseHeaders()
         .trim()
         .split(/[\r\n]+/)

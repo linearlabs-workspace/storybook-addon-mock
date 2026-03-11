@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { styled } from 'storybook/theming';
 import { ObjectControl, RangeControl } from '@storybook/addon-docs/blocks';
 import { Form, Placeholder, TabsState } from 'storybook/internal/components';
@@ -76,6 +75,18 @@ const Field = styled(SBField)`
     }
 `;
 
+interface MockItemProps {
+    id: string | number;
+    url: string;
+    method: string;
+    status: string | number;
+    skip: boolean;
+    response: any;
+    delay: number;
+    onChange: (key: string, value: any) => void;
+    disableUsingOriginal: boolean;
+}
+
 export const MockItem = ({
     id,
     url,
@@ -86,7 +97,7 @@ export const MockItem = ({
     delay,
     onChange,
     disableUsingOriginal,
-}) => {
+}: MockItemProps) => {
     return (
         <Card
             onToggle={(value) => onChange('skip', !value)}
@@ -100,7 +111,7 @@ export const MockItem = ({
             <StatusDelayContainer>
                 <Field label="Status">
                     <Select
-                        onChange={(event) =>
+                        onChange={(event: any) =>
                             onChange('status', event.target.value)
                         }
                         value={status}
@@ -108,7 +119,7 @@ export const MockItem = ({
                     >
                         {statusCodes.map((code) => (
                             <option key={code} value={code}>
-                                {code} - {statusTextMap[code]}
+                                {code} - {statusTextMap[Number(code)]}
                             </option>
                         ))}
                     </Select>
@@ -117,7 +128,7 @@ export const MockItem = ({
                     <RangeControl
                         name="delay"
                         value={delay}
-                        onChange={(value) => onChange('delay', value)}
+                        onChange={(value: any) => onChange('delay', value)}
                         min={0}
                         max={10000}
                         step={500}
@@ -136,7 +147,7 @@ export const MockItem = ({
                             <ObjectControl
                                 name=""
                                 value={response}
-                                onChange={(value) =>
+                                onChange={(value: any) =>
                                     onChange('response', value)
                                 }
                             />
@@ -146,17 +157,4 @@ export const MockItem = ({
             </TabsState>
         </Card>
     );
-};
-
-MockItem.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    url: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
-    status: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
-    skip: PropTypes.bool.isRequired,
-    response: PropTypes.any,
-    delay: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    disableUsingOriginal: PropTypes.bool.isRequired,
 };

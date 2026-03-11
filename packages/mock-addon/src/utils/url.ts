@@ -8,7 +8,7 @@ export const getBaseUrl = (rawUrl = '') => {
 
 export const getNormalizedUrl = (rawUrl = '') => {
     const url = getBaseUrl(rawUrl);
-    const searchParamKeys = [];
+    const searchParamKeys: string[] = [];
     if (url.search) {
         for (let key of url.searchParams.keys()) {
             searchParamKeys.push(key);

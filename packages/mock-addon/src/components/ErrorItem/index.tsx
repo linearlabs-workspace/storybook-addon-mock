@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from 'storybook/theming';
-import PropTypes from 'prop-types';
 import { Card } from '../Card';
 
 const Container = styled.div`
@@ -17,7 +16,13 @@ const Li = styled.li`
     font-style: italic;
 `;
 
-export const ErrorItem = ({ errors, originalRequest, position }) => {
+interface ErrorItemProps {
+    errors: string[];
+    originalRequest: any;
+    position: number;
+}
+
+export const ErrorItem = ({ errors, originalRequest, position }: ErrorItemProps) => {
     return (
         <Card showHeader={false}>
             <Container>
@@ -31,10 +36,4 @@ export const ErrorItem = ({ errors, originalRequest, position }) => {
             </Container>
         </Card>
     );
-};
-
-ErrorItem.propTypes = {
-    errors: PropTypes.arrayOf(PropTypes.string),
-    originalRequest: PropTypes.any,
-    position: PropTypes.number,
 };

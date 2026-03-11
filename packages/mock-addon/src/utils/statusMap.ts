@@ -1,6 +1,6 @@
 // Copied from https://github.com/wheresrhys/fetch-mock/blob/2665378f5cb2a2de8d5214b007afe2d28040899c/src/lib/status-text.js
 
-const statusTextMap = {
+const statusTextMap: Record<number, string> = {
     100: 'Continue',
     101: 'Switching Protocols',
     102: 'Processing',
